@@ -33,6 +33,8 @@ struct PalettePicker: View {
                 Label("Floral Art", systemImage: "camera.macro.circle").tag(BuiltInPalette.legoFloralArt)
                 Label("World Map", systemImage: "globe.europe.africa.fill").tag(BuiltInPalette.legoWorlMap)
                 Label("DOTS", systemImage: "square.grid.3x3.square").tag(BuiltInPalette.legoDOTS)
+                Divider()
+                Label("Retro 3-Bit RGB", systemImage: "3.circle^").tag(BuiltInPalette.retroRGB3Bit)
             }
             .font(.system(size: 14))
         }

@@ -1,0 +1,23 @@
+{
+  "pins" : [
+    {
+      "identity" : "swiftpg-cifilters",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TobiasPott/SwiftPG-CIFilters.git",
+      "state" : {
+        "revision" : "0b758702be3ec3116658b1b6bb3c7361e1cea347",
+        "version" : "1.0.0"
+      }
+    },
+    {
+      "identity" : "swiftpg-palettes",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/TobiasPott/SwiftPG-Palettes.git",
+      "state" : {
+        "revision" : "e806972afb0929d8840df3345210826404aa2485",
+        "version" : "1.0.1"
+      }
+    }
+  ],
+  "version" : 2
+}

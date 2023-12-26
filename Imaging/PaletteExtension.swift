@@ -3,7 +3,7 @@ import simd
 import SwiftPG_Palettes
 
 public enum BuiltInPalette {
-    case lego, legoSimple, legoMosaicMaker, legoDCBatman, legoFloralArt, legoWorlMap, legoDOTS
+    case lego, legoSimple, legoMosaicMaker, legoDCBatman, legoFloralArt, legoWorlMap, legoDOTS, retroRGB3Bit
 }
 
 public extension Palette {
@@ -23,6 +23,8 @@ public extension Palette {
             return Lego.worldMap;
         case .legoDOTS:
             return Lego.dots;
+        case .retroRGB3Bit:
+            return Retro8Bit.rgb3bit
         }
     }
     

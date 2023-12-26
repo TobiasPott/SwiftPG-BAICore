@@ -4,7 +4,9 @@ struct MenuToolbar: View {
     @EnvironmentObject var state: AppState;
     
     var isImageSet: Bool = false;
-    @State var showLicenseView: Bool = false;
+    @State var showAboutView: Bool = false;
+    @State var showSourceCodeView: Bool = false;
+    @State var showFeedbackView: Bool = false;
     @State var showPreferencesView: Bool = false;
     var onLoad: () -> Void = {};
     var onSave: () -> Void = {};
@@ -46,14 +48,22 @@ struct MenuToolbar: View {
             }, label: {
                 RoundedButton(systemName: "ellipsis.circle", action: { })
             })
-            RoundedButton(systemName: "info.circle", action: { showLicenseView = true })
+            
+            Menu(content: {
+                
+                
+                Button("About", systemImage: "info.square.fill", action: { showAboutView.toggle() })
+                Button("Source Code", systemImage: "terminal.fill", action: { showSourceCodeView.toggle() })
+                Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: { showFeedbackView.toggle() })
+            }, label: {
+                RoundedButton(systemName: "info.circle", action: { })
+            })
         }
         .frame(maxHeight: 32)
-        .sheet(isPresented: $showLicenseView, content: {
-            AboutSheet(isOpen: $showLicenseView)
-        })        
-        .sheet(isPresented: $showPreferencesView, content: {
-            PreferencesSheet(isOpen: $showPreferencesView)
-        })
+        .sheet(isPresented: $showAboutView, content: { AboutSheet(isOpen: $showAboutView) })
+        .sheet(isPresented: $showSourceCodeView, content: { SourceCodeSheet(isOpen: $showSourceCodeView) })
+        
+        .sheet(isPresented: $showFeedbackView, content: { FeedbackSheet(isOpen: $showFeedbackView) })
+        .sheet(isPresented: $showPreferencesView, content: { PreferencesSheet(isOpen: $showPreferencesView) })
     }
 }

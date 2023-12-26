@@ -78,7 +78,7 @@ class CanvasInfo : ObservableObject, Identifiable, Codable
         let cY = drag.location.y;
         let cW = floor(size.width * scale);
         let cH = floor(size.height * scale);
-        let cropRect: CGRect = CGRect(x: cX, y: (source.image.size.height - cH - cY - 1), width: cW, height: cH)
+        let cropRect: CGRect = CGRect(x: floor(cX), y: floor(source.image.size.height - cH - cY), width: cW, height: cH)
         
         let invScale = 1.0 / scale;
         var ciImage: CIImage? = CIImage(image: source.image);

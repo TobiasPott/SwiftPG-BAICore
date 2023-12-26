@@ -14,7 +14,6 @@ struct LoadPanel: View {
     var body: some View {
         
         GroupBox(label: Text("Create your Brick Art").font(Styling.title2Font), content: { })
-        
         Picker(selection: $state.userMode, content: {
             Label("Guided", systemImage: "info.bubble").tag(UserMode.guided)
             Label("Simple", systemImage: "rectangle").tag(UserMode.simple)
