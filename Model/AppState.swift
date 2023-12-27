@@ -10,8 +10,8 @@ public enum UserMode: Equatable, Codable {
 }
 class AppState : ObservableObject
 {
-    @Published var showSplashScreen: Bool = true;
-    @Published var userMode: UserMode = .simple;   
+    @Published var showSplashScreen: Bool = false;
+    @Published var userMode: UserMode = .guided;   
     @Published var navState: NavState = .load;
 
     @Published var builtInPalette: BuiltInPalette = .legoSimple

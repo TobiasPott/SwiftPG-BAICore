@@ -14,6 +14,7 @@ struct LoadPanel: View {
     var body: some View {
         
         GroupBox(label: Text("Create your Brick Art").font(Styling.title2Font), content: { })
+        GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
         Picker(selection: $state.userMode, content: {
             Label("Guided", systemImage: "info.bubble").tag(UserMode.guided)
             Label("Simple", systemImage: "rectangle").tag(UserMode.simple)
@@ -45,7 +46,6 @@ struct LoadPanel: View {
         }
         if (load.isImageSet) {
             GuideText(text: "Continue to setup your canvas.")
-                .padding(.horizontal).padding(.top, 6)
             HStack {
                 Spacer()
                 RoundedButton(systemName: "arrowshape.right.circle.fill", action: {

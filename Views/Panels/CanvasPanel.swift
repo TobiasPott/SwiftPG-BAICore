@@ -13,9 +13,8 @@ struct CanvasPanel: View {
     
     var body: some View {
         
-        GuideText(text: "You can give your canvas a custom name.")
-            .padding(.horizontal, 12)
         GroupBox(label: Text("Setup").font(Styling.title2Font), content: {
+            GuideText(text: "You can give your canvas a custom name.")
             Highlight(content: {
                 TextField(canvas.name, text: $canvas.name)                
             }, color: .secondary, useCaption: false, systemName: "e.circle")
@@ -45,7 +44,6 @@ struct CanvasPanel: View {
         Divider()
         
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
-            .padding(.horizontal, 12)
         HStack(alignment: .center) {
             getControlsView()
                 .frame(width: 120)

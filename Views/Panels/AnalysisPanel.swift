@@ -13,10 +13,8 @@ struct AnalysisPanel: View {
     @State var selectedPlate: Int2 = Int2(x: 0, y: 0);
     
     var body: some View {
-        
-        GroupBox(label: Text("Instructions").font(Styling.title2Font), content: { })        
+        GroupBox(label: Text("Instructions").font(Styling.title2Font), content: { })
         GuideText(text: "Some details about your generated brick art. You can also export the instructions to PDF")
-            .padding(.horizontal, 12)
         RoundedPanel(content: {
             CanvasDetailHeader(canvas: canvas).padding(.horizontal, 12).padding(.vertical, 6);
             
@@ -35,7 +33,6 @@ struct AnalysisPanel: View {
         }, orientation: .horizonal)
         
         GuideText(text: "Your interactive instructions for every plate with the required bricks and colors")
-            .padding(.horizontal, 12)
         GroupBox(content: {
             HStack {
                 Text("Plates")
@@ -50,7 +47,6 @@ struct AnalysisPanel: View {
         
         
         GuideText(text: "Your full list of colors and number of bricks needed for your brick art.")
-            .padding(.horizontal, 12)
         GroupBox(content: {
             HStack {
                 Text("All Colors")

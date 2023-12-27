@@ -15,6 +15,7 @@ struct PlatesPreviewSheet: View {
             GroupBox(label: Text("Preview"), content: {
                 ScrollView(content: {
                     VStack(alignment: .center) {
+                        GuideText(text: "Select the plate you want to preview and show the color list for.")
                         HStack(alignment: .top) { 
                             PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: $selection)
                                 .frame(maxWidth: 200, alignment: .leading)

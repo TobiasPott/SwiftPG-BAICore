@@ -90,19 +90,17 @@ struct ContentView: View {
             })
         case .setup:
             return AnyView(VStack() {
-                GroupBox(label: Text("Setup your canvas").font(Styling.title2Font), content: {            
+                GroupBox(label: Text("Setup your canvas").font(Styling.title2Font), content: {
+                    GuideText(text: "On the blueprint panel you can use the slider on the left to zoom in and out and the slider on the right to scale your canvas. You can drag and move the canvas to your desired place.")
                 })
                 if (state.userMode == .advanced) {
-                    VStack { SourceFilterListPanel(source: source) }
-                        .padding(.bottom)
-                    VStack { CanvasesListPanel(source: source, canvases: $canvases) }
-                        .padding(.bottom)
+                    VStack { SourceFilterListPanel(source: source) }.padding(.bottom)
+                    VStack { CanvasesListPanel(source: source, canvases: $canvases) }.padding(.bottom)
                 }
                 if (state.canvas != nil) {
                     VStack { CanvasPanel(source: source, canvas: state.canvas!) }.padding(.bottom)
                 } else if(state.userMode == .guided) {
-                    VStack { CanvasesListPanel(source: source, canvases: $canvases) }
-                        .padding(.bottom)
+                    VStack { CanvasesListPanel(source: source, canvases: $canvases) }.padding(.bottom)
                 }
                 Spacer() 
             })
