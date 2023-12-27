@@ -22,7 +22,7 @@ struct ContentView: View {
                         VStack {
                             MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
                                 .padding([.leading, .top, .trailing])
-                                .padding(.top, isLandscape ? 12 : 0)
+//                                .padding(.top, isLandscape ? 12 : 0)
                             
                             ScrollView(content: {
                                 getContentView().padding(.horizontal)
@@ -91,7 +91,7 @@ struct ContentView: View {
         case .setup:
             return AnyView(VStack() {
                 GroupBox(label: Text("Setup your canvas").font(Styling.title2Font), content: {
-                    GuideText(text: "On the blueprint panel you can use the slider on the left to zoom in and out and the slider on the right to scale your canvas. You can drag and move the canvas to your desired place.")
+                    GuideText(text: "On the blueprint panel you can use the slider on the left/top to zoom in and out and the slider on the right/bottom to scale your canvas. You can drag and move the canvas to your desired place.")
                 })
                 if (state.userMode == .advanced) {
                     VStack { SourceFilterListPanel(source: source) }.padding(.bottom)

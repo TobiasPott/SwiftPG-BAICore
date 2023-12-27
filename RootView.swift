@@ -12,8 +12,6 @@ struct RootView: View {
     
     var body: some View {
         ContentView(load: load, canvases: $canvases, source: source)
-            .padding(.bottom, 0)
-            .ignoresSafeArea()
             .frame(alignment: .topLeading)     
             .environmentObject(state)   
         
