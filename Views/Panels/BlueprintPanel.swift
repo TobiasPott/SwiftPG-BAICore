@@ -20,8 +20,8 @@ struct BlueprintPanel: View {
                     VStack {
                         if (state.isNavState(.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
                     }
-                    .frame(maxWidth: 800, alignment: .trailing)
-                    .padding(.trailing, 3)
+                    .frame(maxWidth: .infinity, alignment: .trailing)
+                    .padding(.trailing, 6)
                 }
                 
                 VStack {
@@ -30,8 +30,8 @@ struct BlueprintPanel: View {
                         if (state.isNavState(.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
                     }
                 }
-                .frame(maxWidth: 800, alignment: .leading)
-                .padding(.leading, 3)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.leading, 6)
             }
         }
         

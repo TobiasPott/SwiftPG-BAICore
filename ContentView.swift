@@ -22,16 +22,15 @@ struct ContentView: View {
                         VStack {
                             MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
                                 .padding([.leading, .top, .trailing])
-//                                .padding(.top, isLandscape ? 12 : 0)
                             
                             ScrollView(content: {
                                 getContentView().padding(.horizontal)
                             })
                         }
-                        .frame(maxWidth: 700, alignment: .center)
+                        .frame(maxWidth: 800, alignment: .center)
                     }
                     .mask(Rectangle())
-                    .frame(maxWidth: 700, alignment: .center)
+                    .frame(alignment: .center)
                     
                 }, orientation: isLandscape ? .horizonal : .vertical, padding: 0, background: .clear)
                 
