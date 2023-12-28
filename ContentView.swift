@@ -22,8 +22,10 @@ struct ContentView: View {
                         VStack {
                             MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
                                 .padding([.leading, .top, .trailing])
-//                                .padding(.top, isLandscape ? 12 : 0)
-                            
+//                            ExportPDFView(label: "Export to PDF", content: {
+//                              Rectangle()
+//                            })
+//                            
                             ScrollView(content: {
                                 getContentView().padding(.horizontal)
                             })
