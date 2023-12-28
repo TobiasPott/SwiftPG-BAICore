@@ -33,6 +33,7 @@ public struct DragInfo: Codable {
 
 public struct ZoomInfo: Codable {
     static let defaultScale: CGFloat = 30.0;
+    var active: Bool = false;
     
     var scale: CGFloat = ZoomInfo.defaultScale;    
     var lastScale: CGFloat = ZoomInfo.defaultScale;

@@ -18,18 +18,9 @@ struct AnalysisPanel: View {
         RoundedPanel(content: {
             CanvasDetailHeader(canvas: canvas).padding(.horizontal, 12).padding(.vertical, 6);
             
-            Menu(content: {
-                ExportPDFView(label: "Export to PDF", content: {
-                    AnalysisPDFView(source: source, canvas: canvas, palette: state.palette, outWidth: 1280)
-                })
-            }, label: {
-                SNImage.squareAndArrowUp
-                    .rs(fit: true)
-                    .frame(width: 28, height: 28)
-                    .padding([.top, .trailing], 6)
-                    .frame(maxHeight: .infinity, alignment: .topTrailing)
-            })
-            
+            ExportMenu() {
+                AnalysisPDFView(source: source, canvas: canvas, palette: state.palette, outWidth: 1280)
+            }
         }, orientation: .horizonal)
         
         GuideText(text: "Your interactive instructions for every plate with the required bricks and colors")

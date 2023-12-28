@@ -61,7 +61,7 @@ struct PlatePDFPage: View {
     @State var coords: Int2
     
     var body: some View {
-        GroupBox("Plate (\(coords.x), \(coords.y))", content: {
+        GroupBox("Plate (\(coords.x + 1), \(coords.y + 1))", content: {
             HStack {
                 VStack(alignment: .leading) {
                     HStack(alignment: .top) { 
