@@ -6,13 +6,12 @@ struct PalettePreview: View {
     
     var body: some View {
         VStack {
-            LazyVGrid(columns: [.init(.adaptive(minimum: 12, maximum: 18), spacing: 2, alignment: .topTrailing)]) {
+            LazyVGrid(columns: [.init(.adaptive(minimum: 18, maximum: 24), spacing: 2, alignment: .topTrailing)]) {
                 ForEach(0..<palette.names.count, id: \.self) { i in
                     Color(cgColor: palette.colors[i].cgColor).aspectRatio(1.0, contentMode: .fill)
                 }
             }
-            HStack { Text("\(palette.colors.count) Colors"); Spacer(); }
-                .font(.system(size: 12))
+            HStack { Text("Contains \(palette.colors.count) Color\(palette.colors.count > 1 ? "s" : "")"); Spacer(); }
         }
     }
 }
@@ -36,7 +35,7 @@ struct PalettePicker: View {
                 Divider()
                 Label("Retro 3-Bit RGB", systemImage: "3.circle^").tag(BuiltInPalette.retroRGB3Bit)
             }
-            .font(.system(size: 14))
+            
         }
         
     }
