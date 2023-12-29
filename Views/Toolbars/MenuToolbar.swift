@@ -4,10 +4,10 @@ struct MenuToolbar: View {
     @EnvironmentObject var state: AppState;
     
     var isImageSet: Bool = false;
-    @State var showAboutView: Bool = false;
-    @State var showSourceCodeView: Bool = false;
-    @State var showFeedbackView: Bool = false;
-    @State var showPreferencesView: Bool = false;
+    @State var showAbout: Bool = false;
+    @State var showSourceCode: Bool = false;
+    @State var showFeedback: Bool = false;
+    @State var showPreferences: Bool = false;
     var onLoad: () -> Void = {};
     var onSave: () -> Void = {};
     var onClear: () -> Void = {};
@@ -32,7 +32,7 @@ struct MenuToolbar: View {
                 Button("Load", systemImage: "square.and.arrow.up.fill", action: onLoad)
                 Button("Save", systemImage: "square.and.arrow.down.fill", action: onSave)
                 Divider()
-                Button("Preferences...", systemImage: "gearshape.2", action: { showPreferencesView = true })
+                Button("Preferences...", systemImage: "gearshape.2", action: { showPreferences.toggle() })
                 Divider()
                 Menu(content: {
                     Picker(selection: $state.userMode, label: Text("Mode")) {
@@ -52,18 +52,18 @@ struct MenuToolbar: View {
             Menu(content: {
                 
                 
-                Button("About", systemImage: "info.square.fill", action: { showAboutView.toggle() })
-                Button("Source Code", systemImage: "terminal.fill", action: { showSourceCodeView.toggle() })
-                Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: { showFeedbackView.toggle() })
+                Button("About", systemImage: "info.square.fill", action: { showAbout.toggle() })
+                Button("Source Code", systemImage: "terminal.fill", action: { showSourceCode.toggle() })
+                Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: { showFeedback.toggle() })
             }, label: {
                 RoundedButton(systemName: "info.circle", action: { })
             })
         }
         .frame(maxHeight: 32)
-        .sheet(isPresented: $showAboutView, content: { AboutSheet(isOpen: $showAboutView) })
-        .sheet(isPresented: $showSourceCodeView, content: { SourceCodeSheet(isOpen: $showSourceCodeView) })
+        .sheet(isPresented: $showAbout, content: { AboutSheet(isOpen: $showAbout) })
+        .sheet(isPresented: $showSourceCode, content: { SourceCodeSheet(isOpen: $showSourceCode) })
         
-        .sheet(isPresented: $showFeedbackView, content: { FeedbackSheet(isOpen: $showFeedbackView) })
-        .sheet(isPresented: $showPreferencesView, content: { PreferencesSheet(isOpen: $showPreferencesView) })
+        .sheet(isPresented: $showFeedback, content: { FeedbackSheet(isOpen: $showFeedback) })
+        .sheet(isPresented: $showPreferences, content: { PreferencesSheet(isOpen: $showPreferences).environmentObject(state) })
     }
 }
