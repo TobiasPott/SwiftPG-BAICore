@@ -20,7 +20,6 @@ struct MenuToolbar: View {
             if (isImageSet) {
                 RoundedStateButton(systemName: "photo.stack", action: { state.setNavState(.setup, true); }, state:  state.isNavState(.setup), background: .gray)
                     .disabled(!isImageSet)
-                //                if (state.canvas?.analysis != nil) {
                 RoundedStateButton(systemName: "list.bullet.below.rectangle", action: { state.setNavState(.analysis, true); }, state: state.isNavState(.analysis), background: .gray)
                     .disabled(state.canvas == nil)
                 Divider()
@@ -62,8 +61,8 @@ struct MenuToolbar: View {
         .frame(maxHeight: 32)
         .sheet(isPresented: $showAbout, content: { AboutSheet(isOpen: $showAbout) })
         .sheet(isPresented: $showSourceCode, content: { SourceCodeSheet(isOpen: $showSourceCode) })
-        
         .sheet(isPresented: $showFeedback, content: { FeedbackSheet(isOpen: $showFeedback) })
         .sheet(isPresented: $showPreferences, content: { PreferencesSheet(isOpen: $showPreferences).environmentObject(state) })
+        
     }
 }

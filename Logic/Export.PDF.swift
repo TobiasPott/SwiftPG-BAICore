@@ -1,16 +1,20 @@
 import SwiftUI
 import SwiftPG_Palettes
+import PDFKit
+import UniformTypeIdentifiers
 
 struct ExportMenu<Content: View>: View {
     
+    var filename: String = "Instructions.pdf"
     @ViewBuilder let content: () -> Content;
+    
     
     @State var exportPDF: Bool = false
     
     var body: some View {
         Menu(content: {
-            Button("Export to PDF", action: {
-                exportPDF.toggle()
+            ShareLink(item: ExportMenu.renderToPDF(filename: filename, content: content), label: {
+                Text("Export as PDF")
             })
         }, label: {
             SNImage.squareAndArrowUp
@@ -19,18 +23,28 @@ struct ExportMenu<Content: View>: View {
                 .padding([.top, .trailing], 6)
                 .frame(maxHeight: .infinity, alignment: .topTrailing)
         })
-        .fileMover(isPresented: $exportPDF, file: ExportMenu.renderToPDF(content: content)) { result in
-            switch result {
-            case .success(let file):
-                print(file.absoluteString)
-            case .failure(let error):
-                print(error.localizedDescription)
-            }
-        }
-
+        // ToDo: figure out the wrapping stuff to use macOS <13 fileExporter with FileDocument 
+        //        .fileMover(isPresented: $exportPDF, file: ExportMenu.renderToPDF(filename: filename, content: content)) { result in
+        //            switch result {
+        //            case .success(let file):
+        //                print(file.absoluteString)
+        //            case .failure(let error):
+        //                print(error.localizedDescription)
+        //            }
+        //        }
+        
     }
     
-    @MainActor public static func renderToPDF<InnerView: View>(filename: String = "instructions.pdf", @ViewBuilder content: () -> InnerView) -> URL {
+    func onCompletion(result: Result<URL, Error>) {
+        switch result {
+        case .success(let file):
+            print(file.absoluteString)
+        case .failure(let error):
+            print(error.localizedDescription)
+        }
+    }
+    
+    @MainActor public static func renderToPDF<InnerView: View>(filename: String, @ViewBuilder content: () -> InnerView) -> URL {
         // 1: Save it to our documents directory
         let url = URL.documentsDirectory.appending(path: filename)
         
@@ -42,6 +56,7 @@ struct ExportMenu<Content: View>: View {
             var box = CGRect(x: 0, y: 0, width: size.width, height: size.height)
             // 5: Create the CGContext for our PDF pages
             guard let pdf = CGContext(url as CFURL, mediaBox: &box, nil) else {
+                print("Failed to create CGContext")
                 return
             }
             // 6: Start a new PDF page
@@ -54,5 +69,14 @@ struct ExportMenu<Content: View>: View {
         }
         
         return url
+    }
+    
+}
+
+extension PDFDocument: Transferable {
+    public static var transferRepresentation: some TransferRepresentation {
+        DataRepresentation(exportedContentType: .pdf) { pdf in 
+            return pdf.dataRepresentation()!
+        }
     }
 }
