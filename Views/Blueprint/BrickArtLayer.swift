@@ -5,8 +5,8 @@ struct BrickArtLayer: View {
     
     var analysis: AnalysisInfo;
     
-    @State var zoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
-    @State var drag: DragInfo = DragInfo();
+    @Binding var drag: DragInfo
+    @Binding var zoom: ZoomInfo
     
     var body: some View {
         GeometryReader(content: { geometry in

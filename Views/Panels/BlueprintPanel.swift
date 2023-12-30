@@ -6,6 +6,10 @@ struct BlueprintPanel: View {
     @Binding var canvases: Canvases;
     @ObservedObject var source: SourceInfo;
     let isLandscape: Bool
+    // ToDo: Move source drag & zoom to panel scope too!
+    // Add "enabled" flag and consider grouping into packed info for both gestures
+    @State var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
+    @State var brickDrag: DragInfo = DragInfo();
     
     var body: some View {
         GeometryReader { geometry in
@@ -23,8 +27,8 @@ struct BlueprintPanel: View {
                 .padding(.all, 6)
                 
                 VStack(spacing: 6) {
-//                    BrickArtToolbar();
-                    if (state.isNavState(.analysis)) { BrickArtToolbar(); }
+//                    BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom)
+                    if (state.isNavState(.analysis)) { BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom); }
                 }
                 .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: .trailing)
                 .padding(.all, 6)
@@ -37,7 +41,7 @@ struct BlueprintPanel: View {
         if (state.isNavState(.analysis)) {
             guard let canvas: CanvasInfo = state.canvas else { return RootView.anyEmpty }
             guard let analysis: AnalysisInfo = canvas.analysis else { return RootView.anyEmpty }
-            return AnyView(BrickArtLayer(analysis: analysis))
+            return AnyView(BrickArtLayer(analysis: analysis, drag: $brickDrag, zoom: $brickZoom))
         } else {            
             return AnyView(SourceLayer(canvases: $canvases, source: source))
         } 

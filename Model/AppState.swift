@@ -29,6 +29,9 @@ class AppState : ObservableObject
     @Published var zoom: ZoomInfo = ZoomInfo(scale: 30, lastScale: 30);
     
     @Published var brickOutline: BrickOutlineMode = .outlined;
+    @Published var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
+    @Published var brickDrag: DragInfo = DragInfo();
+    
     
     
     init() {
