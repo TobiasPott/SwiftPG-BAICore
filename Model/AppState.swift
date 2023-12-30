@@ -14,7 +14,7 @@ public enum BrickOutlineMode {
 
 class AppState : ObservableObject
 {
-    @Published var showSplashScreen: Bool = false;
+    @Published var showSplashScreen: Bool = true;
     @Published var userMode: UserMode = .simple;   
     @Published var navState: NavState = .load;
     

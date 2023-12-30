@@ -74,11 +74,11 @@ class CanvasInfo : ObservableObject, Identifiable, Codable
         var result: Bool = false;
         
         let context = CIContext()
-        let cX = drag.location.x;
-        let cY = drag.location.y;
+        let cX = floor(drag.location.x);
+        let cY = floor(drag.location.y);
         let cW = floor(size.width * scale);
         let cH = floor(size.height * scale);
-        let cropRect: CGRect = CGRect(x: floor(cX), y: floor(source.image.size.height - cH - cY), width: cW, height: cH)
+        let cropRect: CGRect = CGRect(x: cX, y: floor(source.image.size.height - cH - cY), width: cW, height: cH)
         
         let invScale = 1.0 / scale;
         var ciImage: CIImage? = CIImage(image: source.image);
@@ -88,7 +88,6 @@ class CanvasInfo : ObservableObject, Identifiable, Codable
             .transformed(by: CGAffineTransform(scaleX: invScale, y: invScale))
             .dither(inputIntensity: 0.25)
             .posterize(inputLevels: 6)
-            .saturation(inputSaturation: 1.0)
         
         guard let fixedImage = ciImage else { return result; }
         let grabRect: CGRect = CGRect(origin: fixedImage.extent.origin, size: size)

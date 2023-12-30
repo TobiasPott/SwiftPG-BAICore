@@ -13,7 +13,7 @@ struct CanvasPanel: View {
     
     var body: some View {
         
-        GroupBox(label: Text("Setup").font(Styling.title2Font), content: {
+        GroupBox(content: {
             GuideText(text: "You can give your canvas a custom name.")
             Highlight(content: {
                 TextField(canvas.name, text: $canvas.name)                
@@ -25,23 +25,6 @@ struct CanvasPanel: View {
                 _ = canvas.Analyse(source, state.palette)
             }
         })
-        Divider()
-        HStack {
-            RoundedButton(systemName: "trash.circle", action: { 
-                _ = canvas.DiscardAnalysis();
-            }, background: canvas.analysis == nil ? Styling.buttonColor : .red).disabled(canvas.analysis == nil)
-            RoundedButton(systemName: "arrow.counterclockwise.circle", action: { 
-                _ = canvas.Analyse(source, state.palette);
-            })
-            Spacer()
-            if(canvas.analysis != nil) {
-                // gear.circle
-                RoundedButton(systemName: "arrowshape.right.circle.fill", action: { 
-                    state.setNavState(.analysis, true); 
-                })
-            }
-        }
-        Divider()
         
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
         HStack(alignment: .center) {
@@ -66,7 +49,21 @@ struct CanvasPanel: View {
                 }
             }
         }
-        
+        HStack {
+            RoundedButton(systemName: "trash.circle", action: { 
+                _ = canvas.DiscardAnalysis();
+            }, background: canvas.analysis == nil ? Styling.buttonColor : .red).disabled(canvas.analysis == nil)
+            RoundedButton(systemName: "arrow.counterclockwise.circle", action: { 
+                _ = canvas.Analyse(source, state.palette);
+            })
+            Spacer()
+            if(canvas.analysis != nil) {
+                // gear.circle
+                RoundedButton(systemName: "arrowshape.right.circle.fill", action: { 
+                    state.setNavState(.analysis, true); 
+                })
+            }
+        }
         
     }
     func getControlsView() -> some View {
