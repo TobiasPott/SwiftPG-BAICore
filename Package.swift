@@ -19,7 +19,7 @@ let package = Package(
             bundleIdentifier: "de.tobiaspott.playground.brickartinstructor",
             teamIdentifier: "LR2W97LX43",
             displayVersion: "0.8",
-            bundleVersion: "47",
+            bundleVersion: "49",
             appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.blue),
             supportedDeviceFamilies: [
@@ -33,7 +33,9 @@ let package = Package(
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
             ],
             capabilities: [
-                .fileAccess(.userSelectedFiles, mode: .readWrite)
+                .fileAccess(.pictureFolder, mode: .readWrite),
+                .fileAccess(.userSelectedFiles, mode: .readWrite),
+                .fileAccess(.downloadsFolder, mode: .readWrite)
             ],
             appCategory: .graphicsDesign
         )

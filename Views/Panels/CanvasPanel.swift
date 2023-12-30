@@ -2,7 +2,7 @@ import SwiftUI
 
 struct CanvasPanel: View {
     
-    static let sizes: [Int] = [1, 2, 3, 4, 5]
+    static let sizes: [Int] = [1, 2, 3, 4]
     
     @EnvironmentObject var state: AppState;
     
