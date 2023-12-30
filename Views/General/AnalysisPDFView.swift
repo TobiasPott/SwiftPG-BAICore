@@ -35,7 +35,7 @@ struct AnalysisPDFView: View {
                 
                 GroupBox(content: {
                     HStack {
-                        Text("Created with Brick Art Instructor").font(.caption).fontWeight(.bold)
+                        Text("Created with Brick Art Instructor").font(Styling.captionFont).fontWeight(.bold)
                         Spacer();
                     }
                 })
@@ -45,7 +45,7 @@ struct AnalysisPDFView: View {
             .frame(alignment: .top)
             .frame(width: outWidth)
             .padding()
-            .foregroundColor(.white)
+            .foregroundColor(Color.white)
         } else {
             EmptyView();
         }
@@ -74,7 +74,7 @@ struct PlatePDFPage: View {
                             })      
                     }
                     .frame(height: 240)
-                    PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: coords, palette: palette)
+                    PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: coords, palette: palette, isWide: true)
                     Spacer(minLength: 0)
                 }
                 .frame(maxHeight: .infinity)

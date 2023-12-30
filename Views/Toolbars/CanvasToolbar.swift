@@ -30,7 +30,7 @@ struct CanvasToolbar: View {
                         .frame(maxHeight: 22)
                 }, orientation: .vertical, padding: 0)    
                 .frame(maxWidth: Styling.buttonSize)
-                .font(.system(size: 14))
+                .font(Styling.captionFont)
             }
         }, orientation: .vertical)
     }

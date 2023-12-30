@@ -106,8 +106,7 @@ struct BrickTileView: View {
                         ForEach(0..<16, id: \.self) { x in
                             let index = baseIndex + Int(x);
                             if (index < colorInfo.colors.count) {
-                                let color = colorInfo.colors[index];
-                                Color(cgColor: color.cgColor)
+                                colorInfo.colors[index].swuiColor
                                     .aspectRatio(1.0, contentMode: .fill)
                                 
                             }

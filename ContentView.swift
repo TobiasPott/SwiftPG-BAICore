@@ -57,7 +57,7 @@ struct ContentView: View {
                                             .mask(Styling.roundedRect)
                                             .shadow(color: .black.opacity(0.75), radius: 10)
                                         Text("Open Brick Art Instructor").font(Styling.titleFont)
-                                        Text("(will continue in 30s)").font(.caption2)
+                                        Text("(will continue in 30s)").font(Styling.caption2Font)
                                     }
                                     .frame(maxWidth: 300, alignment: .center)
                                 })

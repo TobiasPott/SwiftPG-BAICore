@@ -8,7 +8,7 @@ struct PalettePreview: View {
         VStack {
             LazyVGrid(columns: [.init(.adaptive(minimum: 18, maximum: 24), spacing: 2, alignment: .topTrailing)]) {
                 ForEach(0..<palette.names.count, id: \.self) { i in
-                    Color(cgColor: palette.colors[i].cgColor).aspectRatio(1.0, contentMode: .fill)
+                    palette.colors[i].swuiColor.aspectRatio(1.0, contentMode: .fill)
                 }
             }
             HStack { Text("Contains \(palette.colors.count) Color\(palette.colors.count > 1 ? "s" : "")"); Spacer(); }

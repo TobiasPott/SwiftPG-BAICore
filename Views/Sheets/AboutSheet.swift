@@ -13,7 +13,7 @@ struct AboutSheet: View {
                         .mask(Styling.roundedRect)
                         .frame(maxHeight: 200)
                     
-                    Text("About Brick Art Instructor").font(.headline).padding(.bottom, 6).padding(.top, 0)
+                    Text("About Brick Art Instructor").font(Styling.headlineFont).padding(.bottom, 6).padding(.top, 0)
                     VStack(alignment: .leading) {
                         Text("Welcome to Brick Art Instructor. \nAn utility app to help you create instructions and part lists for artworks you can build with your construction bricks at home.")
                             .padding(.bottom, 3)
@@ -24,7 +24,7 @@ struct AboutSheet: View {
                     }
                     Divider()
                     Image(systemName: "heart.circle").resizable().frame(width: 32, height: 32).padding(.top)
-                    Text("My Plea to You").font(.headline).padding(.bottom, 6)
+                    Text("My Plea to You").font(Styling.headlineFont).padding(.bottom, 6)
                     VStack(alignment: .leading) {
                         Text("I'm working for fun on this app and want to share it with the world. Thus I have no direct need to monitize this app.")
                             .padding(.bottom, 3)

@@ -23,7 +23,7 @@ struct PlatesPreviewSheet: View {
                             PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .detailed)
                                 .overlay(content: { Grid(4, gridColor: .white.opacity(0.5)) })      
                         }
-                        PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette)
+                        PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: false)
                     }
                 })
             })
@@ -48,7 +48,7 @@ struct PlatesPreviewSheet: View {
                                 selection.wrappedValue = coords;
                             }, label: {
                                 Rectangle()
-                                    .foregroundColor(isSelected ? .clear : .black.opacity(0.2))
+                                    .foregroundColor(isSelected ? Color.clear : Color.black.opacity(0.2))
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .border(isSelected ? .white : .black, width: 1.0)
                             })
@@ -72,12 +72,12 @@ struct PlatesPreviewSheet: View {
         )
     }
     
-    public static func getTileColorList(canvas: CanvasInfo, tileCoords: Int2, palette: Palette) -> AnyView {
+    public static func getTileColorList(canvas: CanvasInfo, tileCoords: Int2, palette: Palette, isWide: Bool) -> AnyView {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         
         let tIndex = tileCoords.y * canvas.tileWidth + tileCoords.x;
         return AnyView(
-            ColorSwatchList(mappedColorsWithCount: analysis.tileInfos[tIndex].mappedColorCounts, palette: palette)
+            ColorSwatchList(mappedColorsWithCount: analysis.tileInfos[tIndex].mappedColorCounts, palette: palette, isWide: isWide)
         )
     }
 }

@@ -72,15 +72,15 @@ struct RoundedButtonMini: View {
         RoundedButton(systemName: systemName, size: size, action: action, foreground: foreground, background: background, padding: padding)
     }
 }
-
+public enum PanelOrientation {
+    case horizonal, vertical
+}
 struct RoundedPanel<Content: View>: View {
-    enum Orientation {
-        case horizonal, vertical
-    }
+    
     
     
     @ViewBuilder let content: () -> Content;
-    let orientation: Orientation;
+    let orientation: PanelOrientation;
     var padding: CGFloat = 4;
     var background: Color = Styling.panelColor; 
     var paddingIsSpacing: Bool = true;
@@ -103,16 +103,9 @@ struct RoundedPanel<Content: View>: View {
 }
 
 struct RoundedScrollPanel<Content: View>: View {
-    enum Orientation {
-        case horizonal, vertical
-    }    
-    enum ScrollOrientation {
-        case horizonal, vertical, both
-    }
-    
     
     @ViewBuilder let content: () -> Content;
-    let orientation: RoundedPanel<Content>.Orientation    
+    let orientation: PanelOrientation    
     var scrollAxes: Axis.Set = [.vertical, .horizontal] 
     var padding: CGFloat = 4;
     var background: Color = Styling.panelColor; 

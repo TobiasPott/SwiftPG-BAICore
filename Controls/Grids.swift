@@ -71,7 +71,7 @@ struct BlueprintGroupBoxStyle: GroupBoxStyle {
         VStack {
             HStack {
                 configuration.label
-                    .font(.headline)
+                    .font(Styling.headlineFont)
                 Spacer()
             }
             configuration.content

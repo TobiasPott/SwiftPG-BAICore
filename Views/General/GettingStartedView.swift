@@ -8,7 +8,7 @@ struct GettingStartedView: View {
             ScrollView {
                 Divider()
                 Styling.appIcon.swuiImage.rs(fit: true).frame(maxHeight: 240)
-                Text("Welcome").font(.headline).padding(.bottom, 6)
+                Text("Welcome").font(Styling.headlineFont).padding(.bottom, 6)
                 VStack(alignment: .leading) {
                     Text("Welcome to Brick Art Instructor. \nAn utility app to help you create instructions and part lists for artworks you can build with your construction bricks at home.")
                         .padding(.bottom, 3)

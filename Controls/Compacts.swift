@@ -35,7 +35,7 @@ struct Highlight<Content: View>: View{
             }
         }
         .background(Styling.roundedRect.stroke(color, lineWidth: 2.0))
-        .font(useCaption ? .caption : .body)
+        .font(useCaption ? Styling.captionFont : Styling.bodyFont)
     }
 }
 
@@ -44,7 +44,7 @@ struct GuideText: View {
     @EnvironmentObject var state: AppState
     
     var text: String = "";
-    var alignment: VerticalAlignment = .center
+    var alignment: VerticalAlignment = VerticalAlignment.center
     
     var body: some View {
         if (state.userMode == .guided) {
@@ -104,36 +104,41 @@ struct CompactSwatch: View {
         let colorInfo = pIndex >= 0 ? palette.get(pIndex) : (color: color, name: "none");
         
         HStack(spacing: 2) {
-            Color(cgColor: color.cgColor).mask(Styling.roundedRect).aspectRatio(1.0, contentMode: .fit)
+            color.swuiColor
+                .mask(Styling.roundedRect).aspectRatio(1.0, contentMode: .fit)
             VStack(alignment: .leading) {
-                Text("x \(numberOfUses)").fontWeight(.bold)
                 HStack(spacing: 0) {
-                    Text("\(colorInfo.name)")
+                    Text("x \(numberOfUses)").fontWeight(.bold)
                     Spacer();
                 }
+                HStack(spacing: 0) {
+                    Text("\(colorInfo.name)")
+
+                }
             }.padding(.horizontal, 3).colorSwatchOverlay().frameInfinity(.topLeading)
+                .font(Styling.footnoteFont)
         }
     }
     
 }
 
 struct ColorSwatchList: View {
-    private static let gridItem: GridItem = GridItem(.adaptive(minimum: 110, maximum: 200));
+    private static let gridItem: GridItem = GridItem(.adaptive(minimum: 160));
     
     let mappedColorsWithCount: Dictionary<MultiColor, Int>;
     let palette: Palette;
-    var isWide: Bool = false    
+    let isWide: Bool    
     
     var body: some View {
-        LazyVGrid(columns: Array(repeating: ColorSwatchList.gridItem, count: isWide ? 4 : 2), spacing: 4) {
+        LazyVGrid(columns: Array(repeating: ColorSwatchList.gridItem, count: isWide ? 4 : 2), spacing: 2) {
             ForEach(0..<mappedColorsWithCount.count, id: \.self) { i in
                 let index = mappedColorsWithCount.index(mappedColorsWithCount.startIndex, offsetBy: i)
                 let kvPair = mappedColorsWithCount[index];
                 
                 CompactSwatch(color: kvPair.key, numberOfUses: kvPair.value, palette: palette)
-                    .aspectRatio(4.5, contentMode: .fill)
+                    .aspectRatio(5, contentMode: .fit)
             }
         }.padding(.top, 6)
-            .frame(alignment: .topTrailing)
+//            .frame(alignment: .topTrailing)
     }
 }

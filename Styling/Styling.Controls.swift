@@ -8,8 +8,13 @@ public struct Styling {
     public static let medButtonSize: CGFloat = 48;
     public static let medButtonPadding: CGFloat = 12;
     
-    public static let titleFont: Font = .system(.title2, design: .default, weight: .bold);
-    public static let title2Font: Font = .system(.title3, design: .default, weight: .bold);
+    public static let titleFont: Font = Font.title2
+    public static let title2Font: Font = Font.title3
+    public static let headlineFont: Font = Font.headline
+    public static let captionFont: Font = Font.caption
+    public static let caption2Font: Font = Font.caption2
+    public static let bodyFont: Font = Font.body
+    public static let footnoteFont: Font = Font.footnote
     
     
     

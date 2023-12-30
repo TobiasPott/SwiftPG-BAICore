@@ -6,6 +6,12 @@ public enum BuiltInPalette {
     case lego, legoSimple, legoMosaicMaker, legoDCBatman, legoFloralArt, legoWorlMap, legoDOTS, retroRGB3Bit
 }
 
+public extension MultiColor {
+    var swuiColor: Color {
+        return Color(hue: self.hue, saturation: self.saturation, brightness: self.brightness, opacity: 1.0)    
+    }
+}
+
 public extension Palette {
     static func getPalette(_ builtIn: BuiltInPalette) -> Palette {
         switch(builtIn) {

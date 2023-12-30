@@ -9,21 +9,20 @@ extension View {
         }
     }
     
-    func labelOverlay(label: String, alignment: Alignment = .topLeading, fontSize: CGFloat = 12, color: Color = Styling.panelColor, textColor: Color = .primary) -> some View {
+    func labelOverlay(label: String, alignment: Alignment = .topLeading, color: Color = Styling.panelColor, textColor: Color = .primary) -> some View {
         return self.overlay(content: { 
             Text(label).foregroundColor(textColor)    
                 .padding(.horizontal, 3)
                 .padding(3).frame(minWidth: 24)
-            //                .colorSwatchOverlay(fontSize: fontSize, color: color)
-                .font(.system(size: fontSize))
+                .font(Styling.captionFont)
                 .background(Styling.roundedRect.foregroundColor(color.opacity(0.75)))
                 .padding(6)
                 .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: alignment)
         })
     }
-    func colorSwatchOverlay(fontSize: CGFloat = 10, color: Color = Styling.panelColor) -> some View {
+    func colorSwatchOverlay(color: Color = Styling.panelColor) -> some View {
         return self.padding(3).frame(minWidth: 24)
-            .font(.system(size: fontSize))
+            .font(Styling.captionFont)
             .background(Styling.roundedRect.foregroundColor(color.opacity(0.75)))
     }
     

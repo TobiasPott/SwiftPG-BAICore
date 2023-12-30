@@ -6,16 +6,16 @@ struct CanvasLayer: View {
     @ObservedObject var canvas: CanvasInfo;
     @ObservedObject var source: SourceInfo;
     
-    var borderColor: Color = .white;
+    var borderColor: Color = Color.white;
     
     var body: some View {
         let canSize: CGSize = canvas.size.mul(canvas.scale) 
         ZStack() {
-            getCanvasView(location: canvas.drag.fixedLocation, gridColor: .black, tileColor: .white)
+            getCanvasView(location: canvas.drag.fixedLocation, gridColor: Color.black, tileColor: Color.white)
                 .gesture(GetDragGesture(), enabled: !canvas.isLocked)
                 .frame(width: canSize.width, height: canSize.height)
             if (canvas.drag.active) {
-                getCanvasView(location: canvas.drag.location, gridColor: .green, tileColor: .white)
+                getCanvasView(location: canvas.drag.location, gridColor: Color.green, tileColor: Color.white)
                     .frame(width: canSize.width, height: canSize.height)
             }
         }
@@ -40,7 +40,7 @@ struct CanvasLayer: View {
     
     func getCanvasView(location: CGPoint, gridColor: Color, tileColor: Color) -> some View {
         ZStack() {
-            Color(.black).opacity(0.01)
+            Color.black.opacity(0.01)
             Grid(cols: CGFloat(canvas.tileWidth) * 16, rows: CGFloat(canvas.tileHeight) * 16, gridColor: gridColor)
             Grid(cols: CGFloat(canvas.tileWidth), rows: CGFloat(canvas.tileHeight), gridColor: tileColor, lineWidth: 3.0)
         }
@@ -48,7 +48,7 @@ struct CanvasLayer: View {
             if(canvas.isLocked) {
                 SNImage.lockFill
                     .rs().padding()
-                    .foregroundColor(.red).frame(maxWidth: 16 * canvas.scale, maxHeight: 16 * canvas.scale)
+                    .foregroundColor(Color.red).frame(maxWidth: 16 * canvas.scale, maxHeight: 16 * canvas.scale)
             }
         })
         .border(borderColor, width: max(canvas.scale * 0.25, 6.0))

@@ -86,7 +86,7 @@ struct CanvasPanel: View {
                 Spacer()
             }
         })
-        .font(.system(size: 12))
+        .font(Styling.caption2Font)
     }
 }
 
@@ -104,7 +104,8 @@ struct CanvasHeader: View {
             }
             VStack(alignment: .leading) {
                 Text("\(canvas.name)")
-                Text("(\(canvas.tileWidth)x\(canvas.tileHeight))").font(.system(size: 10))
+                Text("(\(canvas.tileWidth)x\(canvas.tileHeight))")
+                    .font(Styling.caption2Font)
             }
             Spacer()
             RoundedStateButton(systemName: "lock.fill", size: 26, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: .red, background: .gray, padding: 8.0)
@@ -121,7 +122,7 @@ struct CanvasDetailHeader: View {
                 Text("\(canvas.name)")
                 Text("\(canvas.tileWidth) x \(canvas.tileHeight) tiles" +
                      "\n\(canvas.tileWidth*16) x \(canvas.tileHeight*16) bricks")
-                .font(.system(size: 10))
+                .font(Styling.caption2Font)
                 getAnalysisView()
             }
             Spacer()
@@ -131,6 +132,6 @@ struct CanvasDetailHeader: View {
     func getAnalysisView() -> some View {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty }
         return AnyView(Text("\(analysis.colorInfo.uniqueColors) unique colors")
-            .font(.system(size: 10)))
+            .font(Styling.caption2Font))
     }
 }
