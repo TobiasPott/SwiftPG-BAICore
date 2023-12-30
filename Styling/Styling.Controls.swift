@@ -2,7 +2,8 @@ import SwiftUI
 import SwiftPG_Palettes
 
 public struct Styling {
-    
+    public static let labelWidth: CGFloat = 80
+
     public static let blueprintToolbarMaxHeight: CGFloat = 400;
     
     public static let buttonSize: CGFloat = 32;

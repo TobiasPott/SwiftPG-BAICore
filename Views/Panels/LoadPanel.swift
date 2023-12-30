@@ -1,5 +1,5 @@
 import SwiftUI
-import PhotosUI
+import SwiftPG_Palettes
 
 struct LoadPanel: View {
     @EnvironmentObject var state: AppState;
@@ -10,6 +10,7 @@ struct LoadPanel: View {
     
     @State private var openFile: Bool = false;
     @State private var openSamples: Bool = false;
+    
     
     var body: some View {
         
@@ -22,23 +23,19 @@ struct LoadPanel: View {
         if (state.userMode != .advanced) {
             GroupBox(label: Text("Guided").font(Styling.title2Font), content: {
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")
-                HStack { menu; Spacer(); }
+                HStack(alignment: .top) { selectFileMenu }
+                    .padding(.bottom)
                 
                 GuideText(text: "Select your dimensions. The dimensions are measured in plates and each plate is 16*16 bricks in size.")
-                HStack {
-                    Text("Dimensions")
-                    Spacer()
-                    CompactIconPicker(value: $load.width, systemName: "arrow.left.and.right", content: {
-                        ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
-                    })
-                    CompactIconPicker(value: $load.height, systemName: "arrow.up.and.down", content: {
-                        ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
-                    })
-                }
+                HStack() { dimensionsMenu }
+                
+                GuideText(text: "Select the color palette you want to use. The preview will show you the colors included in each palette and your brick art will be limited to those colors.")
+                VStack(spacing: 0) { paletteMenu }
             })
         } else {
             GroupBox(label: Text("Advanced").font(Styling.title2Font), content: {
-                HStack { menu; Spacer(); }
+                HStack(alignment: .top) { selectFileMenu }
+                VStack(spacing: 0) { paletteMenu }
             })
             
         }
@@ -53,29 +50,26 @@ struct LoadPanel: View {
         }
     }
     
-    var menu: some View {
-        Menu(content: {
-            Button(action: { 
-                openFile = true; 
-            }, label: { 
-                HStack { Text("Select from Files"); Spacer(); SNImage.folder; 
-                } 
-            })
-            Divider();
-            Button(action: { openSamples = true; }, 
-                   label: { HStack { Text("Select from Samples"); Spacer(); SNImage.folder;
-            } 
-            })
-            Divider();
-        }, label: {
-            HStack(alignment: .top) {
-                Text("Select image...")
-                Spacer()
-                load.image.swuiImage.rs(fit: true)
-                    .background(SNImage.magnifyingglassCircle)
-                    .frame(maxHeight: load.isImageSet ? 96 : 18)      
-            }
-        })
+    var selectFileMenu: some View {
+        Group {
+            Text("Image").frame(width: Styling.labelWidth, alignment: .leading)
+            Divider()
+            Spacer()
+            Menu(content: {
+                Button(action: { openFile.toggle(); }, 
+                       label: { Label("Select from Files", systemImage: "folder") })
+                Divider();
+                Button(action: { openSamples.toggle(); }, 
+                       label: { Label("Select from Samples", systemImage: "photo.on.rectangle.angled") })
+            }, label: {
+                VStack {
+                    Text("Select")
+                    load.image.swuiImage.rs(fit: true)
+                        .background(SNImage.magnifyingglassCircle.resizable())
+                        .frame(maxHeight: load.isImageSet ? 120 : 24)      
+                }
+            }).padding(.trailing, 0)
+        }
         .fileImporter(isPresented: $openFile, allowedContentTypes: [.image]) { result in fileImport(result: result) }
         .sheet(isPresented: $openSamples, content: {
             SamplesSheet(isOpen: $openSamples, onSelect: { image in load.set(image) })
@@ -83,6 +77,44 @@ struct LoadPanel: View {
         
     }
     
+    var dimensionsMenu: some View {
+        HStack(alignment: .top) {
+            Text("Plates").frame(width: Styling.labelWidth, alignment: .leading)
+            Divider()
+            Spacer()
+            VStack(spacing: 0) {
+                HStack {
+                    Text("X")
+                    Spacer()
+                    Picker("X", selection: $load.width, content: {
+                        ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
+                    })
+                }
+                HStack {
+                    Text("Y")
+                    Spacer()
+                    Picker("Y", selection: $load.height, content: {
+                        ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
+                    })
+                }
+            }.padding(.top, -6)
+        }
+    }
+    var paletteMenu: some View {
+        HStack(alignment: .top) {
+            Text("Palette").frame(width: Styling.labelWidth, alignment: .leading)
+            Divider()
+            Spacer()
+            VStack(alignment: .trailing) {
+                PalettePicker(selection: $load.builtInPalette)
+                    .padding(.top, -6)
+                
+                PalettePreview(palette: load.palette, size: 10)
+            }
+        }.onChange(of: load.builtInPalette, perform: { value in
+            load.palette = Palette.getPalette(load.builtInPalette)
+        }) 
+    }
     
     func fileImport(result: Result<URL, Error>) -> Void {
         do {
@@ -107,6 +139,9 @@ struct LoadPanel: View {
         state.reset()
         source.reset()
         canvases.reset()
+        // set palette from load info
+        state.builtInPalette = load.builtInPalette;
+        state.palette = load.palette
         if (load.isImageSet) {
             source.setImage(image: load.image)
             if (state.userMode != .advanced) {

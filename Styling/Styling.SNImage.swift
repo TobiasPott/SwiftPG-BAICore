@@ -1,5 +1,6 @@
 import SwiftUI
 
+// system name images
 public struct SNImage {
     
     public static func get(_ systemName: String) -> Image {

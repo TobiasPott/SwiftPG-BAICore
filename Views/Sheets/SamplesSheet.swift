@@ -13,8 +13,8 @@ struct SamplesSheet: View {
             GroupBox(label: Text("Samples"), content: {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
-                        SampleEntry(resourceName: "OpenArt-Monet_WomenWithAParasol", label: "Women with a Parasol", onSelect: { image in onSelect(image); isOpen = false; })
-                        SampleEntry(resourceName: "CC0-Aurora", label: "Aurora", onSelect: { image in onSelect(image); isOpen = false; })
+                        SampleEntry(resourceName: "SwiftPG-BrickArtInstructor", label: "Brick Art Instructor", onSelect: { image in onSelect(image); isOpen = false; })
+                        
                         SampleEntry(resourceName: "BingAI_BrickArt_07a048f0", label: "Brick Art - Dinosaur", onSelect: { image in onSelect(image); isOpen = false; })
                         SampleEntry(resourceName: "BingAI_BrickArt_582a7723", label: "Brick Art - Dinosaur 2", onSelect: { image in onSelect(image); isOpen = false; })
                         SampleEntry(resourceName: "BingAI_BrickArt_f61748d2", label: "Brick Art - Cars", onSelect: { image in onSelect(image); isOpen = false; })
@@ -27,6 +27,9 @@ struct SamplesSheet: View {
                         
                         SampleEntry(resourceName: "BingAI_Portrait_250b00e3", label: "Portrait - Mullet", onSelect: { image in onSelect(image); isOpen = false; })
                         SampleEntry(resourceName: "BingAI_Portrait_a4a475ae", label: "Portrait - Selfie", onSelect: { image in onSelect(image); isOpen = false; })
+                        
+                        SampleEntry(resourceName: "OpenArt-Monet_WomenWithAParasol", label: "Women with a Parasol", onSelect: { image in onSelect(image); isOpen = false; })
+                        SampleEntry(resourceName: "CC0-Aurora", label: "Aurora", onSelect: { image in onSelect(image); isOpen = false; })
                     }
                 }
                 Spacer()
