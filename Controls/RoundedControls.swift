@@ -75,9 +75,8 @@ struct RoundedButtonMini: View {
 public enum PanelOrientation {
     case horizonal, vertical
 }
+
 struct RoundedPanel<Content: View>: View {
-    
-    
     
     @ViewBuilder let content: () -> Content;
     let orientation: PanelOrientation;
@@ -93,11 +92,11 @@ struct RoundedPanel<Content: View>: View {
         if(orientation == .vertical) {
             VStack(alignment: verticalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
                 .padding(.all, padding)
-                .background(Styling.roundedRect.foregroundColor(background))
+                .background(Styling.roundedRect.foregroundColor(background).opacity(0.75))
         } else {
             HStack(alignment: horizontalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
                 .padding(.all, padding)
-                .background(Styling.roundedRect.foregroundColor(background))
+                .background(Styling.roundedRect.foregroundColor(background).opacity(0.75))
         }
     }
 }

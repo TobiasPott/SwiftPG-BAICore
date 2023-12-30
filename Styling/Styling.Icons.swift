@@ -9,6 +9,8 @@ public struct SNImage {
     public static let circle = get("circle")
     public static let squareAndArrowUp = get("square.and.arrow.up")
     
+    public static let squareArrowTriangle4Outward = get("square.arrowtriangle.4.outward")
+    
     public static let folder = get("folder")
     public static let lockFill = get("lockFill")
     

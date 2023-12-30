@@ -15,23 +15,12 @@ struct BlueprintPanel: View {
                     .frame(maxWidth: geoSize.width, maxHeight: geoSize.height, alignment: .center) 
                     .mask(Styling.roundedRect)
                 
-                if(!isLandscape)
-                {
-                    VStack {
-                        if (state.isNavState(.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
-                    }
-                    .frame(maxWidth: .infinity, alignment: .trailing)
-                    .padding(.trailing, 6)
-                }
-                
-                VStack {
+                VStack(spacing: 6) {
                     if (state.isNavState([.setup])) { SourceToolbar(source: source); }
-                    if (isLandscape) {
-                        if (state.isNavState(.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
-                    }
+                    if (state.isNavState(.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
                 }
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .padding(.leading, 6)
+                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: .leading)
+                .padding(.all, 6)
             }
         }
         

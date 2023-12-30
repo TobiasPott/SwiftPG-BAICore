@@ -23,10 +23,6 @@ struct ContentView: View {
                             MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
                                 .padding([.leading, .top, .trailing])
                             
-//                            ExportPDFView(label: "Export to PDF", content: {
-//                              Rectangle()
-//                            })
-//                            
                             ScrollView(content: {
                                 getContentView().padding(.horizontal)
                             })

@@ -13,8 +13,8 @@ struct CanvasToolbar: View {
             RoundedStateButton(systemName: "lock.fill", action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: .red, background: .gray)
             
             if (!state.isNavState(.analysis)) {
-                RoundedPanel(content: {
-                    SNImage.magnifyingglass.rs().padding(5)
+                VStack(content: {
+                    SNImage.squareArrowTriangle4Outward.rs().padding(5)
                     VerticalSlider<CGFloat>(value: $canvas.scale, in: 1.0...canvas.maxScale, step: 0.1, onEditingChanged: { changed in
                         if (sliderChange) {
                             _ = canvas.Analyse(source, state.palette)
@@ -23,15 +23,14 @@ struct CanvasToolbar: View {
                             sliderChange = true
                         }
                     })
-                        .disabled(canvas.isLocked)
-                        .frame(maxHeight: 96)
+                    .disabled(canvas.isLocked)
                     
-                    Text("\(Int(canvas.scale))")
+                    Text("\(String(format: "%.1f", canvas.scale))")
                         .frame(maxHeight: 22)
-                }, orientation: .vertical, padding: 0)    
+                })    
                 .frame(maxWidth: Styling.buttonSize)
                 .font(Styling.captionFont)
             }
-        }, orientation: .vertical)
+        }, orientation: .vertical)                
     }
 }

@@ -1,6 +1,9 @@
 import SwiftUI
+import SwiftPG_Palettes
 
 public struct Styling {
+    
+    public static let blueprintToolbarMaxHeight: CGFloat = 400;
     
     public static let buttonSize: CGFloat = 32;
     public static let buttonPadding: CGFloat = 10;
@@ -21,8 +24,8 @@ public struct Styling {
     public static let highlightColor: Color = .accentColor;
     public static let buttonColor: Color = .accentColor;
     public static let sliderColor: Color = .accentColor;
-    public static let blueprintColor: Color = Color(.sRGB, red: 0, green: 49 / 100.0, blue: 83 / 100.0, opacity: 1.0);
-    public static let panelColor: Color = Color(.sRGB, white: 0.175, opacity: 1.0);
+    public static let blueprintColor: Color = MultiColor(cgColor: CGColor(srgbRed: 0, green: 49 / 100.0, blue: 83 / 100.0, alpha: 1.0)).swuiColor
+    public static let panelColor: Color = MultiColor(cgColor: CGColor(srgbRed: 0.175, green: 0.175, blue: 0.175, alpha: 1.0)).swuiColor
     
     public static let roundedCornerRadius: CGFloat = 6;
     public static let roundedCornerSize: CGSize = CGSize(width: roundedCornerRadius, height: roundedCornerRadius);
