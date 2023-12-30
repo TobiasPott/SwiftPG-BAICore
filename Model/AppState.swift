@@ -8,12 +8,16 @@ public enum NavState: Equatable, Codable {
 public enum UserMode: Equatable, Codable {
     case guided, simple, advanced
 }
+public enum BrickOutlineMode {
+    case none, outlined 
+}
+
 class AppState : ObservableObject
 {
-    @Published var showSplashScreen: Bool = true;
+    @Published var showSplashScreen: Bool = false;
     @Published var userMode: UserMode = .simple;   
     @Published var navState: NavState = .load;
-
+    
     @Published var builtInPalette: BuiltInPalette = .legoSimple
     @Published var palette: Palette = Lego.simple
     
@@ -23,7 +27,9 @@ class AppState : ObservableObject
     @Published public var srcZoomLocked: Bool = false;
     @Published var drag: DragInfo = DragInfo();
     @Published var zoom: ZoomInfo = ZoomInfo(scale: 30, lastScale: 30);
-
+    
+    @Published var brickOutline: BrickOutlineMode = .outlined;
+    
     
     init() {
         

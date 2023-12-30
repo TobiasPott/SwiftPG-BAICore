@@ -20,7 +20,7 @@ struct PlatesPreviewSheet: View {
                             PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: $selection)
                                 .frame(maxWidth: 200, alignment: .leading)
                             Spacer()
-                            PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .detailed)
+                            PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .outlined)
                                 .overlay(content: { Grid(4, gridColor: .white.opacity(0.5)) })      
                         }
                         PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: false)
@@ -58,7 +58,7 @@ struct PlatesPreviewSheet: View {
             }
         })
     }
-    public static func getTileArt(canvas: CanvasInfo, tileCoords: Int2, display: BrickArtDisplay = .flat) -> AnyView {
+    public static func getTileArt(canvas: CanvasInfo, tileCoords: Int2, display: BrickOutlineMode = .none) -> AnyView {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         
         return AnyView(

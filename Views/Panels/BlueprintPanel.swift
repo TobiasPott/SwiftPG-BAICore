@@ -21,6 +21,13 @@ struct BlueprintPanel: View {
                 }
                 .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: .leading)
                 .padding(.all, 6)
+                
+                VStack(spacing: 6) {
+//                    BrickArtToolbar();
+                    if (state.isNavState(.analysis)) { BrickArtToolbar(); }
+                }
+                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: .trailing)
+                .padding(.all, 6)
             }
         }
         
@@ -31,7 +38,7 @@ struct BlueprintPanel: View {
             guard let canvas: CanvasInfo = state.canvas else { return RootView.anyEmpty }
             guard let analysis: AnalysisInfo = canvas.analysis else { return RootView.anyEmpty }
             return AnyView(BrickArtLayer(analysis: analysis))
-        } else { //if (state.isNavState(.setup)) {            
+        } else {            
             return AnyView(SourceLayer(canvases: $canvases, source: source))
         } 
     }

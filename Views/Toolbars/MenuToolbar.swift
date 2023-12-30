@@ -34,11 +34,7 @@ struct MenuToolbar: View {
                 Button("Preferences...", systemImage: "gearshape.2", action: { showPreferences.toggle() })
                 Divider()
                 Menu(content: {
-                    Picker(selection: $state.userMode, label: Text("Mode")) {
-                        Label("Guided", systemImage: "info.bubble").tag(UserMode.guided)
-                        Label("Simple", systemImage: "rectangle").tag(UserMode.simple)
-                        Label("Advanced", systemImage: "rectangle.on.rectangle.badge.gearshape").tag(UserMode.advanced)
-                    }
+                    UserModePicker(userMode: $state.userMode)
                 }, label: {
                     Button("Mode", systemImage: "filemenu.and.selection", action: { })
                 })

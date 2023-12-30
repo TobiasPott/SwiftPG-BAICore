@@ -32,7 +32,6 @@ struct ExportMenu<Content: View>: View {
         //                print(error.localizedDescription)
         //            }
         //        }
-        
     }
     
     func onCompletion(result: Result<URL, Error>) {

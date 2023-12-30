@@ -1,9 +1,5 @@
 import SwiftUI
 
-public enum BrickArtDisplay {
-    case flat, detailed 
-}
-
 struct BrickArtLayer: View {
     @EnvironmentObject var state: AppState
     
@@ -17,10 +13,9 @@ struct BrickArtLayer: View {
             ZStack {
                 ZStack{
                     BlueprintGrid(baseSpacing: 32).scaleEffect(16.0)
-                    BrickCanvasView(analysis: analysis, display: .detailed)
+                    BrickCanvasView(analysis: analysis, display: state.brickOutline)
                         .overlay(content: {
                             Grid(cols: floor(analysis.size.width / 16), rows: floor(analysis.size.height / 16), gridColor: .white)
-                            BrickArtOutlines(repeatX: Int(floor(analysis.size.width / 16)), repeatY: Int(floor(analysis.size.height / 16)))
                         })
                 }
                 .scaleEffect(zoom.scale, anchor: .center)
@@ -32,7 +27,7 @@ struct BrickArtLayer: View {
             .offset(x: drag.fixedLocation.x, y: drag.fixedLocation.y)  
             
             if (drag.active) {
-                BrickCanvasView(analysis: analysis, display: .flat)
+                BrickCanvasView(analysis: analysis, display: .none)
                     .scaleEffect(zoom.scale, anchor: .center)
                     .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
                     .offset(drag.location.cgSize())
@@ -62,7 +57,7 @@ struct BrickArtLayer: View {
 struct BrickCanvasView: View {
     
     let analysis: AnalysisInfo
-    var display: BrickArtDisplay = .flat;
+    var display: BrickOutlineMode = .none;
     
     var body: some View {
         let spacing: CGFloat = 0.0;
@@ -89,7 +84,7 @@ struct BrickTileView: View {
     
     
     let colorInfo: ColorAnalysisInfo
-    var display: BrickArtDisplay = .flat;
+    var display: BrickOutlineMode = .none;
     
     var xOffset: Int = 0;
     var yOffset: Int = 0;
@@ -115,7 +110,7 @@ struct BrickTileView: View {
                     }                    
                 }
             }
-            if (display == .detailed) {
+            if (display == .outlined) {
                 BrickPlateOutlines()
             }
         }

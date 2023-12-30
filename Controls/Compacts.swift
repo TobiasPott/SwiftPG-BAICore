@@ -1,6 +1,19 @@
 import SwiftUI
 import SwiftPG_Palettes
 
+struct UserModePicker: View {
+    @Binding var userMode: UserMode
+    
+    var body: some View {
+    
+        Picker(selection: $userMode, content: {
+            Label("Guided", systemImage: "info.bubble").tag(UserMode.guided)
+            Label("Simple", systemImage: "rectangle").tag(UserMode.simple)
+            //            Label("Advanced", systemImage: "rectangle.on.rectangle.badge.gearshape").tag(UserMode.advanced)
+        }, label: { })
+    }
+}
+
 struct Highlight<Content: View>: View{
     var content: () -> Content;
     var alignment: VerticalAlignment = .center

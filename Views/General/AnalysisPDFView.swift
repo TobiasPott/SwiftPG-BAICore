@@ -68,7 +68,7 @@ struct PlatePDFPage: View {
                         PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: .constant(coords))
                             .frame(maxWidth: 150)
                         Spacer()
-                        PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .detailed)
+                        PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .outlined)
                             .overlay(content: {
                                 Grid(4, gridColor: .white.opacity(0.5))
                             })      
@@ -78,7 +78,7 @@ struct PlatePDFPage: View {
                     Spacer(minLength: 0)
                 }
                 .frame(maxHeight: .infinity)
-                PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .detailed)
+                PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .outlined)
                     .overlay(content: {
                         Grid(4, gridColor: .white.opacity(0.5))
                     })      

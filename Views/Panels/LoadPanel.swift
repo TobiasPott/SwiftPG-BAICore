@@ -14,11 +14,9 @@ struct LoadPanel: View {
     var body: some View {
         
         GroupBox(label: Text("Create your Brick Art").font(Styling.title2Font), content: { })
-        Picker(selection: $state.userMode, content: {
-            Label("Guided", systemImage: "info.bubble").tag(UserMode.guided)
-            Label("Simple", systemImage: "rectangle").tag(UserMode.simple)
-            Label("Advanced", systemImage: "rectangle.on.rectangle.badge.gearshape").tag(UserMode.advanced)
-        }, label: { }).pickerStyle(.segmented)
+        
+        UserModePicker(userMode: $state.userMode)
+            .pickerStyle(.segmented)
         GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
         
         if (state.userMode != .advanced) {
