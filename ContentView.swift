@@ -24,9 +24,9 @@ struct ContentView: View {
                                 .padding([.leading, .top, .trailing])
                             contentPanel
                         }
-                        .frame(maxWidth: 800, alignment: .center)
+                        .frame(maxWidth: 800, alignment: Alignment.center)
                     }
-                    .frame(alignment: .center)
+                    .frame(alignment: Alignment.center)
                     
                 }, orientation: isLandscape ? .horizonal : .vertical, padding: 0, background: .clear)
                 

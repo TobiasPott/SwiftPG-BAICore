@@ -9,7 +9,7 @@ struct GettingStartedView: View {
                 Divider()
                 Styling.appIcon.swuiImage.rs(fit: true).frame(maxHeight: 240)
                 Text("Welcome").font(Styling.headlineFont).padding(.bottom, 6)
-                VStack(alignment: .leading) {
+                VStack(alignment: HorizontalAlignment.leading) {
                     Text("Welcome to Brick Art Instructor. \nAn utility app to help you create instructions and part lists for artworks you can build with your construction bricks at home.")
                         .padding(.bottom, 3)
                     Text("The inspiration for this app came from a Batman artwork I build a few months ago. I wanted to use a different topic. I was simply too lazy to figure out a manual process instead I started writing this app.")

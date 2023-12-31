@@ -14,7 +14,7 @@ struct AboutSheet: View {
                         .frame(maxHeight: 200)
                     
                     Text("About Brick Art Instructor").font(Styling.headlineFont).padding(.bottom, 6).padding(.top, 0)
-                    VStack(alignment: .leading) {
+                    VStack(alignment: HorizontalAlignment.leading) {
                         Text("Welcome to Brick Art Instructor. \nAn utility app to help you create instructions and part lists for artworks you can build with your construction bricks at home.")
                             .padding(.bottom, 3)
                         Text("The inspiration for this app came from a Batman artwork I build a few months ago. I wanted to use a different topic. I was simply too lazy to figure out a manual process instead I started writing this app.")
@@ -25,7 +25,7 @@ struct AboutSheet: View {
                     Divider()
                     Image(systemName: "heart.circle").resizable().frame(width: 32, height: 32).padding(.top)
                     Text("My Plea to You").font(Styling.headlineFont).padding(.bottom, 6)
-                    VStack(alignment: .leading) {
+                    VStack(alignment: HorizontalAlignment.leading) {
                         Text("I'm working for fun on this app and want to share it with the world. Thus I have no direct need to monitize this app.")
                             .padding(.bottom, 3)
                         Text("This said, you may find value in this app, I ask you to direct any appreciation towards people in need near you. \nThere are many out there who need help, be it some money toeat and drink or be it a short time of campanionship. Please take a moment and reconsider if you want to help someone in need.")

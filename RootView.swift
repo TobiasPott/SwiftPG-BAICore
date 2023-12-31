@@ -12,7 +12,7 @@ struct RootView: View {
     
     var body: some View {
         ContentView(load: load, canvases: $canvases, source: source)
-            .frame(alignment: .topLeading)     
+            .frame(alignment: Alignment.topLeading)     
             .environmentObject(state)   
         
     }    

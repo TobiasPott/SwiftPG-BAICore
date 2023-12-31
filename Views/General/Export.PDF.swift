@@ -21,7 +21,7 @@ struct ExportMenu<Content: View>: View {
                 .rs(fit: true)
                 .frame(width: 28, height: 28)
                 .padding([.top, .trailing], 6)
-                .frame(maxHeight: .infinity, alignment: .topTrailing)
+                .frame(maxHeight: .infinity, alignment: Alignment.topTrailing)
         })
         // ToDo: figure out the wrapping stuff to use macOS <13 fileExporter with FileDocument 
         //        .fileMover(isPresented: $exportPDF, file: ExportMenu.renderToPDF(filename: filename, content: content)) { result in

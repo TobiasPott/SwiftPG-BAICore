@@ -8,7 +8,7 @@ struct PalettePreview: View {
     var body: some View {
         VStack {
             
-            LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size + 6), spacing: 2, alignment: .topTrailing)]) {
+            LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size + 6), spacing: 2, alignment: Alignment.topTrailing)]) {
                 ForEach(0..<palette.names.count, id: \.self) { i in
                     palette.colors[i].swuiColor.aspectRatio(1.0, contentMode: .fit)
                 }

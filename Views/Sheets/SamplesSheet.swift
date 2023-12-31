@@ -56,7 +56,7 @@ struct SampleEntry: View {
             onSelect(image)
         }, label: {
             HStack { image.swuiImage.rs(fit: true).frame(maxWidth: .infinity) }
-                .labelOverlay(label: label, alignment: .bottomLeading)
+                .labelOverlay(label: label, alignment: Alignment.bottomLeading)
                 .frame(maxWidth: .infinity, maxHeight: 240)
         }) 
     }

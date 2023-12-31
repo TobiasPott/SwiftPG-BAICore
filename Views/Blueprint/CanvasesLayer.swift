@@ -8,11 +8,11 @@ struct CanvasesLayer: View {
     var borderColor: Color = Styling.white;
     
     var body: some View {
-        ZStack(alignment: .topLeading) { 
+        ZStack(alignment: Alignment.topLeading) { 
             ForEach(canvases.items) {canvas in
                 CanvasLayer(canvas: canvas, source: source, borderColor: borderColor)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .topLeading)
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: Alignment.topLeading)
     }
 }

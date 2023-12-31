@@ -57,7 +57,7 @@ struct BlueprintGrid: View {
     var lineWidth: CGFloat = 2.0;
     
     var body: some View {
-        ZStack(alignment: .center) {
+        ZStack(alignment: Alignment.center) {
             Styling.blueprintColor
             Grid(baseSpacing, gridColor: BlueprintGrid.lineColor, lineWidth: lineWidth)
             Grid(baseSpacing / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: lineWidth)
@@ -78,7 +78,7 @@ struct BlueprintGroupBoxStyle: GroupBoxStyle {
         }
         .padding()
         .background(content: {
-            ZStack(alignment: .center) {
+            ZStack(alignment: Alignment.center) {
                 Styling.blueprintColor
                 Grid(64, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
                 Grid(32 / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)

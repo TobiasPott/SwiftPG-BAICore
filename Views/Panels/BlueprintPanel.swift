@@ -14,23 +14,23 @@ struct BlueprintPanel: View {
     var body: some View {
         GeometryReader { geometry in
             let geoSize = geometry.size;
-            ZStack(alignment: .center) {
+            ZStack(alignment: Alignment.center) {
                 GetViewForState()
-                    .frame(maxWidth: geoSize.width, maxHeight: geoSize.height, alignment: .center) 
+                    .frame(maxWidth: geoSize.width, maxHeight: geoSize.height, alignment: Alignment.center) 
                     .mask(Styling.roundedRect)
                 
                 VStack(spacing: 6) {
                     if (state.isNavState([.setup])) { SourceToolbar(source: source); }
                     if (state.isNavState(.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
                 }
-                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: .leading)
+                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.leading)
                 .padding(.all, 6)
                 
                 VStack(spacing: 6) {
 //                    BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom)
                     if (state.isNavState(.analysis)) { BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom); }
                 }
-                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: .trailing)
+                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)
                 .padding(.all, 6)
             }
         }

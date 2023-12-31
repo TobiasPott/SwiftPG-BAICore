@@ -23,7 +23,7 @@ struct LoadPanel: View {
         if (state.userMode != .advanced) {
             GroupBox(label: Text("Guided").font(Styling.title2Font), content: {
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")
-                HStack(alignment: .top) { selectFileMenu }
+                HStack(alignment: VerticalAlignment.top) { selectFileMenu }
                 
                 GuideText(text: "Select your dimensions. The dimensions are measured in plates and each plate is 16*16 bricks in size.")
                 HStack() { dimensionsMenu }
@@ -33,7 +33,7 @@ struct LoadPanel: View {
             })
         } else {
             GroupBox(label: Text("Advanced").font(Styling.title2Font), content: {
-                HStack(alignment: .top) { selectFileMenu }
+                HStack(alignment: VerticalAlignment.top) { selectFileMenu }
                 HStack() { paletteMenu }
             })
             
@@ -51,7 +51,7 @@ struct LoadPanel: View {
     
     var selectFileMenu: some View {
         Group {
-            Text("Image").frame(width: Styling.labelWidth, alignment: .leading)
+            Text("Image").frame(width: Styling.labelWidth, alignment: Alignment.leading)
             Divider()
             Spacer()
             Menu(content: {
@@ -80,8 +80,8 @@ struct LoadPanel: View {
     }
     
     var dimensionsMenu: some View {
-        HStack(alignment: .top) {
-            Text("Plates").frame(width: Styling.labelWidth, alignment: .leading)
+        HStack(alignment: VerticalAlignment.top) {
+            Text("Plates").frame(width: Styling.labelWidth, alignment: Alignment.leading)
             Divider()
             Spacer()
             VStack(spacing: 0) {
@@ -103,11 +103,11 @@ struct LoadPanel: View {
         }
     }
     var paletteMenu: some View {
-        HStack(alignment: .top) {
-            Text("Palette").frame(width: Styling.labelWidth, alignment: .leading)
+        HStack(alignment: VerticalAlignment.top) {
+            Text("Palette").frame(width: Styling.labelWidth, alignment: Alignment.leading)
             Divider()
             Spacer()
-            VStack(alignment: .trailing) {
+            VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $load.builtInPalette)
                     .padding(.top, -6)
                 

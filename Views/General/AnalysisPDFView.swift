@@ -42,7 +42,7 @@ struct AnalysisPDFView: View {
                 .groupBoxStyle(BlueprintGroupBoxStyle())
                 .padding(.bottom)
             }
-            .frame(alignment: .top)
+            .frame(alignment: Alignment.top)
             .frame(width: outWidth)
             .padding()
             .foregroundColor(Color.white)
@@ -63,8 +63,8 @@ struct PlatePDFPage: View {
     var body: some View {
         GroupBox("Plate (\(coords.x + 1), \(coords.y + 1))", content: {
             HStack {
-                VStack(alignment: .leading) {
-                    HStack(alignment: .top) { 
+                VStack(alignment: HorizontalAlignment.leading) {
+                    HStack(alignment: VerticalAlignment.top) { 
                         PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: .constant(coords))
                             .frame(maxWidth: 150)
                         Spacer()

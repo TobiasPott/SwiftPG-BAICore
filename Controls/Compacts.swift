@@ -92,7 +92,7 @@ struct CompactIconPicker<Content: View>: View {
     
     var body: some View {
         ZStack() {
-            HStack(alignment: .center) { SNImage.get(systemName).resizable().aspectRatio(contentMode: .fit).frame(width: size, height: size) 
+            HStack(alignment: VerticalAlignment.center) { SNImage.get(systemName).resizable().aspectRatio(contentMode: .fit).frame(width: size, height: size) 
                 if(autoSpace) { Spacer(minLength: 0); }
             }
             HStack { 
@@ -119,7 +119,7 @@ struct CompactSwatch: View {
         HStack(spacing: 2) {
             color.swuiColor
                 .mask(Styling.roundedRect).aspectRatio(1.0, contentMode: .fit)
-            VStack(alignment: .leading) {
+            VStack(alignment: HorizontalAlignment.leading) {
                 HStack(spacing: 0) {
                     Text("x \(numberOfUses)").fontWeight(.bold)
                     Spacer();
@@ -152,6 +152,5 @@ struct ColorSwatchList: View {
                     .aspectRatio(5, contentMode: .fit)
             }
         }.padding(.top, 6)
-//            .frame(alignment: .topTrailing)
     }
 }

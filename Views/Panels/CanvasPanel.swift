@@ -27,7 +27,7 @@ struct CanvasPanel: View {
         })
         
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
-        HStack(alignment: .center) {
+        HStack(alignment: VerticalAlignment.center) {
             getControlsView()
                 .frame(width: 120)
                 .frame(maxHeight: .infinity)
@@ -44,8 +44,8 @@ struct CanvasPanel: View {
                 else
                 {
                     SNImage.questionmarkApp.rs(fit: true)
-                        .frame(maxWidth: 32, maxHeight: 32, alignment: .center)
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: 32, maxHeight: 32, alignment: Alignment.center)
+                        .frame(maxWidth: CGFloat.infinity)
                 }
             }
         }
@@ -76,9 +76,9 @@ struct CanvasPanel: View {
                     ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
                 }).disabled(true)
                 
-                LabelledText(label: "Dimensions", text: "\(Int(canvas.size.width)) x \(Int(canvas.size.height))", alignment: .top)
+                LabelledText(label: "Dimensions", text: "\(Int(canvas.size.width)) x \(Int(canvas.size.height))", alignment: VerticalAlignment.top)
                     .padding(.top, 6)
-                LabelledText(label: "Bricks", text: "\(Int(canvas.size.width * canvas.size.height))", alignment: .top)
+                LabelledText(label: "Bricks", text: "\(Int(canvas.size.width * canvas.size.height))", alignment: VerticalAlignment.top)
                     .padding(.top, 6)
                 Spacer()
             }
@@ -99,7 +99,7 @@ struct CanvasHeader: View {
                 if (selected) { SNImage.circleInsetFilled }
                 else { SNImage.circle }
             }
-            VStack(alignment: .leading) {
+            VStack(alignment: HorizontalAlignment.leading) {
                 Text("\(canvas.name)")
                 Text("(\(canvas.tileWidth)x\(canvas.tileHeight))")
                     .font(Styling.caption2Font)
@@ -115,7 +115,7 @@ struct CanvasDetailHeader: View {
     
     var body: some View {
         HStack{
-            VStack(alignment: .leading) {
+            VStack(alignment: HorizontalAlignment.leading) {
                 Text("\(canvas.name)")
                 Text("\(canvas.tileWidth) x \(canvas.tileHeight) tiles" +
                      "\n\(canvas.tileWidth*16) x \(canvas.tileHeight*16) bricks")

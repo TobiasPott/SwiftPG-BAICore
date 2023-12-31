@@ -28,7 +28,7 @@ struct PreferencesSheet: View {
     }
     
     var userModeMenu: some View {
-        HStack(alignment: .center) {
+        HStack(alignment: VerticalAlignment.center) {
             Text("Mode")
             Spacer(minLength: 0)
             UserModePicker(userMode: $state.userMode)
@@ -37,10 +37,10 @@ struct PreferencesSheet: View {
     }
     
     var paletteMenu: some View {
-        HStack(alignment: .top) {
-            Text("Palette").frame(width: Styling.labelWidth, alignment: .leading)
+        HStack(alignment: VerticalAlignment.top) {
+            Text("Palette").frame(width: Styling.labelWidth, alignment: Alignment.leading)
             Spacer()
-            VStack(alignment: .trailing) {
+            VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $state.builtInPalette)
                     .padding(.top, -6)
                 PalettePreview(palette: state.palette, size: 10)

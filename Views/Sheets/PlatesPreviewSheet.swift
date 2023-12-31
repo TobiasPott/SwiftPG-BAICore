@@ -14,11 +14,11 @@ struct PlatesPreviewSheet: View {
         ZStack {
             GroupBox(label: Text("Preview"), content: {
                 ScrollView(content: {
-                    VStack(alignment: .center) {
+                    VStack(alignment: HorizontalAlignment.center) {
                         GuideText(text: "Select the plate you want to preview and show the color list for.")
-                        HStack(alignment: .top) { 
+                        HStack(alignment: VerticalAlignment.top) { 
                             PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: $selection)
-                                .frame(maxWidth: 200, alignment: .leading)
+                                .frame(maxWidth: 200, alignment: Alignment.leading)
                             Spacer()
                             PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .outlined)
                                 .overlay(content: { Grid(4, gridColor: Styling.white.opacity(0.5)) })      

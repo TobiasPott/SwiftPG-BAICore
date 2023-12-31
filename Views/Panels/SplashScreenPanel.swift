@@ -26,7 +26,7 @@ struct SplashScreenPanel: View {
                             Text("Open Brick Art Instructor").font(Styling.titleFont)
                             Text("(will continue in \(duration)s)").font(Styling.caption2Font)
                         }
-                        .frame(maxWidth: 300, alignment: .center)
+                        .frame(maxWidth: 300, alignment: Alignment.center)
                     })
                     
                 })
