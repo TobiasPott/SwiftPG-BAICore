@@ -6,7 +6,7 @@ struct ContentView: View {
     
     @ObservedObject var load: LoadInfo;
     @Binding var canvases: Canvases;
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var source: ArtSource;
     
     @State private var image: PImage?
     
@@ -96,7 +96,7 @@ struct ContentView: View {
             self.canvases.reset(canvases)
             print("Decoded Canvases: \(canvases.asJSONString())")
             
-            let source = try UserData.lastSource.decode(model: SourceInfo.self) as! SourceInfo
+            let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
             self.source.reset(source)
             print("Decoded Source: \(source.asJSONString())")
         } catch { print(error.localizedDescription) }

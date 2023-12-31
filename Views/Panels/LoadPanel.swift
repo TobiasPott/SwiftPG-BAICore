@@ -6,7 +6,7 @@ struct LoadPanel: View {
     
     @ObservedObject var load: LoadInfo;
     @Binding var canvases: Canvases;
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var source: ArtSource;
     
     @State private var openFile: Bool = false;
     @State private var openSamples: Bool = false;

@@ -6,8 +6,8 @@ struct CanvasPanel: View {
     
     @EnvironmentObject var state: AppState;
     
-    @ObservedObject var source: SourceInfo;
-    @ObservedObject var canvas: CanvasInfo;
+    @ObservedObject var source: ArtSource;
+    @ObservedObject var canvas: ArtCanvas;
     
     @State var editName: Bool = false;
     
@@ -88,8 +88,8 @@ struct CanvasPanel: View {
 }
 
 struct CanvasHeader: View {
-    @ObservedObject var source: SourceInfo;
-    @ObservedObject var canvas: CanvasInfo;
+    @ObservedObject var source: ArtSource;
+    @ObservedObject var canvas: ArtCanvas;
     var isSelectable: Bool = true;
     var selected: Bool = false
     
@@ -111,7 +111,7 @@ struct CanvasHeader: View {
 }
 
 struct CanvasDetailHeader: View {
-    @ObservedObject var canvas: CanvasInfo;
+    @ObservedObject var canvas: ArtCanvas;
     
     var body: some View {
         HStack{

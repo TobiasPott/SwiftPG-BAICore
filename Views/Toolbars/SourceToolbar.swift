@@ -3,7 +3,7 @@ import SwiftUI
 struct SourceToolbar: View {
     @EnvironmentObject var state: AppState;
     
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var source: ArtSource;
     
     var body: some View {
             

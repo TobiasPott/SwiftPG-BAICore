@@ -3,7 +3,7 @@ import SwiftUI
 struct BrickArtLayer: View {
     @EnvironmentObject var state: AppState
     
-    var analysis: AnalysisInfo;
+    let analysis: AnalysisInfo;
     
     @Binding var drag: DragInfo
     @Binding var zoom: ZoomInfo

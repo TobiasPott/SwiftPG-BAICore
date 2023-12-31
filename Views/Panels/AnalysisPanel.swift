@@ -1,12 +1,12 @@
 import SwiftUI
-import simd;
+//import simd;
 import SwiftPG_Palettes
 
 struct AnalysisPanel: View {
     @EnvironmentObject var state: AppState;
     
-    @ObservedObject var source: SourceInfo;
-    @ObservedObject var canvas: CanvasInfo;
+    let source: ArtSource;
+    let canvas: ArtCanvas;
     
     @State var showColors: Bool = false;
     @State var showTiles: Bool = false;
@@ -52,7 +52,7 @@ struct AnalysisPanel: View {
         }
     }
     
-    public static func getColorListView(canvas: CanvasInfo, palette: Palette, isWide: Bool = false) -> some View {
+    public static func getColorListView(canvas: ArtCanvas, palette: Palette, isWide: Bool = false) -> some View {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         return AnyView( ColorSwatchList(mappedColorsWithCount: analysis.colorInfo.mappedColorCounts, palette: palette, isWide: isWide))
     }

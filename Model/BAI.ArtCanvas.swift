@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftPG_Palettes
 
-class CanvasInfo : ObservableObject, Identifiable, Codable
+class ArtCanvas : ObservableObject, Identifiable, Codable
 {
     private enum CodingKeys: String, CodingKey {
         case id, name, tileWidth, tileHeight, location, drag, isLocked, scale
@@ -60,7 +60,7 @@ class CanvasInfo : ObservableObject, Identifiable, Codable
         try container.encode(scale, forKey: .scale)
     }
     
-    func Analyse(_ source: SourceInfo, _ palette: Palette) -> Bool {
+    func Analyse(_ source: ArtSource, _ palette: Palette) -> Bool {
         return freeze(source, palette)
     }
     func DiscardAnalysis() -> Bool {
@@ -70,7 +70,7 @@ class CanvasInfo : ObservableObject, Identifiable, Codable
         }
         return false;
     }
-    private func freeze(_ source: SourceInfo, _ palette: Palette) -> Bool {
+    private func freeze(_ source: ArtSource, _ palette: Palette) -> Bool {
         var result: Bool = false;
         
         let context = CIContext()
@@ -115,7 +115,7 @@ class CanvasInfo : ObservableObject, Identifiable, Codable
         self.drag.fixedLocation = location;
     }
     
-    func equals(_ other: CanvasInfo?) -> Bool {
+    func equals(_ other: ArtCanvas?) -> Bool {
         guard let oCanvas = other else { return false; }
         return self.id == oCanvas.id
     }

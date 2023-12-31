@@ -4,7 +4,7 @@ struct BlueprintPanel: View {
     @EnvironmentObject var state: AppState
     
     @Binding var canvases: Canvases;
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var source: ArtSource;
     let isLandscape: Bool
     // ToDo: Move source drag & zoom to panel scope too!
     // Add "enabled" flag and consider grouping into packed info for both gestures
@@ -39,7 +39,7 @@ struct BlueprintPanel: View {
     
     func GetViewForState() -> some View {
         if (state.isNavState(.analysis)) {
-            guard let canvas: CanvasInfo = state.canvas else { return RootView.anyEmpty }
+            guard let canvas: ArtCanvas = state.canvas else { return RootView.anyEmpty }
             guard let analysis: AnalysisInfo = canvas.analysis else { return RootView.anyEmpty }
             return AnyView(BrickArtLayer(analysis: analysis, drag: $brickDrag, zoom: $brickZoom))
         } else {            

@@ -3,7 +3,7 @@ import SwiftUI
 struct CanvasesLayer: View {
     
     @Binding var canvases: Canvases;
-    @ObservedObject var source: SourceInfo;    
+    let source: ArtSource;    
     
     var borderColor: Color = Styling.white;
     

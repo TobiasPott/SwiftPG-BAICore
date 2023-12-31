@@ -4,7 +4,7 @@ import SwiftPG_CIFilters
 struct SourceFilterListPanel: View {
     @EnvironmentObject var state: AppState;
     
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var source: ArtSource;
     
     
     

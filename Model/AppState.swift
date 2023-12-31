@@ -14,14 +14,14 @@ public enum BrickOutlineMode {
 
 class AppState : ObservableObject
 {
-    @Published var showSplashScreen: Bool = false;
+    @Published var showSplashScreen: Bool = true;
     @Published var userMode: UserMode = .simple;   
     @Published var navState: NavState = .load;
     
     @Published var builtInPalette: BuiltInPalette = .legoSimple
     @Published var palette: Palette = Lego.simple
     
-    @Published var canvas: CanvasInfo? = nil;
+    @Published var canvas: ArtCanvas? = nil;
     
     @Published public var srcDragLocked: Bool = false;
     @Published public var srcZoomLocked: Bool = false;

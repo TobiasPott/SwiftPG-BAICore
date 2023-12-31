@@ -14,7 +14,7 @@ class AnalysisInfo : ObservableObject {
     
     public var size: CGSize { get { return CGSize(width: tileWidth * 16, height: tileHeight * 16); } }
     
-    init(_ canvas: CanvasInfo, image: PImage, palette: Palette) {
+    init(_ canvas: ArtCanvas, image: PImage, palette: Palette) {
         self.tileWidth = canvas.tileWidth;
         self.tileHeight = canvas.tileHeight;
         self.image = image;

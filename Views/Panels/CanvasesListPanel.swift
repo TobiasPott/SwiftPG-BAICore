@@ -3,7 +3,7 @@ import SwiftUI
 struct CanvasesListPanel: View {
     @EnvironmentObject var state: AppState;
     
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var source: ArtSource;
     @Binding var canvases: Canvases;
     
     @State var newCanvasWidth: Int = 3;
@@ -25,7 +25,7 @@ struct CanvasesListPanel: View {
                 
                 Spacer(minLength: 0)
                 RoundedButton(systemName: "plus.app.fill", action: {
-                    canvases.items.append(CanvasInfo(newCanvasWidth, newCanvasHeight, size: source.image.size));
+                    canvases.items.append(ArtCanvas(newCanvasWidth, newCanvasHeight, size: source.image.size));
                     if(state.canvas == nil) {
                         state.canvas = canvases.items[0];
                     }

@@ -31,8 +31,8 @@ class LoadInfo : ObservableObject {
         self.isImageSet = image != LoadInfo.defaultImage
     }
     
-    func getCanvas(refSize: CGSize) -> CanvasInfo {
-        return CanvasInfo(self.width, self.height, size: refSize)
+    func getCanvas(refSize: CGSize) -> ArtCanvas {
+        return ArtCanvas(self.width, self.height, size: refSize)
     }
     
     func reset() {

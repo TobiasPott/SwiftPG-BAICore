@@ -5,22 +5,22 @@ struct Canvases : Codable {
         case items
     }
     
- var items: [CanvasInfo];
+    var items: [ArtCanvas];
     
     
     init() {
         items = []
     }
-    init(_ initItems: [CanvasInfo]) {
+    init(_ initItems: [ArtCanvas]) {
         items = []
         items.append(contentsOf: initItems);
     }
     
-    subscript (index: Int) -> CanvasInfo {
+    subscript (index: Int) -> ArtCanvas {
         get { return items[index] }
         set(value) { items[index] = value }
     }
-    mutating func append(_ newElement: CanvasInfo) {
+    mutating func append(_ newElement: ArtCanvas) {
         self.items.append(newElement)
     }
     mutating func append(other: Canvases) {
@@ -32,7 +32,7 @@ struct Canvases : Codable {
     mutating func remove(atOffsets: IndexSet) {
         self.items.remove(atOffsets: atOffsets)
     }
-    mutating func reset(_ to: [CanvasInfo] = []) {
+    mutating func reset(_ to: [ArtCanvas] = []) {
         items.removeAll()
         items.append(contentsOf: to)
     }

@@ -3,8 +3,8 @@ import SwiftUI
 struct CanvasLayer: View {
     @EnvironmentObject var state: AppState;
     
-    @ObservedObject var canvas: CanvasInfo;
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var canvas: ArtCanvas;
+    let source: ArtSource;
     
     var borderColor: Color = Color.white;
     

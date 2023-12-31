@@ -4,7 +4,7 @@ struct SourceLayer: View {
     @EnvironmentObject var state: AppState
     
     @Binding var canvases: Canvases;
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var source: ArtSource;
     
     var body: some View {
         ZStack {

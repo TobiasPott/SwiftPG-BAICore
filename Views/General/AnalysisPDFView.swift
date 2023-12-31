@@ -4,8 +4,8 @@ import SwiftPG_Palettes
 
 struct AnalysisPDFView: View {
     
-    let source: SourceInfo;
-    let canvas: CanvasInfo;
+    let source: ArtSource;
+    let canvas: ArtCanvas;
     let palette: Palette
     
     let outWidth: CGFloat;
@@ -54,8 +54,8 @@ struct AnalysisPDFView: View {
 
 struct PlatePDFPage: View {
     
-    let source: SourceInfo;
-    let canvas: CanvasInfo;
+    let source: ArtSource;
+    let canvas: ArtCanvas;
     let palette: Palette
     
     @State var coords: Int2

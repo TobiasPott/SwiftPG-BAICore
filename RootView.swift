@@ -7,7 +7,7 @@ struct RootView: View {
     @StateObject var state: AppState = AppState();
     @State var canvases: Canvases = Canvases();
     
-    @StateObject var source: SourceInfo = SourceInfo();
+    @StateObject var source: ArtSource = ArtSource();
     @StateObject var load: LoadInfo = LoadInfo(3, 3);
     
     var body: some View {

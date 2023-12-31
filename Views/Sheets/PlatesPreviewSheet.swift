@@ -6,7 +6,7 @@ struct PlatesPreviewSheet: View {
     @EnvironmentObject var state: AppState;
     
     @Binding var isOpen: Bool
-    @ObservedObject var canvas: CanvasInfo;
+    @ObservedObject var canvas: ArtCanvas;
     
     @Binding var selection: Int2
     
@@ -33,7 +33,7 @@ struct PlatesPreviewSheet: View {
         }.padding()
     }
     
-    public static func getTilePickerView(canvas: CanvasInfo, selection: Binding<Int2>) -> some View {
+    public static func getTilePickerView(canvas: ArtCanvas, selection: Binding<Int2>) -> some View {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         
         return AnyView(ZStack {
@@ -58,7 +58,7 @@ struct PlatesPreviewSheet: View {
             }
         })
     }
-    public static func getTileArt(canvas: CanvasInfo, tileCoords: Int2, display: BrickOutlineMode = .none) -> AnyView {
+    public static func getTileArt(canvas: ArtCanvas, tileCoords: Int2, display: BrickOutlineMode = .none) -> AnyView {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         
         return AnyView(
@@ -72,7 +72,7 @@ struct PlatesPreviewSheet: View {
         )
     }
     
-    public static func getTileColorList(canvas: CanvasInfo, tileCoords: Int2, palette: Palette, isWide: Bool) -> AnyView {
+    public static func getTileColorList(canvas: ArtCanvas, tileCoords: Int2, palette: Palette, isWide: Bool) -> AnyView {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         
         let tIndex = tileCoords.y * canvas.tileWidth + tileCoords.x;

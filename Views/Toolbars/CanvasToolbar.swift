@@ -3,8 +3,8 @@ import SwiftUI
 struct CanvasToolbar: View {
     @EnvironmentObject var state: AppState;
     
-    @ObservedObject var canvas: CanvasInfo;
-    @ObservedObject var source: SourceInfo;
+    @ObservedObject var canvas: ArtCanvas;
+    @ObservedObject var source: ArtSource;
     
     @State var sliderChange: Bool = false;
     var body: some View {
