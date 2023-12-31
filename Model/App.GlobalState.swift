@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftPG_Palettes
 
+// ToDo: Finish renaming type to match file name
 
 public enum NavState: Equatable, Codable {
     case load, setup, analysis

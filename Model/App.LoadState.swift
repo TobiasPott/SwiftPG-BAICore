@@ -1,6 +1,7 @@
 import SwiftUI
 import SwiftPG_Palettes
 
+// ToDo: Finish renaming type to match file name
 class LoadInfo : ObservableObject {
     public static let defaultImage: PImage = PImage();
     

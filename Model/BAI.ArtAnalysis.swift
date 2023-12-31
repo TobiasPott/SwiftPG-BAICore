@@ -1,15 +1,15 @@
 import SwiftUI
 import SwiftPG_Palettes
 
-class AnalysisInfo : ObservableObject {   
+class ArtAnalysis : ObservableObject {   
     @Published public var tileWidth: Int;
     @Published public var tileHeight: Int;
     
     @Published var image: PImage;
     
-    @Published public var colorInfo: ColorAnalysisInfo = ColorAnalysisInfo();
+    @Published public var colorInfo: ArtColors = ArtColors();
     
-    public var tileInfos: [ColorAnalysisInfo] = []
+    public var tileInfos: [ArtColors] = []
     
     
     public var size: CGSize { get { return CGSize(width: tileWidth * 16, height: tileHeight * 16); } }
@@ -35,7 +35,7 @@ class AnalysisInfo : ObservableObject {
         for tY in 0..<tileHeight {
             for tX in 0..<tileWidth {
                 //                print("AnalysisInfo.init: Color Info: \(tX) \(tY)")
-                tileInfos.append(ColorAnalysisInfo(tX * 16, tY * 16, 16, 16, inColors: pixels, rowLength: tileWidth * 16, palette: palette))
+                tileInfos.append(ArtColors(tX * 16, tY * 16, 16, 16, inColors: pixels, rowLength: tileWidth * 16, palette: palette))
             }
         }
         

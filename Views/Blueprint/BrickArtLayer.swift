@@ -3,7 +3,7 @@ import SwiftUI
 struct BrickArtLayer: View {
     @EnvironmentObject var state: AppState
     
-    let analysis: AnalysisInfo;
+    let analysis: ArtAnalysis;
     
     @Binding var drag: DragInfo
     @Binding var zoom: ZoomInfo
@@ -56,7 +56,7 @@ struct BrickArtLayer: View {
 
 struct BrickCanvasView: View {
     
-    let analysis: AnalysisInfo
+    let analysis: ArtAnalysis
     var display: BrickOutlineMode = .none;
     
     var body: some View {
@@ -83,7 +83,7 @@ struct BrickTileView: View {
     static let outline: PImage = PImage(imageLiteralResourceName: BrickTileView.initalOutlineResourceName)
     
     
-    let colorInfo: ColorAnalysisInfo
+    let colorInfo: ArtColors
     var display: BrickOutlineMode = .none;
     
     var xOffset: Int = 0;

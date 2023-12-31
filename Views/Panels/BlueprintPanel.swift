@@ -40,7 +40,7 @@ struct BlueprintPanel: View {
     func GetViewForState() -> some View {
         if (state.isNavState(.analysis)) {
             guard let canvas: ArtCanvas = state.canvas else { return RootView.anyEmpty }
-            guard let analysis: AnalysisInfo = canvas.analysis else { return RootView.anyEmpty }
+            guard let analysis: ArtAnalysis = canvas.analysis else { return RootView.anyEmpty }
             return AnyView(BrickArtLayer(analysis: analysis, drag: $brickDrag, zoom: $brickZoom))
         } else {            
             return AnyView(SourceLayer(canvases: $canvases, source: source))

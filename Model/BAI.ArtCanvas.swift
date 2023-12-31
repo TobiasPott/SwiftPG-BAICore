@@ -19,7 +19,7 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
     
     var maxScale: CGFloat = 64.0
     // analysis info
-    @Published public var analysis: AnalysisInfo? = nil;
+    @Published public var analysis: ArtAnalysis? = nil;
     
     public var aspect: CGFloat { get { return CGFloat(tileHeight) / CGFloat(tileWidth); } }
     public var size: CGSize {
@@ -94,7 +94,7 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
         // attempt to get a CGImage from our CIImage
         if let cgimg = context.createCGImage(fixedImage, from: grabRect) {
             // create analysis
-            self.analysis = AnalysisInfo(self, image: PImage(cgImage: cgimg), palette: palette);
+            self.analysis = ArtAnalysis(self, image: PImage(cgImage: cgimg), palette: palette);
             result = true;
         }
         return result;
@@ -119,4 +119,46 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
         guard let oCanvas = other else { return false; }
         return self.id == oCanvas.id
     }
+}
+
+struct Canvases : Codable {
+    private enum CodingKeys: String, CodingKey {
+        case items
+    }
+    
+    var items: [ArtCanvas];
+    
+    init() {
+        items = []
+    }
+    init(_ initItems: [ArtCanvas]) {
+        items = []
+        items.append(contentsOf: initItems);
+    }
+    
+    subscript (index: Int) -> ArtCanvas {
+        get { return items[index] }
+        set(value) { items[index] = value }
+    }
+    mutating func append(_ newElement: ArtCanvas) {
+        self.items.append(newElement)
+    }
+    mutating func append(other: Canvases) {
+        self.items.append(contentsOf: other.items)
+    }
+    mutating func remove(at: Int) {
+        self.items.remove(at: at)
+    }
+    mutating func remove(atOffsets: IndexSet) {
+        self.items.remove(atOffsets: atOffsets)
+    }
+    mutating func reset(_ to: [ArtCanvas] = []) {
+        items.removeAll()
+        items.append(contentsOf: to)
+    }
+    mutating func reset(_ to: Canvases) {
+        items.removeAll()
+        items.append(contentsOf: to.items)
+    }
+    
 }

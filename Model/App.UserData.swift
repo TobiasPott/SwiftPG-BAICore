@@ -1,5 +1,7 @@
 import SwiftUI
 
+// ToDo: Finish renaming type to match file name
+
 public struct IO {
     public static let keyLastCanvases: String = "lastCanvases";
     public static let keyLastSource: String = "lastSource";    

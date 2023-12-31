@@ -12,7 +12,7 @@ struct AnalysisPDFView: View {
     
     var body: some View {
         if(canvas.analysis != nil) {
-            let analysis: AnalysisInfo = canvas.analysis!;    
+            let analysis: ArtAnalysis = canvas.analysis!;    
             VStack {
                 GroupBox(content: {
                     HStack {

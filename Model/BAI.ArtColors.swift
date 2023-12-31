@@ -1,7 +1,7 @@
 import SwiftUI
 import SwiftPG_Palettes
 
-class ColorAnalysisInfo: ObservableObject {    
+class ArtColors: ObservableObject {    
     @Published public var width: Int = 16;
     @Published public var height: Int = 16;
     
@@ -37,7 +37,7 @@ class ColorAnalysisInfo: ObservableObject {
             }
         }
         
-//        self.mappedColorCounts = [:]
+        //        self.mappedColorCounts = [:]
         var uniqueClrs: [MultiColor] = Array<MultiColor>(Set(self.colors))
         uniqueClrs.sort(by: { $0.hue > $1.hue})
         for clr in uniqueClrs {
