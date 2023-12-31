@@ -18,8 +18,8 @@ let package = Package(
             targets: ["AppModule"],
             bundleIdentifier: "de.tobiaspott.playground.brickartinstructor",
             teamIdentifier: "LR2W97LX43",
-            displayVersion: "0.8.1",
-            bundleVersion: "53",
+            displayVersion: "0.8.2",
+            bundleVersion: "54",
             appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.blue),
             supportedDeviceFamilies: [
@@ -33,15 +33,15 @@ let package = Package(
                 .portraitUpsideDown(.when(deviceFamilies: [.pad]))
             ],
             capabilities: [
+                .fileAccess(.pictureFolder, mode: .readWrite),
                 .fileAccess(.downloadsFolder, mode: .readWrite),
-                .fileAccess(.userSelectedFiles, mode: .readWrite),
-                .fileAccess(.pictureFolder, mode: .readWrite)
+                .fileAccess(.userSelectedFiles, mode: .readWrite)
             ],
             appCategory: .graphicsDesign
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/TobiasPott/SwiftPG-CIFilters.git", "1.0.0"..<"2.0.0"),
+        .package(url: "https://github.com/TobiasPott/SwiftPG-CIFilters.git", "1.0.0"..<"2.0.0")
     ],
     targets: [
         .executableTarget(

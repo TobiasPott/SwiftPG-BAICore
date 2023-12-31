@@ -12,7 +12,7 @@ struct BrickArtLayer: View {
         GeometryReader(content: { geometry in
             ZStack {
                 ZStack{
-                    BlueprintGrid(baseSpacing: 32).scaleEffect(16.0)
+                    BlueprintGrid(baseSpacing: 128, lineWidth: 0.25).scaleEffect(12.0)
                     BrickCanvasView(analysis: analysis, display: state.brickOutline)
                         .overlay(content: {
                             Grid(cols: floor(analysis.size.width / 16), rows: floor(analysis.size.height / 16), gridColor: Styling.white)

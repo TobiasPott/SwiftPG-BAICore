@@ -10,6 +10,15 @@ public struct Palette: Identifiable, Hashable {
     
     public var count: Int { artColors.count }
     
+    public init(name: String, colors: [ArtColor]) {
+        self.name = name;
+        for i in 0..<colors.count {
+            if (!artColors.contains(where: { aClr in aClr.name == colors[i].name })) {
+                artColors.append(colors[i])
+            }
+        }
+//        artColors.sort { lh, rh in lh.name < rh.name }
+    }
     public init(name: String, colors: [ColorType], names: [String]) {
         self.name = name;
         for i in 0..<colors.count {
@@ -17,9 +26,7 @@ public struct Palette: Identifiable, Hashable {
                 artColors.append(ArtColor(name: names[i], color: colors[i]))
             }
         }
-        artColors.sort { lh, rh in
-            lh.name < rh.name
-        }
+//        artColors.sort { lh, rh in lh.name < rh.name }
     }
     public func get(_ index: Int) -> ArtColor {
         return artColors[index]

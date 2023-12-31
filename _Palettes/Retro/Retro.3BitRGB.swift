@@ -4,12 +4,19 @@ import SwiftUI
 
 public extension ArtPalette {
     
-    static let rgb3bit: Palette = Palette(name: "Retro RGB 3-Bit", colors: rgb3BitColors, names: rgb3BitColorNames)
+    static let rgb3bit: Palette = Palette(name: "Retro RGB 3-Bit", colors: rgb3BitColors)
     
     // 3-Bit RGB Retro PC to Lego mapped color palette
-    private static let rgb3BitColorNames: [String] = [ "black", "blue", "green", "cyan", "red", "magenta", "yellow", "white" ];
-    private static let rgb3BitColors: [ColorType] = [ArtPalette.black, ArtPalette.blue, ArtPalette.brightGreen, ArtPalette.lightTurquoise, ArtPalette.red, ArtPalette.pink, ArtPalette.yellow, ArtPalette.white];
-    
+    private static let rgb3BitColors: [ArtColor] = [
+        ArtColor(White, white),
+        ArtColor(Black, black),
+        ArtColor(Red, red),
+        ArtColor(BrightGreen, brightGreen),
+        ArtColor(Blue, blue),
+        ArtColor(Pink, pink),
+        ArtColor(Yellow, yellow),
+        ArtColor(LightTurquoise, lightTurquoise),
+    ]
     // ToDo: Add 'dark'/'bright' color variants
     //    
     //    static let rgbi4bit: Palette = Palette(name: "Retro RGBI 4-Bit", colors: Retro8Bit.rgbi4BitColors, names: Retro8Bit.rgbi4BitColorNames)

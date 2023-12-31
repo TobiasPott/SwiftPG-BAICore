@@ -1,10 +1,20 @@
 import SwiftUI
 
 public extension ArtPalette {
-    static let worldMap: Palette = Palette(name: "Lego World Map", colors: worldMapColors, names: worldMapColorNames)
+    static let worldMap: Palette = Palette(name: "Lego World Map", colors: worldMapColors)
     
     // World Map color palette
-    private static let worldMapColorNames: [String] = [ "white", "tan", "orange", "mediumAzure", "lime", "darkTurquoise", "darkBlue", "coral", "brightLightOrange", "brightGreen" ];
-    private static let worldMapColors: [ColorType] = [white, tan, orange, mediumAzure, lime, darkTurquoise, darkBlue, coral, brightLightOrange, brightGreen ];
+    private static let worldMapColors: [ArtColor] = [
+        ArtColor(White, white),
+        ArtColor(Tan, tan),
+        ArtColor(Orange, orange),
+        ArtColor(MediumAzure, mediumAzure),
+        ArtColor(Lime, lime),
+        ArtColor(DarkTurquoise, darkTurquoise),
+        ArtColor(DarkBlue, darkBlue),
+        ArtColor(Coral, coral),
+        ArtColor(BrightLightOrange, brightLightOrange),
+        ArtColor(BrightGreen, brightGreen)
+    ]
     
 }

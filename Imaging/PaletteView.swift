@@ -46,6 +46,7 @@ struct PalettePreview: View {
             LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size), spacing: 2, alignment: Alignment.topTrailing)]) {
                 ForEach(0..<palette.count, id: \.self) { i in
                     palette.artColors[i].swuiColor.aspectRatio(1.0, contentMode: .fit)
+                        .mask(Styling.roundedRectHalf)
                 }
             }
             HStack { Text("Contains \(palette.count) Color\(palette.count > 1 ? "s" : "")"); Spacer(); }.font(Styling.captionFont)

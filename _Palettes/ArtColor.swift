@@ -11,3 +11,11 @@ public struct ArtColor : Identifiable, Hashable {
         hasher.combine(name)
     }
 }
+
+public extension ArtColor {
+    
+    init(_ name: String, _ color: MultiColor) {
+        self.name = name;
+        self.color = color;
+    }
+}
