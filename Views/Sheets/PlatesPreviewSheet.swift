@@ -18,7 +18,7 @@ struct PlatesPreviewSheet: View {
                         GuideText(text: "Select the plate you want to preview and show the color list for.")
                         HStack(alignment: VerticalAlignment.top) { 
                             PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: $selection)
-                                .frame(maxWidth: 200, alignment: Alignment.leading)
+                                .frameRow(200, Alignment.leading)
                             Spacer()
                             PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .outlined)
                                 .overlay(content: { Grid(4, gridColor: Styling.white.opacity(0.5)) })      
@@ -29,7 +29,7 @@ struct PlatesPreviewSheet: View {
             })
             HStack { Spacer()
                 Button("Close", action: { isOpen.toggle() })    
-            }.frameInfinity(.topTrailing).padding()
+            }.frameStretch(.topTrailing).padding()
         }.padding()
     }
     
@@ -48,7 +48,7 @@ struct PlatesPreviewSheet: View {
                                 selection.wrappedValue = coords;
                             }, label: {
                                 Rectangle()
-                                    .foregroundColor(isSelected ? Color.clear : Color.black.opacity(0.2))
+                                    .foregroundColor(isSelected ? Styling.clear : Color.black.opacity(0.2))
                                     .aspectRatio(1.0, contentMode: .fit)
                                     .border(isSelected ? Styling.white : Styling.black, width: 1.0)
                             })

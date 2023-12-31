@@ -16,21 +16,21 @@ struct BlueprintPanel: View {
             let geoSize = geometry.size;
             ZStack(alignment: Alignment.center) {
                 GetViewForState()
-                    .frame(maxWidth: geoSize.width, maxHeight: geoSize.height, alignment: Alignment.center) 
+                    .frameMax(geoSize, Alignment.center)
                     .mask(Styling.roundedRect)
                 
                 VStack(spacing: 6) {
                     if (state.isNavState([.setup])) { SourceToolbar(source: source); }
                     if (state.isNavState(.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
                 }
-                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.leading)
+                .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.leading)
                 .padding(.all, 6)
                 
                 VStack(spacing: 6) {
 //                    BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom)
                     if (state.isNavState(.analysis)) { BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom); }
                 }
-                .frame(maxWidth: .infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)
+                .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)
                 .padding(.all, 6)
             }
         }

@@ -77,7 +77,7 @@ struct PlatePDFPage: View {
                     PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: coords, palette: palette, isWide: true)
                     Spacer(minLength: 0)
                 }
-                .frame(maxHeight: .infinity)
+                .frame(maxHeight: CGFloat.infinity)
                 PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .outlined)
                     .overlay(content: {
                         Grid(4, gridColor: Styling.white.opacity(0.5))

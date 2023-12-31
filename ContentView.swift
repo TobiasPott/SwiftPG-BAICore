@@ -17,18 +17,18 @@ struct ContentView: View {
             ZStack {
                 RoundedPanel(content: {
                     BlueprintPanel(canvases: $canvases, source: source, isLandscape: isLandscape)
-                        .frame(maxHeight: isLandscape ? .infinity : 380)
+                        .frame(maxHeight: isLandscape ? CGFloat.infinity : 380)
                     ZStack {
                         VStack {
                             MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
                                 .padding([.leading, .top, .trailing])
                             contentPanel
                         }
-                        .frame(maxWidth: 800, alignment: Alignment.center)
+                        .frameRow(800, Alignment.center)
                     }
                     .frame(alignment: Alignment.center)
                     
-                }, orientation: isLandscape ? .horizonal : .vertical, padding: 0, background: .clear)
+                }, orientation: isLandscape ? .horizonal : .vertical, padding: 0, background: Styling.clear)
                 
                 if (state.showSplashScreen) {
                     SplashScreenPanel(isOpen: $state.showSplashScreen, isLandscape: isLandscape)

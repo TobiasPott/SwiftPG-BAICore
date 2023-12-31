@@ -24,7 +24,7 @@ struct SourceCodeSheet: View {
                     
                     Text("Source Code").font(Styling.headlineFont).padding(.bottom, 6).padding(.top)
                     Text("BAI is split into a core repository and wrapper repositories for different development platforms I use for distribution or transpilation for other platforms.")
-                        .frame(maxWidth: .infinity, alignment: Alignment.topLeading)
+                        .frameRow()
                         .padding(.bottom, 3)
                     HStack {
                         Text("BAI Core"); Spacer(minLength: 0); Link("on GitHub", destination: .init(string: "https://github.com/TobiasPott/SwiftPG-BAICore/")!)
@@ -39,35 +39,35 @@ struct SourceCodeSheet: View {
                     VStack(alignment: HorizontalAlignment.leading, spacing: 6) {
                         DisclosureGroup("Pexels") {
                             Text("Pexels is used as a source for public domain and creative-common licensed images. Some of the sample images are source from pexels.com")
-                                .frame(maxWidth: .infinity, alignment: Alignment.topLeading)
+                                .frameRow()
                             HStack {
                                 Spacer(); Link("Visit Website", destination: .init(string: "https://www.pexels.com")!)
                             }
                         }
                         DisclosureGroup("Color-Term") {
                             Text("Color-Term is the source of the extensive list of lego colors and their respective component values and names. It also has other interesting color palettes available online.")
-                                .frame(maxWidth: .infinity, alignment: Alignment.topLeading)
+                                .frameRow()
                             HStack {
                                 Spacer(); Link("Visit Website", destination: .init(string: "https://color-term.com/lego-colors")!)
                             }
                         }
                         DisclosureGroup("VSlider") {
                             Text("VSlider by John Mueller is used for the HUD/On-Screen controls. It provides a low profile slider for the zoom controls.")
-                                .frame(maxWidth: .infinity, alignment: Alignment.topLeading)
+                                .frameRow()
                             HStack {
                                 Spacer(); Link("Visit Website", destination: .init(string: "https://github.com/john-mueller/SwiftUI-Examples/blob/master/SwiftUI-Examples/VSlider/VSlider.swift")!)
                             }
                         }
                         DisclosureGroup("National Gallery of Art") {
                             Text("The National Gallery of Art provided open art images which are used as samples.")
-                                .frame(maxWidth: .infinity, alignment: Alignment.topLeading)
+                                .frameRow()
                             HStack {
                                 Spacer(); Link("Visit Website", destination: .init(string: "https://www.nga.gov/global-site-search-page.html?searchterm=")!)
                             }
                         }
                         DisclosureGroup("Microsoft Bing Image Creator") {
                             Text("The Dall-E powered Bing Image Creator is used to create some of the provided samples and graphics.")
-                                .frame(maxWidth: .infinity, alignment: Alignment.topLeading)
+                                .frameRow()
                             HStack {
                                 Spacer(); Link("Visit Website", destination: .init(string: "https://www.bing.com/images/create?FORM=GENILP")!)
                             }
@@ -86,7 +86,7 @@ struct SourceCodeSheet: View {
             
             HStack { Spacer()
                 Button("Close", action: { isOpen.toggle() })    
-            }.frameInfinity(Alignment.topTrailing).padding().padding()
+            }.frameStretch(Alignment.topTrailing).padding().padding()
         }
         
     }

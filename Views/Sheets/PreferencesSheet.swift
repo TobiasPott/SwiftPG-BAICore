@@ -22,7 +22,7 @@ struct PreferencesSheet: View {
             
             HStack { Spacer()
                 Button("Close", action: { isOpen.toggle() })    
-            }.frameInfinity(.topTrailing).padding().padding()
+            }.frameStretch(.topTrailing).padding().padding()
         }
         
     }

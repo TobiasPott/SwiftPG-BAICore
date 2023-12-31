@@ -5,7 +5,7 @@ struct UserModePicker: View {
     @Binding var userMode: UserMode
     
     var body: some View {
-    
+        
         Picker(selection: $userMode, content: {
             Label("Guided", systemImage: "info.bubble").tag(UserMode.guided)
             Label("Simple", systemImage: "rectangle").tag(UserMode.simple)
@@ -42,7 +42,7 @@ struct Highlight<Content: View>: View{
                     Spacer()
                     icon
                         .mask(Styling.roundedRectTLBR)
-                        .frame(width: 20, height: 20)
+                        .frameSquare(20)
                 }
                 .padding(.top, -16)
             }
@@ -101,7 +101,7 @@ struct CompactIconPicker<Content: View>: View {
                     .padding(.trailing, -16)
             }
         }
-        .frame(maxWidth: 36 + size + (autoExpand ? .infinity : 0))
+        .frame(maxWidth: 36 + size + (autoExpand ? CGFloat.infinity : 0))
     }
 }
 
@@ -120,16 +120,12 @@ struct CompactSwatch: View {
             color.swuiColor
                 .mask(Styling.roundedRect).aspectRatio(1.0, contentMode: .fit)
             VStack(alignment: HorizontalAlignment.leading) {
-                HStack(spacing: 0) {
-                    Text("x \(numberOfUses)").fontWeight(.bold)
-                    Spacer();
-                }
-                HStack(spacing: 0) {
-                    Text("\(colorInfo.name)")
-
-                }
-            }.padding(.horizontal, 3).colorSwatchOverlay().frameInfinity(.topLeading)
-                .font(Styling.footnoteFont)
+                HStack(spacing: 0) { Text("x \(numberOfUses)"); Spacer(); }.fontWeight(.bold)
+                HStack(spacing: 0) { Text("\(colorInfo.name)") }
+            }
+            .padding(.horizontal, 3)
+            .frameStretch(Alignment.topLeading)
+            .font(Styling.footnoteFont)
         }
     }
     

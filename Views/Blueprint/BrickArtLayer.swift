@@ -19,7 +19,7 @@ struct BrickArtLayer: View {
                         })
                 }
                 .scaleEffect(zoom.scale, anchor: .center)
-                .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+                .frameMax(geometry.size)
                 
             }
             .gesture(GetDragGesture(), enabled: true)
@@ -29,7 +29,7 @@ struct BrickArtLayer: View {
             if (drag.active) {
                 BrickCanvasView(analysis: analysis, display: .none)
                     .scaleEffect(zoom.scale, anchor: .center)
-                    .frame(maxWidth: geometry.size.width, maxHeight: geometry.size.height)
+                    .frameMax(geometry.size)
                     .offset(drag.location.cgSize())
             }
         })

@@ -48,7 +48,7 @@ struct RoundedButton: View {
         Button(action: action, label: {
             Image(systemName: systemName)
                 .rs()
-                .square(size - padding)
+                .frameSquare(size - padding)
                 .foregroundColor(foreground)
                 .padding(padding)
         })

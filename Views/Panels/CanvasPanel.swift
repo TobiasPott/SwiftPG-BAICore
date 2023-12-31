@@ -30,7 +30,7 @@ struct CanvasPanel: View {
         HStack(alignment: VerticalAlignment.center) {
             getControlsView()
                 .frame(width: 120)
-                .frame(maxHeight: .infinity)
+                .frame(maxHeight: CGFloat.infinity)
             VStack {
                 if(canvas.analysis != nil) {
                     let img = canvas.analysis?.image;
@@ -38,13 +38,13 @@ struct CanvasPanel: View {
                         .interpolation(.none).resizable()
                         .frame(maxHeight: 320)
                         .scaledToFit()
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: CGFloat.infinity)
                         .mask(Styling.roundedRect)
                 }
                 else
                 {
                     SNImage.questionmarkApp.rs(fit: true)
-                        .frame(maxWidth: 32, maxHeight: 32, alignment: Alignment.center)
+                        .frameMax(32, Alignment.center)
                         .frame(maxWidth: CGFloat.infinity)
                 }
             }

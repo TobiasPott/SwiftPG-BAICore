@@ -13,6 +13,6 @@ struct CanvasesLayer: View {
                 CanvasLayer(canvas: canvas, source: source, borderColor: borderColor)
             }
         }
-        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: Alignment.topLeading)
+        .frameStretch(Alignment.topLeading)
     }
 }

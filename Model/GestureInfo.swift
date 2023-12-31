@@ -39,7 +39,7 @@ public struct ZoomInfo: Codable {
     var lastScale: CGFloat = ZoomInfo.defaultScale;
     
     mutating func update(_ value: CGFloat, _ apply: Bool = false) {
-        self.scale = (self.lastScale * value).clamped(lowerBound: 0.001, upperBound: .infinity)
+        self.scale = (self.lastScale * value).clamped(lowerBound: 0.001, upperBound: CGFloat.infinity)
         if (apply) {
             self.lastScale = self.scale;
         }

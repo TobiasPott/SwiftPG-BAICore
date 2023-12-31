@@ -42,7 +42,7 @@ struct SourceFilterListPanel: View {
             }
             .onDelete(perform: deleteFilter)
         }
-        .frame(maxWidth: .infinity)    
+        .frame(maxWidth: CGFloat.infinity)    
         // only display footer if list has items
         if (source.filters.count > 0) {
             Divider()
