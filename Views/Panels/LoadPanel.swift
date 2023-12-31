@@ -14,7 +14,7 @@ struct LoadPanel: View {
     
     var body: some View {
         
-        GroupBox(label: Text("Create your Brick Art").font(Styling.title2Font), content: { })
+        GroupBox(label: Text("Make your Brick Art").font(Styling.title2Font), content: { })
         
         UserModePicker(userMode: $state.userMode)
             .pickerStyle(.segmented)

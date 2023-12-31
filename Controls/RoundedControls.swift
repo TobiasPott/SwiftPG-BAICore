@@ -1,5 +1,28 @@
 import SwiftUI
 
+struct RoundedLockButton: View {
+    let systemName: String;
+    var size: CGFloat = Styling.buttonSize;
+    let action: () -> Void;
+    
+    let isLocked: Bool;
+    
+    var foreground: Color = Color.white;
+    var background: Color = Styling.buttonColor;    
+    var padding: CGFloat = Styling.buttonPadding;
+    
+    var body: some View {
+        RoundedButton(systemName: systemName, size: size, action: action, foreground: foreground, background: background, padding: padding)
+            .overlay(content: {
+                Styling.roundedRectHalfTRBL.foregroundColor(isLocked ? Styling.red : Styling.green)
+                    .frameSquare(size / 3.5)
+                    .frameMax(size, Alignment.topTrailing)
+            })
+                
+    }
+}
+
+
 struct RoundedStateButton: View {
     let systemName: String;
     var size: CGFloat = Styling.buttonSize;
@@ -72,54 +95,3 @@ struct RoundedButtonMini: View {
         RoundedButton(systemName: systemName, size: size, action: action, foreground: foreground, background: background, padding: padding)
     }
 }
-public enum PanelOrientation {
-    case horizonal, vertical
-}
-
-struct RoundedPanel<Content: View>: View {
-    
-    @ViewBuilder let content: () -> Content;
-    let orientation: PanelOrientation;
-    var padding: CGFloat = 0;
-    var background: Color = Styling.panelColor; 
-    var paddingIsSpacing: Bool = true;
-    
-    var verticalAlignment: HorizontalAlignment = .center;
-    var horizontalAlignment: VerticalAlignment = .center; 
-    
-    var body: some View {
-        Group {
-            if(orientation == .vertical) {
-                VStack(alignment: verticalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
-            } else {
-                HStack(alignment: horizontalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
-            }
-        }
-        .padding(.all, padding)
-        .background(Styling.roundedRect.foregroundColor(background).opacity(0.75))
-    }
-}
-
-struct RoundedScrollPanel<Content: View>: View {
-    
-    @ViewBuilder let content: () -> Content;
-    let orientation: PanelOrientation    
-    var scrollAxes: Axis.Set = [.vertical, .horizontal] 
-    var padding: CGFloat = 4;
-    var background: Color = Styling.panelColor; 
-    var paddingIsSpacing: Bool = true;
-    
-    var verticalAlignment: HorizontalAlignment = .center;
-    var horizontalAlignment: VerticalAlignment = .center; 
-    
-    var body: some View {
-        GeometryReader(content: { geometry in
-            let size = geometry.size;
-            ScrollView(scrollAxes, content: {
-                RoundedPanel(content: { content() }, orientation: orientation, padding: padding, background: background, paddingIsSpacing: paddingIsSpacing, verticalAlignment: verticalAlignment, horizontalAlignment: horizontalAlignment)
-                    .frame(minWidth: size.width)
-            })
-        })
-    }
-}
-

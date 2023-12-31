@@ -19,8 +19,13 @@ public extension Styling {
     static let roundedCornerRadius: CGFloat = 6;
     static let roundedCornerSize: CGSize = CGSize(width: roundedCornerRadius, height: roundedCornerRadius);
     static let roundedRect: RoundedRectangle = RoundedRectangle(cornerSize: roundedCornerSize)
+    static let roundedRectTLBR = UnevenRoundedRectangle(topLeadingRadius: roundedCornerRadius, bottomTrailingRadius: roundedCornerRadius)
+    static let roundedRectTRBL = UnevenRoundedRectangle(bottomLeadingRadius: roundedCornerRadius, topTrailingRadius: roundedCornerRadius)
+    
+    
     static let roundedRectHalf: RoundedRectangle = RoundedRectangle(cornerSize: CGSize(width: roundedCornerRadius / 2, height: roundedCornerRadius / 2))
-    static let roundedRectTLBR = UnevenRoundedRectangle(topLeadingRadius: Styling.roundedCornerRadius, bottomTrailingRadius: Styling.roundedCornerRadius)
+    static let roundedRectHalfTLBR = UnevenRoundedRectangle(topLeadingRadius: roundedCornerRadius / 2, bottomTrailingRadius: roundedCornerRadius / 2)
+    static let roundedRectHalfTRBL = UnevenRoundedRectangle(bottomLeadingRadius: roundedCornerRadius / 2, topTrailingRadius: roundedCornerRadius / 2)
     
     
 }

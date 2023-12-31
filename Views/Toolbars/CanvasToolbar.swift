@@ -8,13 +8,11 @@ struct CanvasToolbar: View {
     
     @State var sliderChange: Bool = false;
     var body: some View {
-        RoundedPanel(content: {
+        ToolbarPanel(content: {
+            RoundedLockButton(systemName: "square.arrowtriangle.4.outward", size: 28, action: { canvas.isLocked.toggle(); }, isLocked: canvas.isLocked)
             
-            RoundedStateButton(systemName: "lock.fill", action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray)
-            
-            if (!state.isNavState(.analysis)) {
+            if (!state.isNavState(.analysis) && !canvas.isLocked) {
                 VStack(content: {
-                    SNImage.squareArrowTriangle4Outward.rs().padding(5)
                     VerticalSlider<CGFloat>(value: $canvas.scale, in: 1.0...canvas.maxScale, step: 0.1, onEditingChanged: { changed in
                         if (sliderChange) {
                             _ = canvas.Analyse(source, state.palette)
@@ -28,7 +26,7 @@ struct CanvasToolbar: View {
                     Text("\(String(format: "%.1f", canvas.scale))")
                         .frame(maxHeight: 22)
                 })    
-                .frame(maxWidth: Styling.buttonSize)
+                .frame(maxWidth: 28)
                 .font(Styling.captionFont)
             }
         }, orientation: .vertical)                

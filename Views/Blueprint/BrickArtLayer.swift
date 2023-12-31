@@ -19,7 +19,7 @@ struct BrickArtLayer: View {
                         })
                 }
                 .scaleEffect(zoom.scale, anchor: .center)
-                .frameMax(geometry.size)
+                .frameMax(geometry.size, Alignment.center)
                 
             }
             .gesture(GetDragGesture(), enabled: true)
