@@ -22,7 +22,7 @@ struct SplashScreenPanel: View {
                             Styling.appIcon.swuiImage
                                 .rs(fit: true)
                                 .mask(Styling.roundedRect)
-                                .shadow(color: .black.opacity(0.75), radius: 10)
+                                .shadow(color: Styling.black.opacity(0.75), radius: 10)
                             Text("Open Brick Art Instructor").font(Styling.titleFont)
                             Text("(will continue in \(duration)s)").font(Styling.caption2Font)
                         }

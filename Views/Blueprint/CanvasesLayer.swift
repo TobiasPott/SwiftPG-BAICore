@@ -5,7 +5,7 @@ struct CanvasesLayer: View {
     @Binding var canvases: Canvases;
     @ObservedObject var source: SourceInfo;    
     
-    var borderColor: Color = .white;
+    var borderColor: Color = Styling.white;
     
     var body: some View {
         ZStack(alignment: .topLeading) { 

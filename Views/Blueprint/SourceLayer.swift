@@ -14,12 +14,12 @@ struct SourceLayer: View {
                     if (source.isImageSet) {
                         source.image.swuiImage
                             .overlay(content: {
-                                CanvasesLayer(canvases: $canvases, source: source, borderColor: .white.opacity(0.25))
+                                CanvasesLayer(canvases: $canvases, source: source, borderColor: Styling.white.opacity(0.25))
                             })
                     } else {
                         Styling.appIcon.swuiImage
                             .mask(RoundedRectangle(cornerSize: CGSize(width: 32, height: 32)))
-                            .shadow(color: .black.opacity(0.75), radius: 32)
+                            .shadow(color: Styling.black.opacity(0.75), radius: 32)
                     }
                 }       
                 .scaleEffect(state.zoom.scale / 100, anchor: .center)

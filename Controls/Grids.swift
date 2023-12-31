@@ -51,7 +51,7 @@ struct Grid: View {
 }
 
 struct BlueprintGrid: View {
-    public static let lineColor: Color = .white.opacity(0.25)
+    public static let lineColor: Color = Styling.white.opacity(0.25)
     
     var baseSpacing: CGFloat = 128;
     var lineWidth: CGFloat = 2.0;

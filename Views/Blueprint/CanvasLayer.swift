@@ -11,14 +11,31 @@ struct CanvasLayer: View {
     var body: some View {
         let canSize: CGSize = canvas.size.mul(canvas.scale) 
         ZStack() {
-            getCanvasView(location: canvas.drag.fixedLocation, gridColor: Color.black, tileColor: Color.white)
+            fixedCanvas
                 .gesture(GetDragGesture(), enabled: !canvas.isLocked)
-                .frame(width: canSize.width, height: canSize.height)
-            if (canvas.drag.active) {
-                getCanvasView(location: canvas.drag.location, gridColor: Color.green, tileColor: Color.white)
-                    .frame(width: canSize.width, height: canSize.height)
-            }
+            if (canvas.drag.active) { draggedCanvas }
         }
+        .frame(width: canSize.width, height: canSize.height)
+    }
+    
+    var fixedCanvas: some View {
+        ZStack() {
+            Styling.black.opacity(0.01)
+            Grid(cols: CGFloat(canvas.tileWidth) * 16, rows: CGFloat(canvas.tileHeight) * 16, gridColor: Styling.black.opacity(0.75))
+            Grid(cols: CGFloat(canvas.tileWidth), rows: CGFloat(canvas.tileHeight), gridColor: canvas.isLocked ? Styling.red : Styling.white, lineWidth: 3.0)
+        }
+        .border(canvas.isLocked ? Styling.red : borderColor, width: max(canvas.scale * 0.25, 6.0))
+        .offset(x: canvas.drag.fixedLocation.x, y: canvas.drag.fixedLocation.y)
+    }
+    
+    var draggedCanvas: some View {
+        ZStack() {
+            Styling.black.opacity(0.01)
+            Grid(cols: CGFloat(canvas.tileWidth) * 16, rows: CGFloat(canvas.tileHeight) * 16, gridColor: Styling.gray.opacity(0.75))
+            Grid(cols: CGFloat(canvas.tileWidth), rows: CGFloat(canvas.tileHeight), gridColor: canvas.isLocked ? Styling.red : Styling.white, lineWidth: 3.0)
+        }
+        .border(canvas.isLocked ? Styling.red : borderColor, width: max(canvas.scale * 0.25, 6.0))
+        .offset(x: canvas.drag.location.x, y: canvas.drag.location.y)
     }
     
     func GetDragGesture() -> _EndedGesture<_ChangedGesture<DragGesture>> {
@@ -35,24 +52,6 @@ struct CanvasLayer: View {
             canvas.drag.clamp(CGPoint.zero, clampSize.cgPoint());        
             _ = canvas.Analyse(source, state.palette)
         }
-    }
-    
-    
-    func getCanvasView(location: CGPoint, gridColor: Color, tileColor: Color) -> some View {
-        ZStack() {
-            Color.black.opacity(0.01)
-            Grid(cols: CGFloat(canvas.tileWidth) * 16, rows: CGFloat(canvas.tileHeight) * 16, gridColor: gridColor)
-            Grid(cols: CGFloat(canvas.tileWidth), rows: CGFloat(canvas.tileHeight), gridColor: tileColor, lineWidth: 3.0)
-        }
-        .overlay(content: {
-            if(canvas.isLocked) {
-                SNImage.lockFill
-                    .rs().padding()
-                    .foregroundColor(Color.red).frame(maxWidth: 16 * canvas.scale, maxHeight: 16 * canvas.scale)
-            }
-        })
-        .border(borderColor, width: max(canvas.scale * 0.25, 6.0))
-        .offset(x: location.x, y: location.y)
     }
     
 }

@@ -10,7 +10,7 @@ struct CanvasToolbar: View {
     var body: some View {
         RoundedPanel(content: {
             
-            RoundedStateButton(systemName: "lock.fill", action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: .red, background: .gray)
+            RoundedStateButton(systemName: "lock.fill", action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray)
             
             if (!state.isNavState(.analysis)) {
                 VStack(content: {

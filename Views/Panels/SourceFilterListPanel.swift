@@ -31,7 +31,7 @@ struct SourceFilterListPanel: View {
                 }.padding(.trailing)
                 
             })
-        let bgColor: Color = .black.opacity(0.01)
+        let bgColor: Color = Styling.black.opacity(0.01)
         VStack {
             ForEach(0..<source.filters.count, id: \.self) { i in
                 FilterView(filter: $source.filters[i])
@@ -47,9 +47,9 @@ struct SourceFilterListPanel: View {
         if (source.filters.count > 0) {
             Divider()
             HStack {
-                RoundedButton(systemName: "trash.circle", action: { source.filters.reset() }, background: .red)
+                RoundedButton(systemName: "trash.circle", action: { source.filters.reset() }, background: Styling.red)
                 Spacer()
-                RoundedButton(systemName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: .red).rotationEffect(.degrees(-180))
+                RoundedButton(systemName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: Styling.red).rotationEffect(.degrees(-180))
                 RoundedButton(systemName: "play.square.fill", action: { source.applyFilter(); })
             }
             Divider()

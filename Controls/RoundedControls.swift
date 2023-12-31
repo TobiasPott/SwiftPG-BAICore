@@ -8,7 +8,7 @@ struct RoundedStateButton: View {
     let state: Bool;
     var stateColor: Color = Styling.buttonColor;
     
-    var foreground: Color = .white;
+    var foreground: Color = Color.white;
     var background: Color = Styling.buttonColor;    
     var padding: CGFloat = Styling.buttonPadding;
     
@@ -24,7 +24,7 @@ struct RoundedButtonMedium: View {
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
-    var foreground: Color = .white;
+    var foreground: Color = Color.white;
     var background: Color = Styling.buttonColor;
     var padding: CGFloat = Styling.medButtonPadding;
     
@@ -40,7 +40,7 @@ struct RoundedButton: View {
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
-    var foreground: Color = .white;
+    var foreground: Color = Color.white;
     var background: Color = Styling.buttonColor;
     var padding: CGFloat = Styling.buttonPadding;
     
@@ -64,7 +64,7 @@ struct RoundedButtonMini: View {
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
-    var foreground: Color = .white;
+    var foreground: Color = Color.white;
     var background: Color = Styling.buttonColor;
     var padding: CGFloat = 6.0;
     

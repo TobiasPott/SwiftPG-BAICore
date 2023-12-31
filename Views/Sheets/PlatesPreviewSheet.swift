@@ -21,7 +21,7 @@ struct PlatesPreviewSheet: View {
                                 .frame(maxWidth: 200, alignment: .leading)
                             Spacer()
                             PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .outlined)
-                                .overlay(content: { Grid(4, gridColor: .white.opacity(0.5)) })      
+                                .overlay(content: { Grid(4, gridColor: Styling.white.opacity(0.5)) })      
                         }
                         PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: false)
                     }
@@ -50,7 +50,7 @@ struct PlatesPreviewSheet: View {
                                 Rectangle()
                                     .foregroundColor(isSelected ? Color.clear : Color.black.opacity(0.2))
                                     .aspectRatio(1.0, contentMode: .fit)
-                                    .border(isSelected ? .white : .black, width: 1.0)
+                                    .border(isSelected ? Styling.white : Styling.black, width: 1.0)
                             })
                         }
                     }

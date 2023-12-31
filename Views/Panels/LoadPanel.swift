@@ -24,18 +24,17 @@ struct LoadPanel: View {
             GroupBox(label: Text("Guided").font(Styling.title2Font), content: {
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")
                 HStack(alignment: .top) { selectFileMenu }
-                    .padding(.bottom)
                 
                 GuideText(text: "Select your dimensions. The dimensions are measured in plates and each plate is 16*16 bricks in size.")
                 HStack() { dimensionsMenu }
                 
                 GuideText(text: "Select the color palette you want to use. The preview will show you the colors included in each palette and your brick art will be limited to those colors.")
-                VStack(spacing: 0) { paletteMenu }
+                HStack() { paletteMenu }
             })
         } else {
             GroupBox(label: Text("Advanced").font(Styling.title2Font), content: {
                 HStack(alignment: .top) { selectFileMenu }
-                VStack(spacing: 0) { paletteMenu }
+                HStack() { paletteMenu }
             })
             
         }
@@ -62,11 +61,14 @@ struct LoadPanel: View {
                 Button(action: { openSamples.toggle(); }, 
                        label: { Label("Select from Samples", systemImage: "photo.on.rectangle.angled") })
             }, label: {
-                VStack {
-                    Text("Select")
+                HStack {
+                    if (load.isImageSet) {
+                        SNImage.magnifyingglassCircle.rs(fit: true)
+                            .frame(maxHeight: 24)
+                    }
                     load.image.swuiImage.rs(fit: true)
                         .background(SNImage.magnifyingglassCircle.resizable())
-                        .frame(maxHeight: load.isImageSet ? 120 : 24)      
+                        .frame(maxHeight: load.isImageSet ? 64 : 24)
                 }
             }).padding(.trailing, 0)
         }

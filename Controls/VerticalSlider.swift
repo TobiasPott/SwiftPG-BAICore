@@ -57,7 +57,7 @@ struct VerticalSlider<V: BinaryFloatingPoint>: View {
                 // Catches drag gesture
                 Rectangle()
                     .frame(minWidth: CGFloat(self.dragRadius))
-                    .foregroundColor(Color.red.opacity(0.001))
+                    .foregroundColor(Styling.red.opacity(0.001))
                     .gesture(
                         DragGesture(minimumDistance: 0)
                             .onEnded({ _ in

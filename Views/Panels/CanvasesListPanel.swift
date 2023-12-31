@@ -66,7 +66,7 @@ struct CanvasesListPanel: View {
                 RoundedButton(systemName: "trash.circle", action: { 
                     canvases.items = []
                     state.canvas = nil
-                }, background: .red)
+                }, background: Styling.red)
                 Spacer(minLength: 0)
             }
             Divider()

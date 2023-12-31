@@ -70,7 +70,7 @@ struct PlatePDFPage: View {
                         Spacer()
                         PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .outlined)
                             .overlay(content: {
-                                Grid(4, gridColor: .white.opacity(0.5))
+                                Grid(4, gridColor: Styling.white.opacity(0.5))
                             })      
                     }
                     .frame(height: 240)
@@ -80,7 +80,7 @@ struct PlatePDFPage: View {
                 .frame(maxHeight: .infinity)
                 PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .outlined)
                     .overlay(content: {
-                        Grid(4, gridColor: .white.opacity(0.5))
+                        Grid(4, gridColor: Styling.white.opacity(0.5))
                     })      
                     .mask(Styling.roundedRect)
             }

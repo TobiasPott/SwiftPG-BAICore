@@ -52,7 +52,7 @@ struct CanvasPanel: View {
         HStack {
             RoundedButton(systemName: "trash.circle", action: { 
                 _ = canvas.DiscardAnalysis();
-            }, background: canvas.analysis == nil ? Styling.buttonColor : .red).disabled(canvas.analysis == nil)
+            }, background: canvas.analysis == nil ? Styling.buttonColor : Styling.red).disabled(canvas.analysis == nil)
             RoundedButton(systemName: "arrow.counterclockwise.circle", action: { 
                 _ = canvas.Analyse(source, state.palette);
             })
@@ -105,7 +105,7 @@ struct CanvasHeader: View {
                     .font(Styling.caption2Font)
             }
             Spacer()
-            RoundedStateButton(systemName: "lock.fill", size: 26, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: .red, background: .gray, padding: 8.0)
+            RoundedStateButton(systemName: "lock.fill", size: 26, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray, padding: 8.0)
         }
     }
 }

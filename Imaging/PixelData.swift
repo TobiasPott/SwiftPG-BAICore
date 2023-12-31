@@ -9,7 +9,5 @@ public struct PixelData {
 }
 
 public extension MultiColor {
-    
     var pixelRGBA: PixelData { PixelData(a: 255, r: r, g: g, b: b) }
-    
 }
