@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftPG_Palettes
 
 // ToDo: Finish renaming type to match file name
-class LoadInfo : ObservableObject {
+class LoadState : ObservableObject {
     public static let defaultImage: PImage = PImage();
     
     @Published public var name: String = "Canvas"
@@ -12,24 +12,24 @@ class LoadInfo : ObservableObject {
     @Published public var palette: Palette
     
     @Published public var isImageSet: Bool = false
-    @Published var image: PImage = LoadInfo.defaultImage;
+    @Published var image: PImage = LoadState.defaultImage;
     public var sizePx: CGSize { get { return CGSize(width: width * 16, height: height * 16); } }
     
     
     
-    init(_ width: Int, _ height: Int, _ name: String = "Canvas", _ builtInPalette: BuiltInPalette = BuiltInPalette.lego, _ image: PImage = LoadInfo.defaultImage) {
+    init(_ width: Int, _ height: Int, _ name: String = "Canvas", _ builtInPalette: BuiltInPalette = BuiltInPalette.lego, _ image: PImage = LoadState.defaultImage) {
         self.width = width;
         self.height = height;
         self.name = name;
         self.builtInPalette = builtInPalette;
         self.palette = Palette.getPalette(builtInPalette)
         self.image = image;
-        self.isImageSet = image != LoadInfo.defaultImage
+        self.isImageSet = image != LoadState.defaultImage
     }
     
     func set(_ image: PImage) {
         self.image = image;
-        self.isImageSet = image != LoadInfo.defaultImage
+        self.isImageSet = image != LoadState.defaultImage
     }
     
     func getCanvas(refSize: CGSize) -> ArtCanvas {
@@ -41,7 +41,7 @@ class LoadInfo : ObservableObject {
         self.height = 3;
         self.builtInPalette = BuiltInPalette.lego
         self.palette = Palette.getPalette(BuiltInPalette.lego)
-        self.image = LoadInfo.defaultImage
+        self.image = LoadState.defaultImage
         self.isImageSet = false
     }
 }

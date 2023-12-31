@@ -54,7 +54,7 @@ struct Highlight<Content: View>: View{
 
 
 struct GuideText: View {
-    @EnvironmentObject var state: AppState
+    @EnvironmentObject var state: GlobalState
     
     var text: String = "";
     var alignment: VerticalAlignment = VerticalAlignment.center

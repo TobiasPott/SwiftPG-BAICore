@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct MenuToolbar: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     var isImageSet: Bool = false;
     @State var showAbout: Bool = false;

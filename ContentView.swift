@@ -2,9 +2,9 @@ import SwiftUI
 import UniformTypeIdentifiers
 
 struct ContentView: View {
-    @EnvironmentObject var state: AppState
+    @EnvironmentObject var state: GlobalState
     
-    @ObservedObject var load: LoadInfo;
+    @ObservedObject var load: LoadState;
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
     

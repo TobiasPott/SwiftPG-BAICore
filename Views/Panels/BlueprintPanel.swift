@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BlueprintPanel: View {
-    @EnvironmentObject var state: AppState
+    @EnvironmentObject var state: GlobalState
     
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
@@ -28,7 +28,7 @@ struct BlueprintPanel: View {
                 
                 VStack(spacing: 6) {
 //                    BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom)
-                    if (state.isNavState(.analysis)) { BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom); }
+                    if (state.isNavState(.analysis)) { BrickArtToolbar(brickOutline: $state.brickOutline, drag: $brickDrag, zoom: $brickZoom); }
                 }
                 .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)
                 .padding(.all, 6)

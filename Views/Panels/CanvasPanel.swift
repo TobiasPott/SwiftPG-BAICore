@@ -4,7 +4,7 @@ struct CanvasPanel: View {
     
     static let sizes: [Int] = [1, 2, 3, 4]
     
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     @ObservedObject var source: ArtSource;
     @ObservedObject var canvas: ArtCanvas;

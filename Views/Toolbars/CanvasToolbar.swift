@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CanvasToolbar: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     @ObservedObject var canvas: ArtCanvas;
     @ObservedObject var source: ArtSource;

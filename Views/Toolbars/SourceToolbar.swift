@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SourceToolbar: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     @ObservedObject var source: ArtSource;
     

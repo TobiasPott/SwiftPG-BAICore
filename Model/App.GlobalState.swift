@@ -1,8 +1,6 @@
 import SwiftUI
 import SwiftPG_Palettes
 
-// ToDo: Finish renaming type to match file name
-
 public enum NavState: Equatable, Codable {
     case load, setup, analysis
 }
@@ -13,7 +11,7 @@ public enum BrickOutlineMode {
     case none, outlined 
 }
 
-class AppState : ObservableObject
+class GlobalState : ObservableObject
 {
     @Published var showSplashScreen: Bool = true;
     @Published var userMode: UserMode = .simple;   

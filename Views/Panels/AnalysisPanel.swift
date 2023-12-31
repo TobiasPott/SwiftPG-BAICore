@@ -3,7 +3,7 @@ import SwiftUI
 import SwiftPG_Palettes
 
 struct AnalysisPanel: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     let source: ArtSource;
     let canvas: ArtCanvas;

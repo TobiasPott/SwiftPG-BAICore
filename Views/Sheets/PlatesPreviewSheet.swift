@@ -3,7 +3,7 @@ import simd;
 import SwiftPG_Palettes
 
 struct PlatesPreviewSheet: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     @Binding var isOpen: Bool
     @ObservedObject var canvas: ArtCanvas;

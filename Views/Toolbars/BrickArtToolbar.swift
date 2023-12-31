@@ -1,22 +1,19 @@
 import SwiftUI
 
 struct BrickArtToolbar: View {
-    @EnvironmentObject var state: AppState;
-    
+    @Binding var brickOutline: BrickOutlineMode
     @Binding var drag: DragInfo
     @Binding var zoom: ZoomInfo
     
     var body: some View {
         
         RoundedPanel(content: {
-            
             RoundedButton(systemName: "viewfinder.circle", action: { drag.location = CGPoint.zero; drag.fixedLocation = CGPoint.zero })
             
-            RoundedStateButton(systemName: state.brickOutline == .none ? "square" : "circle.square", action: { 
-                state.brickOutline = state.brickOutline == .outlined ? .none : .outlined
-            }, state: state.brickOutline == .none)
+            RoundedStateButton(systemName: brickOutline == .none ? "square" : "circle.square", action: { 
+                brickOutline = brickOutline == .outlined ? .none : .outlined
+            }, state: brickOutline == .none)
             
-//            Spacer()
         }, orientation: .vertical)
         .toggleStyle(.button)
     }

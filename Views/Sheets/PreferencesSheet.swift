@@ -2,7 +2,7 @@ import SwiftUI
 import SwiftPG_Palettes
 
 struct PreferencesSheet: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     @Binding var isOpen: Bool
     
@@ -43,7 +43,7 @@ struct PreferencesSheet: View {
             VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $state.builtInPalette)
                     .padding(.top, -6)
-                PalettePreview(palette: state.palette, size: 10)
+                PalettePreview(palette: state.palette, size: 14)
             }
         }.onChange(of: state.builtInPalette, perform: { value in
             state.palette = Palette.getPalette(state.builtInPalette)

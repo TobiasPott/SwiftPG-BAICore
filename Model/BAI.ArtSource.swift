@@ -7,7 +7,7 @@ class ArtSource : ObservableObject, Codable {
     }
     
     @Published var isImageSet: Bool = false;
-    @Published var originalImage: PImage = LoadInfo.defaultImage;
+    @Published var originalImage: PImage = LoadState.defaultImage;
     @Published var workImage: PImage? = nil;
     
     @Published var filters: Filters = Filters();
@@ -18,7 +18,7 @@ class ArtSource : ObservableObject, Codable {
     
     init() {
         workImage = makeUniform(originalImage);
-        isImageSet = originalImage != LoadInfo.defaultImage;
+        isImageSet = originalImage != LoadState.defaultImage;
     }
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -32,9 +32,9 @@ class ArtSource : ObservableObject, Codable {
     
     func reset() {
         filters.reset()
-        originalImage = LoadInfo.defaultImage;
+        originalImage = LoadState.defaultImage;
         resetImage()
-        isImageSet = originalImage != LoadInfo.defaultImage;
+        isImageSet = originalImage != LoadState.defaultImage;
     }
     
     func reset(_ to: ArtSource) {
@@ -42,7 +42,7 @@ class ArtSource : ObservableObject, Codable {
         filters.append(other: to.filters)
         originalImage = to.originalImage;
         resetImage()
-        isImageSet = originalImage != LoadInfo.defaultImage;
+        isImageSet = originalImage != LoadState.defaultImage;
     }
     
     func resetImage() {
@@ -51,7 +51,7 @@ class ArtSource : ObservableObject, Codable {
     func setImage(image: PImage) {
         originalImage = image;
         workImage = makeUniform(image);
-        isImageSet = image != LoadInfo.defaultImage;
+        isImageSet = image != LoadState.defaultImage;
     }
     
     func makeUniform(_ input: PImage) -> PImage {

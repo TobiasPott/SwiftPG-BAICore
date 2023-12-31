@@ -4,11 +4,11 @@ struct RootView: View {
     public static let anyEmpty: AnyView = AnyView(EmptyView())
     public static let anySpacer: AnyView = AnyView(Spacer())
     
-    @StateObject var state: AppState = AppState();
-    @State var canvases: Canvases = Canvases();
+    @StateObject var state: GlobalState = GlobalState();
+    @StateObject var load: LoadState = LoadState(3, 3);
     
     @StateObject var source: ArtSource = ArtSource();
-    @StateObject var load: LoadInfo = LoadInfo(3, 3);
+    @State var canvases: Canvases = Canvases();
     
     var body: some View {
         ContentView(load: load, canvases: $canvases, source: source)

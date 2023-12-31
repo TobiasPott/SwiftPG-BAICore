@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CanvasLayer: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
     @ObservedObject var canvas: ArtCanvas;
     let source: ArtSource;

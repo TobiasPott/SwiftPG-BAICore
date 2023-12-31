@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct SourceLayer: View {
-    @EnvironmentObject var state: AppState
+    @EnvironmentObject var state: GlobalState
     
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
@@ -59,8 +59,6 @@ struct SourceLayer: View {
 }
 
 struct BlueprintGridView: View {
-    @EnvironmentObject var state: AppState
-    
     var body: some View {
         BlueprintGrid(baseSpacing: 128, lineWidth: 1.0)
             .scaleEffect(8, anchor: .center)

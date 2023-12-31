@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct BrickArtLayer: View {
-    @EnvironmentObject var state: AppState
+    @EnvironmentObject var state: GlobalState
     
     let analysis: ArtAnalysis;
     

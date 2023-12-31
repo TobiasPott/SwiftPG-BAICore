@@ -2,9 +2,9 @@ import SwiftUI
 import SwiftPG_Palettes
 
 struct LoadPanel: View {
-    @EnvironmentObject var state: AppState;
+    @EnvironmentObject var state: GlobalState;
     
-    @ObservedObject var load: LoadInfo;
+    @ObservedObject var load: LoadState;
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
     
@@ -109,9 +109,8 @@ struct LoadPanel: View {
             Spacer()
             VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $load.builtInPalette)
-                    .padding(.top, -6)
-                
-                PalettePreview(palette: load.palette, size: 10)
+                    .padding(.vertical, -6)
+                PaletteRowPreview(palette: load.palette, size: 12)
             }
         }.onChange(of: load.builtInPalette, perform: { value in
             load.palette = Palette.getPalette(load.builtInPalette)
