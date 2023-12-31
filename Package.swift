@@ -19,7 +19,7 @@ let package = Package(
             bundleIdentifier: "de.tobiaspott.playground.brickartinstructor",
             teamIdentifier: "LR2W97LX43",
             displayVersion: "0.8.1",
-            bundleVersion: "52",
+            bundleVersion: "53",
             appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.blue),
             supportedDeviceFamilies: [
@@ -42,14 +42,12 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/TobiasPott/SwiftPG-CIFilters.git", "1.0.0"..<"2.0.0"),
-        .package(url: "https://github.com/TobiasPott/SwiftPG-Palettes.git", "1.0.0"..<"2.0.0")
     ],
     targets: [
         .executableTarget(
             name: "AppModule",
             dependencies: [
-                .product(name: "SwiftPG-CIFilters", package: "SwiftPG-CIFilters"),
-                .product(name: "SwiftPG-Palettes", package: "SwiftPG-Palettes")
+                .product(name: "SwiftPG-CIFilters", package: "SwiftPG-CIFilters")
             ],
             path: ".",
             swiftSettings: [

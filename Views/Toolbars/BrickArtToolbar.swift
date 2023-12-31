@@ -12,7 +12,7 @@ struct BrickArtToolbar: View {
             
             RoundedLockButton(systemName: "circle.square", action: { 
                 brickOutline = brickOutline == .outlined ? .none : .outlined
-            }, isLocked: brickOutline != .none)
+            }, isLocked: brickOutline == .none)
             
         }, orientation: .vertical)
         .toggleStyle(.button)
