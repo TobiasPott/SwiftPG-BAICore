@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 class ArtCanvas : ObservableObject, Identifiable, Codable
 {

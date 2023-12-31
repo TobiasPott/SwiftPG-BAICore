@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 import PDFKit
 import UniformTypeIdentifiers
 

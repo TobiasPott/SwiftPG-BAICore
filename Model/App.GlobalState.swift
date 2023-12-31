@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 public enum NavState: Equatable, Codable {
     case load, setup, analysis
@@ -18,7 +17,7 @@ class GlobalState : ObservableObject
     @Published var navState: NavState = .load;
     
     @Published var builtInPalette: BuiltInPalette = .legoSimple
-    @Published var palette: Palette = Lego.simple
+    @Published var palette: Palette = ArtPalette.simple
     
     @Published var canvas: ArtCanvas? = nil;
     

@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 class ArtColors: ObservableObject {    
     @Published public var width: Int = 16;

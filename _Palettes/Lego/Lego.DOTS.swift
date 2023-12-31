@@ -1,7 +1,7 @@
 import SwiftUI
 
-public extension Lego {
-    static let dots: Palette = Palette(name: "Lego DOTS", colors: Lego.dotsColors, names: Lego.dotsColorNames)
+public extension ArtPalette {
+    static let dots: Palette = Palette(name: "Lego DOTS", colors: dotsColors, names: dotsColorNames)
     
     // DOTS color palette
     private static let dotsColorNames: [String] = [ "blue", "coral", "lavender", "aqua", "white", "black", "brightLightOrange", "brightLightYellow", "brightGreen", "brightPink", "darkBluishGray", "darkTurquoise", "darkBlue", "darkGreen", "darkPurple", "darkAzure", "magenta", "mediumAzure", "orange", "red", "yellow", "yellowishGreen", "sandGreen", "vibrantYellow" ];

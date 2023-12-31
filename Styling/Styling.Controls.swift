@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 public struct Styling {
     public static let appIcon = PImage(imageLiteralResourceName: "SwiftPG-BrickArtInstructor")

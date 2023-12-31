@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 struct PreferencesSheet: View {
     @EnvironmentObject var state: GlobalState;

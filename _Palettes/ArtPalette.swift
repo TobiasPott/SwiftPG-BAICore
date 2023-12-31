@@ -1,18 +1,11 @@
 import SwiftUI
 import simd;
 
-public struct Lego {
+public struct ArtPalette {
     public typealias ColorType = MultiColor
     
     static func rgb(_ r: Int16, _ g: Int16, _ b: Int16) -> ColorType { return MultiColor.rgb(r, g, b) }
-    
-    public static let all: Palette = Palette(name: "Lego All", colors: Lego.allColors, names: Lego.allColorNames)
-    
-    // Full/All color palette
-    private static let allColorNames: [String] = [ "black", "blue", "green", "darkTurquoise", "red", "darkPink", "brown", "lightGray", "darkGray", "lightBlue", "brightGreen", "lightTurquoise", "salmon", "pink", "yellow", "white", "lightGreen", "lightYellow", "tan", "lightViolet", "purple", "darkBlueViolet", "orange", "magenta", "lime", "darkTan", "brightPink", "mediumLavender", "lavender", "veryLightOrange", "lightPurple", "reddishBrown", "lightBluishGray", "darkBluishGray", "mediumBlue", "mediumGreen", "lightPink", "lightFlesh", "milkyWhite", "metallicSilver", "metallicGreen", "metallicGold", "mediumDarkFlesh", "darkPurple", "darkFlesh", "royalBlue", "flesh", "lightSalmon", "violet", "blueViolet", "mediumLime", "aqua", "lightLime", "lightOrange", "copper", "metalBlue", "veryLightBluishGray", "yellowishGreen", "flatDarkGold", "flatSilver", "pearlLightGray", "pearlLightGold", "pearlDarkGray", "pearlVeryLightGray", "pearlWhite", "brightLightOrange", "brightLightBlue", "rust", "brightLightYellow", "skyBlue", "darkBlue", "darkGreen", "pearlGold", "darkBrown", "maerskBlue", "darkRed", "darkAzure", "mediumAzure", "lightAque", "oliveGreen", "sandRed", "mediumDarkPink", "earthOrange", "sandPurple", "sandGreen", "sandBlue", "fabulandBrown", "mediumOrange", "darkOrange", "veryLightGray", "mediumViolet", "reddishLilac", "coral", "vibrantYellow", "chromeGold", "chromeSilver", "chromeAntiqueBrass", "chromeBlue", "chromeGreen", "chromePink", "chromeBlack", "speckleBlackSilver", "speckleBlackGold", "speckleBlackCopper", "speckleDBGraySilver" ];
-    
-    private static let allColors: [ColorType] = [black, blue, green, darkTurquoise, red, darkPink, brown, lightGray, darkGray, lightBlue, brightGreen, lightTurquoise, salmon, pink, yellow, white, lightGreen, lightYellow, tan, lightViolet, purple, darkBlueViolet, orange, magenta, lime, darkTan, brightPink, mediumLavender, lavender, veryLightOrange, lightPurple, reddishBrown, lightBluishGray, darkBluishGray, mediumBlue, mediumGreen, lightPink, lightFlesh, milkyWhite, metallicSilver, metallicGreen, metallicGold, mediumDarkFlesh, darkPurple, darkFlesh, royalBlue, flesh, lightSalmon, violet, blueViolet, mediumLime, aqua, lightLime, lightOrange, copper, metalBlue, veryLightBluishGray, yellowishGreen, flatDarkGold, flatSilver, pearlLightGray, pearlLightGold, pearlDarkGray, pearlVeryLightGray, pearlWhite, brightLightOrange, brightLightBlue, rust, brightLightYellow, skyBlue, darkBlue, darkGreen, pearlGold, darkBrown, maerskBlue, darkRed, darkAzure, mediumAzure, lightAque, oliveGreen, sandRed, mediumDarkPink, earthOrange, sandPurple, sandGreen, sandBlue, fabulandBrown, mediumOrange, darkOrange, veryLightGray, mediumViolet, reddishLilac, coral, vibrantYellow, chromeGold, chromeSilver, chromeAntiqueBrass, chromeBlue, chromeGreen, chromePink, chromeBlack, speckleBlackSilver, speckleBlackGold, speckleBlackCopper, speckleDBGraySilver];
-    
+
     // Black #05131D rgb(5, 19, 29)
     public static let black: ColorType = rgb(5, 19, 29);
     // Blue #0055BF rgb(0, 85, 191)

@@ -15,6 +15,10 @@ public struct MultiColor : Hashable {
     
     public let vectorRGB: SIMD3<Float>;
     
+    public var swuiColor: Color {
+        return Color(hue: self.hue, saturation: self.saturation, brightness: self.brightness, opacity: 1.0)    
+    }
+    
     public init(cgColor: CGColor) {
         self.cgColor = cgColor;
         var h: CGFloat = 0;

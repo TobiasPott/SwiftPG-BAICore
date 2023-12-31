@@ -1,6 +1,4 @@
 import SwiftUI
-//import simd;
-import SwiftPG_Palettes
 
 struct AnalysisPanel: View {
     @EnvironmentObject var state: GlobalState;

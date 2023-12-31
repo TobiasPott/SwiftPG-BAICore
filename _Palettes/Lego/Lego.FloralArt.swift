@@ -1,7 +1,7 @@
 import SwiftUI
 
-public extension Lego {
-    static let floralArt: Palette = Palette(name: "Lego Floral Art", colors: Lego.floralArtColors, names: Lego.floralArtColorNames)
+public extension ArtPalette {
+    static let floralArt: Palette = Palette(name: "Lego Floral Art", colors: floralArtColors, names: floralArtColorNames)
     
     // Flower Art color palette
     private static let floralArtColorNames: [String] = [ "blue", "brightLightOrange", "brightPink", "darkBlue", "darkPink", "darkTurquoise", /* lightNougat, */ "lightFlesh", "white" ];

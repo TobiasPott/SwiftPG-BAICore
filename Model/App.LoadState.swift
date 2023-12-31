@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 // ToDo: Finish renaming type to match file name
 class LoadState : ObservableObject {
@@ -8,7 +7,7 @@ class LoadState : ObservableObject {
     @Published public var name: String = "Canvas"
     @Published public var width: Int = 3;
     @Published public var height: Int = 3;
-    @Published public var builtInPalette: BuiltInPalette = .lego
+    @Published public var builtInPalette: BuiltInPalette = .legoSimple
     @Published public var palette: Palette
     
     @Published public var isImageSet: Bool = false
@@ -17,7 +16,7 @@ class LoadState : ObservableObject {
     
     
     
-    init(_ width: Int, _ height: Int, _ name: String = "Canvas", _ builtInPalette: BuiltInPalette = BuiltInPalette.lego, _ image: PImage = LoadState.defaultImage) {
+    init(_ width: Int, _ height: Int, _ name: String = "Canvas", _ builtInPalette: BuiltInPalette = BuiltInPalette.legoSimple, _ image: PImage = LoadState.defaultImage) {
         self.width = width;
         self.height = height;
         self.name = name;
@@ -39,8 +38,8 @@ class LoadState : ObservableObject {
     func reset() {
         self.width = 3;
         self.height = 3;
-        self.builtInPalette = BuiltInPalette.lego
-        self.palette = Palette.getPalette(BuiltInPalette.lego)
+        self.builtInPalette = BuiltInPalette.legoSimple
+        self.palette = Palette.getPalette(BuiltInPalette.legoSimple)
         self.image = LoadState.defaultImage
         self.isImageSet = false
     }

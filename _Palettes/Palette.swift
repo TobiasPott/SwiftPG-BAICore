@@ -6,24 +6,29 @@ public struct Palette: Identifiable, Hashable {
     
     public var id: String { name }
     public let name: String
-    public var colors: [ColorType] = []
-    public var names: [String] = []
+    public var artColors: [ArtColor] = []
+    
+    public var count: Int { artColors.count }
     
     public init(name: String, colors: [ColorType], names: [String]) {
         self.name = name;
-        self.colors = colors;
-        self.names = names;
+        for i in 0..<colors.count {
+            if (!artColors.contains(where: { aClr in aClr.name == names[i] })) {
+                artColors.append(ArtColor(name: names[i], color: colors[i]))
+            }
+        }
+        artColors.sort { lh, rh in
+            lh.name < rh.name
+        }
     }
-    
-    public func get(_ index: Int) -> (color: ColorType, name: String) {
-        return (colors[index], names[index])
+    public func get(_ index: Int) -> ArtColor {
+        return artColors[index]
     }
     public func findClosest(_ inColor: ColorType, _ threshold: Float = 10.0) -> Int {
         var closestIndex: Int = -1;
         var closestDist: Float = 1024.0;
-        for i in 0..<colors.count {
-            let diff: SIMD3<Float> = inColor.vectorRGBDiff(colors[i]);
-            let dist = simd_length(diff)
+        for i in 0..<self.count {
+            let dist = simd_length(inColor.vectorRGBDiff(artColors[i].color))
             if (dist < closestDist) {
                 closestIndex = i;
                 closestDist = dist;
@@ -37,7 +42,7 @@ public struct Palette: Identifiable, Hashable {
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(name)
-        hasher.combine(colors.count)
+        hasher.combine(artColors.count)
     }
     
 }

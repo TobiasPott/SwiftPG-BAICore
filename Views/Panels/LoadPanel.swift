@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 struct LoadPanel: View {
     @EnvironmentObject var state: GlobalState;

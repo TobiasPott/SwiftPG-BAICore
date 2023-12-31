@@ -1,6 +1,5 @@
 import SwiftUI
 import simd;
-import SwiftPG_Palettes
 
 struct AnalysisPDFView: View {
     

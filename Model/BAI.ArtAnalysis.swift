@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 class ArtAnalysis : ObservableObject {   
     @Published public var tileWidth: Int;

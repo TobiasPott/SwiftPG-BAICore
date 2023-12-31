@@ -1,36 +1,29 @@
 import SwiftUI
 import simd
-import SwiftPG_Palettes
 
 public enum BuiltInPalette {
     case lego, legoSimple, legoMosaicMaker, legoDCBatman, legoFloralArt, legoWorlMap, legoDOTS, retroRGB3Bit
-}
-
-public extension MultiColor {
-    var swuiColor: Color {
-        return Color(hue: self.hue, saturation: self.saturation, brightness: self.brightness, opacity: 1.0)    
-    }
 }
 
 public extension Palette {
     static func getPalette(_ builtIn: BuiltInPalette) -> Palette {
         switch(builtIn) {
         case .lego:
-            return Lego.all;
+            return ArtPalette.all;
         case .legoSimple:
-            return Lego.simple;
+            return ArtPalette.simple;
         case .legoMosaicMaker:
-            return Lego.mosaicMaker;
+            return ArtPalette.mosaicMaker;
         case .legoDCBatman:
-            return Lego.dcBatman;
+            return ArtPalette.dcBatman;
         case .legoFloralArt:
-            return Lego.floralArt;
+            return ArtPalette.floralArt;
         case .legoWorlMap:
-            return Lego.worldMap;
+            return ArtPalette.worldMap;
         case .legoDOTS:
-            return Lego.dots;
+            return ArtPalette.dots;
         case .retroRGB3Bit:
-            return Retro8Bit.rgb3bit
+            return ArtPalette.rgb3bit
         }
     }
     

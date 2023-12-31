@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_Palettes
 
 struct UserModePicker: View {
     @Binding var userMode: UserMode
@@ -114,7 +113,7 @@ struct CompactSwatch: View {
     
     var body: some View {
         let pIndex: Int = palette.findClosest(color);
-        let colorInfo = pIndex >= 0 ? palette.get(pIndex) : (color: color, name: "none");
+        let colorInfo = pIndex >= 0 ? palette.get(pIndex) : ArtColor(name: "none", color: color);
         
         HStack(spacing: 2) {
             color.swuiColor
