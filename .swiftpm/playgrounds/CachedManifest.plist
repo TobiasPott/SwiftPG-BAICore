@@ -24,16 +24,16 @@
 		bmdzIjpbeyJidW5kbGVJZGVudGlmaWVyIjpbImRlLnRvYmlhc3BvdHQucGxh
 		eWdyb3VuZC5icmlja2FydGluc3RydWN0b3IiXX0seyJ0ZWFtSWRlbnRpZmll
 		ciI6WyJMUjJXOTdMWDQzIl19LHsiZGlzcGxheVZlcnNpb24iOlsiMC44LjEi
-		XX0seyJidW5kbGVWZXJzaW9uIjpbIjUxIl19LHsiaU9TQXBwSW5mbyI6W3si
+		XX0seyJidW5kbGVWZXJzaW9uIjpbIjUyIl19LHsiaU9TQXBwSW5mbyI6W3si
 		YWNjZW50Q29sb3IiOnsicHJlc2V0Q29sb3IiOnsicHJlc2V0Q29sb3IiOnsi
 		cmF3VmFsdWUiOiJibHVlIn19fSwiYXBwQ2F0ZWdvcnkiOnsicmF3VmFsdWUi
 		OiJwdWJsaWMuYXBwLWNhdGVnb3J5LmdyYXBoaWNzLWRlc2lnbiJ9LCJhcHBJ
 		Y29uIjp7ImFzc2V0Ijp7Im5hbWUiOiJBcHBJY29uIn19LCJjYXBhYmlsaXRp
-		ZXMiOlt7ImZpbGVBY2Nlc3NMb2NhdGlvbiI6InBpY3R1cmVGb2xkZXIiLCJm
-		aWxlQWNjZXNzTW9kZSI6InJlYWRXcml0ZSIsInB1cnBvc2UiOiJmaWxlQWNj
-		ZXNzIn0seyJmaWxlQWNjZXNzTG9jYXRpb24iOiJ1c2VyU2VsZWN0ZWRGaWxl
-		cyIsImZpbGVBY2Nlc3NNb2RlIjoicmVhZFdyaXRlIiwicHVycG9zZSI6ImZp
-		bGVBY2Nlc3MifSx7ImZpbGVBY2Nlc3NMb2NhdGlvbiI6ImRvd25sb2Fkc0Zv
+		ZXMiOlt7ImZpbGVBY2Nlc3NMb2NhdGlvbiI6ImRvd25sb2Fkc0ZvbGRlciIs
+		ImZpbGVBY2Nlc3NNb2RlIjoicmVhZFdyaXRlIiwicHVycG9zZSI6ImZpbGVB
+		Y2Nlc3MifSx7ImZpbGVBY2Nlc3NMb2NhdGlvbiI6InVzZXJTZWxlY3RlZEZp
+		bGVzIiwiZmlsZUFjY2Vzc01vZGUiOiJyZWFkV3JpdGUiLCJwdXJwb3NlIjoi
+		ZmlsZUFjY2VzcyJ9LHsiZmlsZUFjY2Vzc0xvY2F0aW9uIjoicGljdHVyZUZv
 		bGRlciIsImZpbGVBY2Nlc3NNb2RlIjoicmVhZFdyaXRlIiwicHVycG9zZSI6
 		ImZpbGVBY2Nlc3MifV0sInN1cHBvcnRlZERldmljZUZhbWlsaWVzIjpbInBh
 		ZCIsInBob25lIl0sInN1cHBvcnRlZEludGVyZmFjZU9yaWVudGF0aW9ucyI6
@@ -61,7 +61,7 @@
 		</data>
 		<key>manifestHash</key>
 		<data>
-		muvtzG0FQpsWuL09et5Bz5d27Y7SBl5RhxhDaRH130s=
+		vzlFdD6h+zTTruq9w94GSTw7r2SOoerlZ5HEO9+iPp8=
 		</data>
 		<key>schemaVersion</key>
 		<integer>4</integer>

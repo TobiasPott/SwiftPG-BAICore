@@ -19,6 +19,7 @@ struct PaletteRowPreview: View {
                 LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size), spacing: 2)]) {
                     ForEach(0..<fMax, id: \.self) { i in
                         palette.colors[i].swuiColor.frameSquare(size)
+                            .mask(Styling.roundedRectHalf)
                     }
                 }
                 

@@ -80,7 +80,7 @@ struct RoundedPanel<Content: View>: View {
     
     @ViewBuilder let content: () -> Content;
     let orientation: PanelOrientation;
-    var padding: CGFloat = 4;
+    var padding: CGFloat = 0;
     var background: Color = Styling.panelColor; 
     var paddingIsSpacing: Bool = true;
     
@@ -88,16 +88,15 @@ struct RoundedPanel<Content: View>: View {
     var horizontalAlignment: VerticalAlignment = .center; 
     
     var body: some View {
-        
-        if(orientation == .vertical) {
-            VStack(alignment: verticalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
-                .padding(.all, padding)
-                .background(Styling.roundedRect.foregroundColor(background).opacity(0.75))
-        } else {
-            HStack(alignment: horizontalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
-                .padding(.all, padding)
-                .background(Styling.roundedRect.foregroundColor(background).opacity(0.75))
+        Group {
+            if(orientation == .vertical) {
+                VStack(alignment: verticalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
+            } else {
+                HStack(alignment: horizontalAlignment, spacing: paddingIsSpacing ? padding : 0) { content(); }
+            }
         }
+        .padding(.all, padding)
+        .background(Styling.roundedRect.foregroundColor(background).opacity(0.75))
     }
 }
 

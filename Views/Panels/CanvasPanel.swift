@@ -18,7 +18,6 @@ struct CanvasPanel: View {
             Highlight(content: {
                 TextField(canvas.name, text: $canvas.name)                
             }, color: .secondary, useCaption: false, systemName: "e.circle")
-            
         })        
         .onAppear(perform: {
             if(canvas.analysis == nil) {
@@ -26,9 +25,41 @@ struct CanvasPanel: View {
             }
         })
         
+        RoundedPanel(content: {
+            HStack {
+                RoundedButton(systemName: "arrow.counterclockwise.circle", size: 42, action: { 
+                    _ = canvas.Analyse(source, state.palette);
+                })
+                Text("Refresh")
+                Spacer()
+                Text("Analyze")
+                RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
+                    _ = canvas.Analyse(source, state.palette);
+                    state.setNavState(.analysis, true)
+                })
+            }.padding(.horizontal).padding(.vertical, 8)
+        }, orientation: PanelOrientation.vertical)
+        
+//        
+//        HStack {
+//            RoundedButton(systemName: "trash.circle", action: { 
+//                _ = canvas.DiscardAnalysis();
+//            }, background: canvas.analysis == nil ? Styling.buttonColor : Styling.red).disabled(canvas.analysis == nil)
+//            RoundedButton(systemName: "arrow.counterclockwise.circle", action: { 
+//                _ = canvas.Analyse(source, state.palette);
+//            })
+//            Spacer()
+//            if(canvas.analysis != nil) {
+//                // gear.circle
+//                RoundedButton(systemName: "arrowshape.right.circle.fill", action: { 
+//                    state.setNavState(.analysis, true); 
+//                })
+//            }
+//        }
+//        
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
         HStack(alignment: VerticalAlignment.center) {
-            getControlsView()
+            detailPanel
                 .frame(width: 120)
                 .frame(maxHeight: CGFloat.infinity)
             VStack {
@@ -49,32 +80,16 @@ struct CanvasPanel: View {
                 }
             }
         }
-        HStack {
-            RoundedButton(systemName: "trash.circle", action: { 
-                _ = canvas.DiscardAnalysis();
-            }, background: canvas.analysis == nil ? Styling.buttonColor : Styling.red).disabled(canvas.analysis == nil)
-            RoundedButton(systemName: "arrow.counterclockwise.circle", action: { 
-                _ = canvas.Analyse(source, state.palette);
-            })
-            Spacer()
-            if(canvas.analysis != nil) {
-                // gear.circle
-                RoundedButton(systemName: "arrowshape.right.circle.fill", action: { 
-                    state.setNavState(.analysis, true); 
-                })
-            }
-        }
         
     }
-    func getControlsView() -> some View {
+    var detailPanel: some View {
         GroupBox(content: {
             VStack {
-                CompactIconPicker(value: $canvas.tileWidth, systemName: "arrow.left.and.right", autoExpand: true, content: {
-                    ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
-                }).disabled(true)
-                CompactIconPicker(value: $canvas.tileHeight, systemName: "arrow.up.and.down", autoExpand: true, content: {
-                    ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
-                }).disabled(true)
+                LabelledText(label: "Width", text: "\(Int(canvas.tileWidth))", alignment: VerticalAlignment.top)
+                    .padding(.top, 6)
+                LabelledText(label: "Height", text: "\(Int(canvas.tileHeight))", alignment: VerticalAlignment.top)
+                    .padding(.top, 6)
+                
                 
                 LabelledText(label: "Dimensions", text: "\(Int(canvas.size.width)) x \(Int(canvas.size.height))", alignment: VerticalAlignment.top)
                     .padding(.top, 6)
