@@ -15,14 +15,19 @@ public struct ArtInventory : Identifiable, Hashable {
         public var id: String { name }
         public var name: String    
         
-        public var total: Int
-        public var used: Int
+        public var quantity: Int
         
         public func hash(into hasher: inout Hasher) {
             hasher.combine(name)
-            hasher.combine(total)
-            hasher.combine(used)
+            hasher.combine(quantity)
         }
     }
+}
+
+public extension ArtInventory.Item {
     
+    init(_ name: String, _ quantity: Int) {
+        self.name = name;
+        self.quantity = quantity;
+    }
 }

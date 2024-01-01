@@ -15,6 +15,14 @@ struct PreferencesSheet: View {
                 Divider()        
                 GuideText(text: "Select the color palette you want to use. The first set of palettes is derived from Lego construction sets and the colors available in them, others origin from other color palettes like retro pcs, consoles or other media.\nThe preview will show you the colors included in each palette and your brick art will be limited to those colors.")
                 paletteMenu
+                
+//                
+//                HStack(alignment: VerticalAlignment.center) {
+//                    Text("Inventory")
+//                    Spacer(minLength: 0)
+//                    UserModePicker(userMode: $state.userMode)
+//                        .font(Styling.captionFont)
+//                }
                 Spacer()
             }).padding()
             
