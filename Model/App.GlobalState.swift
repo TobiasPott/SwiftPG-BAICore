@@ -18,7 +18,7 @@ class GlobalState : ObservableObject
     
     @Published var builtInPalette: BuiltInPalette = .legoSimple
     @Published var palette: Palette = ArtPalette.simple
-    
+    @Published var inventory: ArtInventory = UserData.inventory
     @Published var canvas: ArtCanvas? = nil;
     
     @Published public var srcDragLocked: Bool = false;

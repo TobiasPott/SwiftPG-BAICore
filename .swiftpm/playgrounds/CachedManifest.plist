@@ -18,7 +18,7 @@
 		ZSI6IkJyaWNrIEFydCBJbnN0cnVjdG9yIiwic2V0dGluZ3MiOlt7ImJ1bmRs
 		ZUlkZW50aWZpZXIiOlsiZGUudG9iaWFzcG90dC5wbGF5Z3JvdW5kLmJyaWNr
 		YXJ0aW5zdHJ1Y3RvciJdfSx7InRlYW1JZGVudGlmaWVyIjpbIkxSMlc5N0xY
-		NDMiXX0seyJkaXNwbGF5VmVyc2lvbiI6WyIwLjguMiJdfSx7ImJ1bmRsZVZl
+		NDMiXX0seyJkaXNwbGF5VmVyc2lvbiI6WyIwLjguNCJdfSx7ImJ1bmRsZVZl
 		cnNpb24iOlsiNTYiXX0seyJpT1NBcHBJbmZvIjpbeyJhY2NlbnRDb2xvciI6
 		eyJwcmVzZXRDb2xvciI6eyJwcmVzZXRDb2xvciI6eyJyYXdWYWx1ZSI6ImJs
 		dWUifX19LCJhcHBDYXRlZ29yeSI6eyJyYXdWYWx1ZSI6InB1YmxpYy5hcHAt
@@ -53,7 +53,7 @@
 		</data>
 		<key>manifestHash</key>
 		<data>
-		2ewoqaBp7Y5gSEqke5b/3QM06g+um8Idvn1YhULABDI=
+		xHX1irG+FMl0ED/5WSbQX1+2W2Q7vW8yF3csdwdyLko=
 		</data>
 		<key>schemaVersion</key>
 		<integer>4</integer>

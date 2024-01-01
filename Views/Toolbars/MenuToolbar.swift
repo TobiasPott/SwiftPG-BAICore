@@ -7,7 +7,7 @@ struct MenuToolbar: View {
     @State var showAbout: Bool = false;
     @State var showSourceCode: Bool = false;
     @State var showFeedback: Bool = false;
-    @State var showPreferences: Bool = false;
+    @State var showPreferences: Bool = true;
     var onLoad: () -> Void = {};
     var onSave: () -> Void = {};
     var onClear: () -> Void = {};

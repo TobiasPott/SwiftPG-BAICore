@@ -7,6 +7,8 @@ public struct IO {
     public static let keyLastSource: String = "lastSource";    
     public static let keyLastState: String = "lastSource";
     public static let keyShowSplash: String = "lastShowSplash";
+    
+    public static let keyInventory: String = "userInventory";
 }
 
 public struct UserData {
@@ -17,6 +19,17 @@ public struct UserData {
     public static var lastSource: String {
         get { return UserData.string(forKey: IO.keyLastSource, "{}") }
         set { UserData.set(newValue, forKey: IO.keyLastSource) }
+    }
+    public static var inventory: ArtInventory {
+        get { 
+            let jsonData = Data(UserData.string(forKey: IO.keyInventory, "{}").utf8)
+            do {
+                return try ArtInventory(jsonData: jsonData)
+            } catch {
+                return ArtInventory(name: "My Inventory")
+            }
+        }
+        set { UserData.set(newValue.asJSONString(), forKey: IO.keyInventory) }
     }
     
     public static func set(_ value: String, forKey: String) {
@@ -32,22 +45,22 @@ public struct UserData {
         return UserDefaults.standard.bool(forKey: forKey)
     }
     
-//    static func saveAppState() -> Void {
-//        UserData.lastCanvases = canvases.asJSONString();
-//        UserData.lastSource = source.asJSONString();
-//    }
-//    static func loadAppState() -> Void {
-//        do {
-//            let canvases = try UserData.lastCanvases.decode(model: Canvases.self) as! Canvases
-//            self.canvases.reset(canvases)
-//            print("Decoded Canvases: \(canvases.asJSONString())")
-//            
-//            let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
-//            self.source.reset(source)
-//            print("Decoded Source: \(source.asJSONString())")
-//        } catch { print(error.localizedDescription) }
-//        
-//    }
-//    
+    //    static func saveAppState() -> Void {
+    //        UserData.lastCanvases = canvases.asJSONString();
+    //        UserData.lastSource = source.asJSONString();
+    //    }
+    //    static func loadAppState() -> Void {
+    //        do {
+    //            let canvases = try UserData.lastCanvases.decode(model: Canvases.self) as! Canvases
+    //            self.canvases.reset(canvases)
+    //            print("Decoded Canvases: \(canvases.asJSONString())")
+    //            
+    //            let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
+    //            self.source.reset(source)
+    //            print("Decoded Source: \(source.asJSONString())")
+    //        } catch { print(error.localizedDescription) }
+    //        
+    //    }
+    //    
     
 }
