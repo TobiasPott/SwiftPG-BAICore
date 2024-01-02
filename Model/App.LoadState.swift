@@ -1,6 +1,5 @@
 import SwiftUI
 
-// ToDo: Finish renaming type to match file name
 class LoadState : ObservableObject {
     public static let defaultImage: PImage = PImage();
     

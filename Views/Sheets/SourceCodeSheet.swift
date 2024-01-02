@@ -19,9 +19,6 @@ struct SourceCodeSheet: View {
                     }
                     Divider()
                     
-                    // ToDo: Add source code link to :
-                    // requires repo to be set to public
-                    
                     Text("Source Code").font(Styling.headlineFont).padding(.bottom, 6).padding(.top)
                     Text("BAI is split into a core repository and wrapper repositories for different development platforms I use for distribution or transpilation for other platforms.")
                         .frameRow()

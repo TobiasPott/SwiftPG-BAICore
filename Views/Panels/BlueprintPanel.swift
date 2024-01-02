@@ -5,7 +5,6 @@ struct BlueprintPanel: View {
     
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
-    let isLandscape: Bool
     
     @State var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
     @State var brickDrag: DragInfo = DragInfo();

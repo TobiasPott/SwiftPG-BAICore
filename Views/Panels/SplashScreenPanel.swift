@@ -3,14 +3,14 @@ import SwiftUI
 struct SplashScreenPanel: View {
     @Binding var isOpen: Bool
     var duration: UInt64 = 15
-    var isLandscape: Bool
+    var isWide: Bool
     
     var body: some View {
-        BlueprintGrid(baseSpacing: 64, lineWidth: isLandscape ? 1.5 : 0.75)
+        BlueprintGrid(baseSpacing: 64, lineWidth: isWide ? 1.5 : 0.75)
             .task(priority: .medium, delayCover)
             .zIndex(1)
-            .scaleEffect(isLandscape ? 2.76 : 4.8)
-            .transition(.move(edge: isLandscape ? .leading : .top))
+            .scaleEffect(isWide ? 2.76 : 4.8)
+            .transition(.move(edge: isWide ? .leading : .top))
             .overlay(content: {
                 GroupBox(content: {
                     Button(action: {

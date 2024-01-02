@@ -12,30 +12,27 @@ struct ContentView: View {
     var isWide: Bool = false
     
     var body: some View {
-        GeometryReader { geometry in
-//            let isLandscape: Bool = (geometry.size.width / geometry.size.height) > 1       
-            
-            ZStack {
-                RoundedPanel(content: {
-                    BlueprintPanel(canvases: $canvases, source: source, isLandscape: isWide)
-                        .frame(maxHeight: isWide ? CGFloat.infinity : 380)
-                    ZStack {
-                        VStack {
-                            MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
-                                .padding([.leading, .top, .trailing])
-                            contentPanel
-                        }
-                        .frameRow(800, Alignment.center)
+        ZStack {
+            RoundedPanel(content: {
+                BlueprintPanel(canvases: $canvases, source: source)
+                    .frame(maxHeight: isWide ? CGFloat.infinity : 380)
+                ZStack {
+                    VStack {
+                        MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
+                            .padding([.leading, .top, .trailing])
+                        contentPanel
                     }
-                    .frame(alignment: Alignment.center)
-                    
-                }, orientation: isWide ? .horizonal : .vertical, padding: 0, background: Styling.clear)
-                
-                if (state.showSplashScreen) {
-                    SplashScreenPanel(isOpen: $state.showSplashScreen, isLandscape: isWide)
+                    .frameRow(800, Alignment.center)
                 }
+                .frame(alignment: Alignment.center)
+                
+            }, orientation: isWide ? .horizonal : .vertical, padding: 0, background: Styling.clear)
+            
+            if (state.showSplashScreen) {
+                SplashScreenPanel(isOpen: $state.showSplashScreen, isWide: isWide)
             }
         }
+        
     }
     
     

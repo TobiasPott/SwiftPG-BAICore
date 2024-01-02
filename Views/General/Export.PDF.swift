@@ -22,15 +22,6 @@ struct ExportMenu<Content: View>: View {
                 .padding([.top, .trailing], 6)
                 .frame(maxHeight: CGFloat.infinity, alignment: Alignment.topTrailing)
         })
-        // ToDo: figure out the wrapping stuff to use macOS <13 fileExporter with FileDocument 
-        //        .fileMover(isPresented: $exportPDF, file: ExportMenu.renderToPDF(filename: filename, content: content)) { result in
-        //            switch result {
-        //            case .success(let file):
-        //                print(file.absoluteString)
-        //            case .failure(let error):
-        //                print(error.localizedDescription)
-        //            }
-        //        }
     }
     
     func onCompletion(result: Result<URL, Error>) {
