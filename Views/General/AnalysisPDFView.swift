@@ -28,8 +28,15 @@ struct AnalysisPDFView: View {
                             .padding(.vertical)
                     }
                 }
+                
                 GroupBox(content: {
-                    VStack{ AnalysisPanel.getColorListView(canvas: canvas, palette: palette, isWide: true) }
+                    VStack{
+                        HStack {
+                            Text("You need the following colors").font(Styling.headlineFont)
+                            Spacer();
+                        }
+                        AnalysisPanel.ColorList(analysis: canvas.analysis!, palette: palette, isWide: true) 
+                    }
                 }).groupBoxStyle(BlueprintGroupBoxStyle())
                 
                 GroupBox(content: {

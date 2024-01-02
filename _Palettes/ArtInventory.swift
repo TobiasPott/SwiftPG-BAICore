@@ -47,7 +47,9 @@ public extension ArtInventory.Item {
 public extension Palette {
     func makeInventory() -> ArtInventory {
         var inventory = ArtInventory(name: "Inventory of \(self.name)")
-        
+        for i in 0..<self.artColors.count {
+            inventory.items.append(ArtInventory.Item(self.artColors[i].name, 0))
+        }
         return inventory
     }
 }

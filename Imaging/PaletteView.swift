@@ -21,9 +21,8 @@ struct PaletteRowPreview: View {
                     }
                 }
                 
-                
                 if (overhang > 0) {
-                    Text(" ..\(overhang) more ")
+                    Text(" \(fMax) of \(palette.count) ")
                         .font(Styling.caption2Font)
                         .background(Styling.black.opacity(0.65))
                         .mask(Styling.roundedRect)
@@ -40,16 +39,42 @@ struct PalettePreview: View {
     let palette: Palette;
     var size: CGFloat = 24
     
+    @State var showList: Bool = false
+    
     var body: some View {
         VStack {
-            
-            LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size), spacing: 2, alignment: Alignment.topTrailing)]) {
-                ForEach(0..<palette.count, id: \.self) { i in
-                    palette.artColors[i].swuiColor.aspectRatio(1.0, contentMode: .fit)
-                        .mask(Styling.roundedRectHalf)
+            HStack { 
+                Text("Contains \(palette.count) Color\(palette.count > 1 ? "s" : "")");
+                Spacer(); 
+                Toggle(isOn: $showList, label: {
+                    Image(systemName: "list.dash")
+                }).toggleStyle(.button)
+            }.font(Styling.captionFont)
+            if (!showList) {
+                LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size), spacing: 2, alignment: Alignment.topTrailing)]) {
+                    ForEach(0..<palette.count, id: \.self) { i in
+                        palette.artColors[i].swuiColor.aspectRatio(1.0, contentMode: .fit)
+                            .mask(Styling.roundedRectHalf)
+                    }
                 }
+            } else {
+                ScrollView(content: {
+                VStack(alignment: .leading, spacing: 2){
+                    ForEach(0..<palette.count, id: \.self) { i in
+                        HStack {
+                            palette.artColors[i].swuiColor
+                                .aspectRatio(1.0, contentMode: .fit)
+                                .mask(Styling.roundedRectHalf)
+                            Text("\(palette.artColors[i].name)")
+                            Spacer()
+                        }.frame(maxHeight: 18)
+                    }
+                }   
+                .font(Styling.captionFont.monospaced())
+                })
+                .frame(maxHeight: 240)
+//                .background(.red.opacity(0.4))
             }
-            HStack { Text("Contains \(palette.count) Color\(palette.count > 1 ? "s" : "")"); Spacer(); }.font(Styling.captionFont)
         }
     }
 }
@@ -60,12 +85,13 @@ struct PalettePicker: View {
     var body: some View {
         Picker(selection: $selection, label: Text("Picker")) {
             Text("Full").tag(BuiltInPalette.lego)
-            Text("Simple").tag(BuiltInPalette.legoSimple)
-            Text("Mosaic Maker").tag(BuiltInPalette.legoMosaicMaker)
-            Text("Batman").tag(BuiltInPalette.legoDCBatman)
-            Text("Floral Art").tag(BuiltInPalette.legoFloralArt)
-            Text("World Map").tag(BuiltInPalette.legoWorlMap)
+            Text("Reduced").tag(BuiltInPalette.legoReduced)
             Text("DOTS").tag(BuiltInPalette.legoDOTS)
+            Divider()
+            Text("Mosaic Maker (40179)").tag(BuiltInPalette.legoMosaicMaker)
+            Text("Batman (31205)").tag(BuiltInPalette.legoDCBatman)
+            Text("Floral Art (31207)").tag(BuiltInPalette.legoFloralArt)
+            Text("World Map (31203)").tag(BuiltInPalette.legoWorlMap)
             Divider()
             Text("Retro 3-Bit").tag(BuiltInPalette.retroRGB3Bit)
         }

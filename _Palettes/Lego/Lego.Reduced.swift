@@ -1,10 +1,10 @@
 import SwiftUI
 
 public extension ArtPalette {
-    static let simple: Palette = Palette(name: "Lego Simple", colors: simpleColors)
+    static let reduced: Palette = Palette(name: "Lego Simple", colors: reducedColors)
     
     // Simple color palette
-    private static let simpleColors: [ArtColor] = [
+    private static let reducedColors: [ArtColor] = [
         ArtColor(White, white),
         ArtColor(LightBluishGray, lightBluishGray),
         ArtColor(DarkBluishGray, darkBluishGray),

@@ -2,7 +2,7 @@ import SwiftUI
 import simd
 
 public enum BuiltInPalette {
-    case lego, legoSimple, legoMosaicMaker, legoDCBatman, legoFloralArt, legoWorlMap, legoDOTS, retroRGB3Bit
+    case lego, legoReduced, legoMosaicMaker, legoDCBatman, legoFloralArt, legoWorlMap, legoDOTS, retroRGB3Bit
 }
 
 public extension Palette {
@@ -10,8 +10,8 @@ public extension Palette {
         switch(builtIn) {
         case .lego:
             return ArtPalette.all;
-        case .legoSimple:
-            return ArtPalette.simple;
+        case .legoReduced:
+            return ArtPalette.reduced;
         case .legoMosaicMaker:
             return ArtPalette.mosaicMaker;
         case .legoDCBatman:

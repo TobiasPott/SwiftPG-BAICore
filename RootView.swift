@@ -13,6 +13,7 @@ struct RootView: View {
     var body: some View {
         ContentView(load: load, canvases: $canvases, source: source)
             .frame(alignment: Alignment.topLeading)     
+            .ignoresSafeArea(.keyboard)
             .environmentObject(state)   
         
     }    

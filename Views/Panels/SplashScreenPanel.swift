@@ -2,8 +2,8 @@ import SwiftUI
 
 struct SplashScreenPanel: View {
     @Binding var isOpen: Bool
-    var duration: UInt64 = 30;
-    var isLandscape: Bool;
+    var duration: UInt64 = 15
+    var isLandscape: Bool
     
     var body: some View {
         BlueprintGrid(baseSpacing: 64, lineWidth: isLandscape ? 1.5 : 0.75)

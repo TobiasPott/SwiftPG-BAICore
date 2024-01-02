@@ -6,8 +6,8 @@ struct UserModePicker: View {
     var body: some View {
         
         Picker(selection: $userMode, content: {
-            Label("Guided", systemImage: "info.bubble").tag(UserMode.guided)
-            Label("Simple", systemImage: "rectangle").tag(UserMode.simple)
+            Text("Guided").tag(UserMode.guided)
+            Text("Simple").tag(UserMode.simple)
             //            Label("Advanced", systemImage: "rectangle.on.rectangle.badge.gearshape").tag(UserMode.advanced)
         }, label: { })
     }

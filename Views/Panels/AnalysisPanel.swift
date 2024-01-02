@@ -45,16 +45,21 @@ struct AnalysisPanel: View {
         })
         if (showColors) {
             RoundedPanel(content: {
-                AnalysisPanel.getColorListView(canvas: canvas, palette: state.palette).padding(.horizontal, 6)
+                ColorList(analysis: canvas.analysis!, palette: state.palette)
+                    .padding(.horizontal, 6)
             }, orientation: .vertical)
         }
     }
     
-    public static func getColorListView(canvas: ArtCanvas, palette: Palette, isWide: Bool = false) -> some View {
-        guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
-        return AnyView( ColorSwatchList(mappedColorsWithCount: analysis.colorInfo.mappedColorCounts, palette: palette, isWide: isWide))
-    }
-    
+    struct ColorList: View {
+        let analysis: ArtAnalysis
+        let palette: Palette
+        var isWide: Bool = false
+        
+        var body: some View {
+            return AnyView( ColorSwatchList(mappedColorsWithCount: analysis.colorInfo.mappedColorCounts, palette: palette, isWide: isWide))
+        }
+    }   
 }
 
 

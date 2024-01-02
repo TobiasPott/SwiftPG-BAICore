@@ -12,12 +12,12 @@ public enum BrickOutlineMode {
 
 class GlobalState : ObservableObject
 {
-    @Published var showSplashScreen: Bool = false;
+    @Published var showSplashScreen: Bool = true;
     @Published var userMode: UserMode = .simple;   
     @Published var navState: NavState = .load;
     
-    @Published var builtInPalette: BuiltInPalette = .legoSimple
-    @Published var palette: Palette = ArtPalette.simple
+    @Published var builtInPalette: BuiltInPalette = .legoReduced
+    @Published var palette: Palette = ArtPalette.reduced
     @Published var inventory: ArtInventory = UserData.inventory
     @Published var canvas: ArtCanvas? = nil;
     
