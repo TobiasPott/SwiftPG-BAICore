@@ -34,8 +34,8 @@ struct AnalysisPDFView: View {
                         HStack {
                             Text("You need the following colors").font(Styling.headlineFont)
                             Spacer();
-                        }
-                        AnalysisPanel.ColorList(analysis: canvas.analysis!, palette: palette, isWide: true) 
+                        }                
+                        ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: palette, isWide: true) 
                     }
                 }).groupBoxStyle(BlueprintGroupBoxStyle())
                 

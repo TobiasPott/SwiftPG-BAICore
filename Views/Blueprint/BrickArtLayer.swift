@@ -68,16 +68,16 @@ struct BrickCanvasView: View {
                     HStack(spacing: spacing) {
                         ForEach(0..<Int(analysis.tileWidth), id: \.self) { x in
                             let index = y * analysis.tileWidth + x;
-                            BrickTileView(colorInfo: analysis.tileInfos[index], display: display)                            
+                            BrickTileView(colorInfo: analysis.plates[index], display: display)                            
                         }
                     }                    
                 }
             }
         }
     }
-    
-    
 }
+
+
 struct BrickTileView: View {
     static let initalOutlineResourceName: String = "Outlines_16x16_Square";
     static let outline: PImage = PImage(imageLiteralResourceName: BrickTileView.initalOutlineResourceName)

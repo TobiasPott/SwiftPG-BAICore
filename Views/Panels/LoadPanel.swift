@@ -62,7 +62,8 @@ struct LoadPanel: View {
                        label: { Label("Select from Samples", systemImage: "photo.on.rectangle.angled") })
             }, label: {
                 HStack() {
-                    SNImage.magnifyingglassCircle.rs(fit: true)
+                    Text("Select")
+//                    SNImage.magnifyingglassCircle.rs(fit: true)
                         .frame(maxHeight: 26)
                     if (load.isImageSet) {
                         load.image.swuiImage.rs()
@@ -110,7 +111,6 @@ struct LoadPanel: View {
             Spacer()
             VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $load.builtInPalette)
-                    .padding(.vertical, -6)
                 PaletteRowPreview(palette: load.palette, size: 12)
             }
         }.onChange(of: load.builtInPalette, perform: { value in

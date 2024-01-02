@@ -104,48 +104,6 @@ struct CompactIconPicker<Content: View>: View {
     }
 }
 
-struct CompactSwatch: View {
-    
-    var index: Int = -1
-    let color: MultiColor;
-    let numberOfUses: Int;
-    let palette: Palette;
-    
-    var body: some View {
-        let pIndex: Int = palette.findClosest(color);
-        let colorInfo = pIndex >= 0 ? palette.get(pIndex) : ArtColor(name: "none", color: color);
-        
-        HStack(spacing: 2) {
-            color.swuiColor
-                .mask(Styling.roundedRect).aspectRatio(1.0, contentMode: .fit)
-            VStack(alignment: HorizontalAlignment.leading) {
-                HStack(spacing: 0) { Text("x \(numberOfUses)"); Spacer(); }.fontWeight(.bold)
-                HStack(spacing: 0) { Text("\(colorInfo.name)") }
-            }
-            .padding(.horizontal, 3)
-            .frameStretch(Alignment.topLeading)
-            .font(Styling.footnoteFont)
-        }
-    }
-    
-}
 
-struct ColorSwatchList: View {
-    private static let gridItem: GridItem = GridItem(.adaptive(minimum: 160));
-    
-    let mappedColorsWithCount: Dictionary<MultiColor, Int>;
-    let palette: Palette;
-    let isWide: Bool    
-    
-    var body: some View {
-        LazyVGrid(columns: Array(repeating: ColorSwatchList.gridItem, count: isWide ? 4 : 2), spacing: 2) {
-            ForEach(0..<mappedColorsWithCount.count, id: \.self) { i in
-                let index = mappedColorsWithCount.index(mappedColorsWithCount.startIndex, offsetBy: i)
-                let kvPair = mappedColorsWithCount[index];
-                
-                CompactSwatch(color: kvPair.key, numberOfUses: kvPair.value, palette: palette)
-                    .aspectRatio(5, contentMode: .fit)
-            }
-        }.padding(.top, 6)
-    }
-}
+
+

@@ -6,8 +6,7 @@ struct BlueprintPanel: View {
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
     let isLandscape: Bool
-    // ToDo: Move source drag & zoom to panel scope too!
-    // Add "enabled" flag and consider grouping into packed info for both gestures
+    
     @State var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
     @State var brickDrag: DragInfo = DragInfo();
     
@@ -27,7 +26,6 @@ struct BlueprintPanel: View {
                 .padding(.all, 6)
                 
                 VStack(spacing: 6) {
-//                    BrickArtToolbar(drag: $brickDrag, zoom: $brickZoom)
                     if (state.isNavState(.analysis)) { BrickArtToolbar(brickOutline: $state.brickOutline, drag: $brickDrag, zoom: $brickZoom); }
                 }
                 .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)

@@ -9,7 +9,7 @@ struct RoundedPanel<Content: View>: View {
     let orientation: PanelOrientation;
     var padding: CGFloat = 0;
     var spacing: CGFloat = 5;
-    var background: Color = Styling.panelColor; 
+    var background: Color = Styling.panelColor.opacity(0.75); 
     var paddingIsSpacing: Bool = false;
     
     
@@ -25,7 +25,8 @@ struct RoundedPanel<Content: View>: View {
             }
         }
         .padding(.all, padding)
-        .background(Styling.roundedRect.foregroundColor(background).opacity(0.75))
+        .background(background)
+        .mask(Styling.roundedRect)
     }
 }
 struct ToolbarPanel<Content: View>: View {

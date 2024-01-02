@@ -8,6 +8,7 @@ struct PlatesPreviewSheet: View {
     @ObservedObject var canvas: ArtCanvas;
     
     @Binding var selection: Int2
+    var isWide: Bool = false 
     
     var body: some View {
         ZStack {
@@ -22,7 +23,7 @@ struct PlatesPreviewSheet: View {
                             PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .outlined)
                                 .overlay(content: { Grid(4, gridColor: Styling.white.opacity(0.5)) })      
                         }
-                        PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: false)
+                        PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: isWide)
                     }
                 })
             })
@@ -76,7 +77,7 @@ struct PlatesPreviewSheet: View {
         
         let tIndex = tileCoords.y * canvas.tileWidth + tileCoords.x;
         return AnyView(
-            ColorSwatchList(mappedColorsWithCount: analysis.tileInfos[tIndex].mappedColorCounts, palette: palette, isWide: isWide)
+            ColorSwatchList(colorsWithCount: analysis.plates[tIndex].mappedColorCounts, palette: palette, isWide: isWide)
         )
     }
 }

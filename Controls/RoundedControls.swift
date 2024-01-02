@@ -18,7 +18,7 @@ struct RoundedLockButton: View {
                     .frameSquare(size / 3.5)
                     .frameMax(size, Alignment.topTrailing)
             })
-                
+        
     }
 }
 
@@ -56,6 +56,28 @@ struct RoundedButtonMedium: View {
         RoundedButton(systemName: systemName, size: size, action: action, foreground: foreground, background: background, padding: padding)
     }
 }
+struct RoundedImage: View {
+    public static let defaultSize: CGFloat = Styling.buttonSize;
+    
+    let systemName: String;
+    var size: CGFloat = defaultSize;
+    
+    var foreground: Color = Color.white;
+    var background: Color = Styling.buttonColor;
+    var padding: CGFloat = Styling.buttonPadding;
+    
+    var body: some View {
+        Image(systemName: systemName)
+            .rs()
+            .frameSquare(size - padding)
+            .foregroundColor(foreground)
+            .padding(padding)
+            .frame(width: size, height: size)
+//            .background(Styling.roundedRect.foregroundColor(background))
+            .background(background)
+            .mask(Styling.roundedRect)
+    }
+}
 struct RoundedButton: View {
     public static let defaultSize: CGFloat = Styling.buttonSize;
     
@@ -68,15 +90,8 @@ struct RoundedButton: View {
     var padding: CGFloat = Styling.buttonPadding;
     
     var body: some View {
-        Button(action: action, label: {
-            Image(systemName: systemName)
-                .rs()
-                .frameSquare(size - padding)
-                .foregroundColor(foreground)
-                .padding(padding)
-        })
-        .frame(width: size, height: size)
-        .background(Styling.roundedRect.foregroundColor(background))
+        RoundedImage(systemName: systemName, size: size, foreground: foreground, background: background, padding: padding)
+            .onTapGesture(perform: action)
     }
 }
 

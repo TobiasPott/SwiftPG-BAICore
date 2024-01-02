@@ -5,6 +5,8 @@ public extension Styling {
     static let clear: Color = Color.clear
     static let white: Color = Color.white;
     static let black: Color = Color.black;
+    
+    static let accent: Color = Color.accentColor;
     static let red: Color = Color.red;
     static let green: Color = Color.green;
     static let blue: Color = Color.blue;

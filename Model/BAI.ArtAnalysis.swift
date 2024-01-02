@@ -8,7 +8,7 @@ class ArtAnalysis : ObservableObject {
     
     @Published public var colorInfo: ArtColors = ArtColors();
     
-    public var tileInfos: [ArtColors] = []
+    public var plates: [ArtColors] = []
     
     
     public var size: CGSize { get { return CGSize(width: tileWidth * 16, height: tileHeight * 16); } }
@@ -34,7 +34,7 @@ class ArtAnalysis : ObservableObject {
         for tY in 0..<tileHeight {
             for tX in 0..<tileWidth {
                 //                print("AnalysisInfo.init: Color Info: \(tX) \(tY)")
-                tileInfos.append(ArtColors(tX * 16, tY * 16, 16, 16, inColors: pixels, rowLength: tileWidth * 16, palette: palette))
+                plates.append(ArtColors(tX * 16, tY * 16, 16, 16, inColors: pixels, rowLength: tileWidth * 16, palette: palette))
             }
         }
         

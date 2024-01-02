@@ -5,6 +5,7 @@ struct AnalysisPanel: View {
     
     let source: ArtSource;
     let canvas: ArtCanvas;
+    var isWide: Bool = false
     
     @State var showColors: Bool = false;
     @State var showTiles: Bool = false;
@@ -30,7 +31,7 @@ struct AnalysisPanel: View {
             }
         })
         .sheet(isPresented: $showTiles, content: {
-            PlatesPreviewSheet(isOpen: $showTiles, canvas: canvas, selection: $selectedPlate)
+            PlatesPreviewSheet(isOpen: $showTiles, canvas: canvas, selection: $selectedPlate, isWide: isWide)
                 .environmentObject(state)
         })
         
@@ -45,21 +46,10 @@ struct AnalysisPanel: View {
         })
         if (showColors) {
             RoundedPanel(content: {
-                ColorList(analysis: canvas.analysis!, palette: state.palette)
-                    .padding(.horizontal, 6)
+                ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: state.palette, isWide: false)
             }, orientation: .vertical)
         }
     }
-    
-    struct ColorList: View {
-        let analysis: ArtAnalysis
-        let palette: Palette
-        var isWide: Bool = false
-        
-        var body: some View {
-            return AnyView( ColorSwatchList(mappedColorsWithCount: analysis.colorInfo.mappedColorCounts, palette: palette, isWide: isWide))
-        }
-    }   
 }
 
 

@@ -9,15 +9,16 @@ struct ContentView: View {
     @ObservedObject var source: ArtSource;
     
     @State private var image: PImage?
+    var isWide: Bool = false
     
     var body: some View {
         GeometryReader { geometry in
-            let isLandscape: Bool = (geometry.size.width / geometry.size.height) > 1
+//            let isLandscape: Bool = (geometry.size.width / geometry.size.height) > 1       
             
             ZStack {
                 RoundedPanel(content: {
-                    BlueprintPanel(canvases: $canvases, source: source, isLandscape: isLandscape)
-                        .frame(maxHeight: isLandscape ? CGFloat.infinity : 380)
+                    BlueprintPanel(canvases: $canvases, source: source, isLandscape: isWide)
+                        .frame(maxHeight: isWide ? CGFloat.infinity : 380)
                     ZStack {
                         VStack {
                             MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
@@ -28,10 +29,10 @@ struct ContentView: View {
                     }
                     .frame(alignment: Alignment.center)
                     
-                }, orientation: isLandscape ? .horizonal : .vertical, padding: 0, background: Styling.clear)
+                }, orientation: isWide ? .horizonal : .vertical, padding: 0, background: Styling.clear)
                 
                 if (state.showSplashScreen) {
-                    SplashScreenPanel(isOpen: $state.showSplashScreen, isLandscape: isLandscape)
+                    SplashScreenPanel(isOpen: $state.showSplashScreen, isLandscape: isWide)
                 }
             }
         }
@@ -62,7 +63,7 @@ struct ContentView: View {
     }
     var analysisPanel: some View {
         guard let canvas = state.canvas else { return RootView.anyEmpty  }
-        return AnyView(AnalysisPanel(source: source, canvas: canvas))
+        return AnyView(AnalysisPanel(source: source, canvas: canvas, isWide: isWide))
     }
     
     func reset() {

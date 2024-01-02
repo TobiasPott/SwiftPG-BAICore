@@ -2,16 +2,12 @@ import SwiftUI
 
 struct MenuToolbar: View {
     @EnvironmentObject var state: GlobalState;
+    @EnvironmentObject var sheets: SheetsState;
     
     var isImageSet: Bool = false;
-    @State var showAbout: Bool = false;
-    @State var showSourceCode: Bool = false;
-    @State var showFeedback: Bool = false;
-    @State var showPreferences: Bool = false;
     var onLoad: () -> Void = {};
     var onSave: () -> Void = {};
     var onClear: () -> Void = {};
-    
     
     var body: some View {
         HStack {
@@ -31,7 +27,7 @@ struct MenuToolbar: View {
                 Button("Load", systemImage: "square.and.arrow.up.fill", action: onLoad)
                 Button("Save", systemImage: "square.and.arrow.down.fill", action: onSave)
                 Divider()
-                Button("Preferences...", systemImage: "gearshape.2", action: { showPreferences.toggle() })
+                Button("Preferences...", systemImage: "gearshape.2", action: { sheets.preferences.toggle() })
                 Divider()
                 Menu(content: {
                     UserModePicker(userMode: $state.userMode)
@@ -47,18 +43,18 @@ struct MenuToolbar: View {
             Menu(content: {
                 
                 
-                Button("About", systemImage: "info.square.fill", action: { showAbout.toggle() })
-                Button("Source Code", systemImage: "terminal.fill", action: { showSourceCode.toggle() })
-                Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: { showFeedback.toggle() })
+                Button("About", systemImage: "info.square.fill", action: { sheets.about.toggle() })
+                Button("Source Code", systemImage: "terminal.fill", action: { sheets.sourceCode.toggle() })
+                Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: { sheets.feedback.toggle() })
             }, label: {
                 RoundedButton(systemName: "info.circle", action: { })
             })
         }
         .frame(maxHeight: 32)
-        .sheet(isPresented: $showAbout, content: { AboutSheet(isOpen: $showAbout) })
-        .sheet(isPresented: $showSourceCode, content: { SourceCodeSheet(isOpen: $showSourceCode) })
-        .sheet(isPresented: $showFeedback, content: { FeedbackSheet(isOpen: $showFeedback) })
-        .sheet(isPresented: $showPreferences, content: { PreferencesSheet(isOpen: $showPreferences).environmentObject(state) })
+        .sheet(isPresented: $sheets.about, content: { AboutSheet(isOpen: $sheets.about) })
+        .sheet(isPresented: $sheets.sourceCode, content: { SourceCodeSheet(isOpen: $sheets.sourceCode) })
+        .sheet(isPresented: $sheets.feedback, content: { FeedbackSheet(isOpen: $sheets.feedback) })
+        .sheet(isPresented: $sheets.preferences, content: { PreferencesSheet(isOpen: $sheets.preferences).environmentObject(state) })
         
     }
 }
