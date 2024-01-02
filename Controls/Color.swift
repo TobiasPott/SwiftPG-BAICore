@@ -33,7 +33,7 @@ struct ColorSwatch: View {
         
         HStack(spacing: 4) {
             color.swuiColor
-                .aspectRatio(1.0, contentMode: .fit)
+                .aspectRatio(1.0, contentMode: .fill)
                 .mask(Styling.roundedRect)
                 .frameMax(32)
             VStack(alignment: HorizontalAlignment.leading) {

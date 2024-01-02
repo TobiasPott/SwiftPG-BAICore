@@ -46,7 +46,7 @@ struct AnalysisPanel: View {
         })
         if (showColors) {
             RoundedPanel(content: {
-                ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: state.palette, isWide: false)
+                ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: state.palette, isWide: isWide)
             }, orientation: .vertical)
         }
     }
