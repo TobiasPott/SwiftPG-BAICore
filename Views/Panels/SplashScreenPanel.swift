@@ -28,7 +28,6 @@ struct SplashScreenPanel: View {
                         }
                         .frameRow(300, Alignment.center)
                     })
-                    
                 })
                 .padding()
             })

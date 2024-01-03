@@ -15,13 +15,16 @@ struct ContentView: View {
         ZStack {
             RoundedPanel(content: {
                 BlueprintPanel(canvases: $canvases, source: source)
+                    .environmentObject(load)
                     .frame(maxHeight: isWide ? CGFloat.infinity : 380)
                 ZStack {
                     VStack {
                         MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
-                            .padding([.leading, .top, .trailing])
+                            .padding(.horizontal)
+                            .padding(.top, 6)
                         contentPanel
                     }
+                    // ToDo: Add different maxWidth for maxOS high res
                     .frameRow(800, Alignment.center)
                 }
                 .frame(alignment: Alignment.center)

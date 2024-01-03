@@ -63,7 +63,6 @@ struct LoadPanel: View {
             }, label: {
                 HStack() {
                     Text("Select")
-//                    SNImage.magnifyingglassCircle.rs(fit: true)
                         .frame(maxHeight: 26)
                     if (load.isImageSet) {
                         load.image.swuiImage.rs()
@@ -74,7 +73,7 @@ struct LoadPanel: View {
                 }.padding(.trailing, 6)
             })
         }
-        .fileImporter(isPresented: $openFile, allowedContentTypes: [.image]) { result in fileImport(result: result) }
+        .fileImporter(isPresented: $openFile, allowedContentTypes: [.image]) { result in load.importImage(result: result) }
         .sheet(isPresented: $openSamples, content: {
             SamplesSheet(isOpen: $openSamples, onSelect: { image in load.set(image) })
         })
@@ -118,25 +117,6 @@ struct LoadPanel: View {
         }) 
     }
     
-    func fileImport(result: Result<URL, Error>) -> Void {
-        do {
-            let fileUrl = try result.get()
-            print(fileUrl)
-            
-            guard fileUrl.startAccessingSecurityScopedResource() else { return }
-            if let imageData = try? Data(contentsOf: fileUrl),
-               let image = PImage(data: imageData) {
-                load.set(image)
-            }
-            fileUrl.stopAccessingSecurityScopedResource()
-            
-        } catch {
-            
-            print ("Error reading file from disk.")
-            print (error.localizedDescription)
-        }
-    }
-    
     func startProject() {
         state.reset()
         source.reset()
@@ -152,6 +132,26 @@ struct LoadPanel: View {
                 state.canvas = canvas
             }
             state.setNavState(.setup, true);
+        }
+        // reset load info after loading
+        //        load.reset()
+    }
+    
+    static func StartProject(_ state: GlobalState, _ load: LoadState, _ source: ArtSource, _ canvases : Binding<Canvases> ) {
+        state.reset()
+        source.reset()
+        canvases.wrappedValue.reset()
+        // set palette from load info
+        state.builtInPalette = load.builtInPalette;
+        state.palette = load.palette
+        if (load.isImageSet) {
+            source.setImage(image: load.image)
+            if (state.userMode != UserMode.advanced) {
+                let canvas = load.getCanvas(refSize: source.image.size)
+                canvases.wrappedValue.append(canvas)
+                state.canvas = canvas
+            }
+            state.setNavState(NavState.setup, true);
         }
         // reset load info after loading
         //        load.reset()

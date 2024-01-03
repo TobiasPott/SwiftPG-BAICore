@@ -2,6 +2,7 @@ import SwiftUI
 
 struct BlueprintPanel: View {
     @EnvironmentObject var state: GlobalState
+    @EnvironmentObject var load: LoadState;
     
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
@@ -13,7 +14,7 @@ struct BlueprintPanel: View {
         GeometryReader { geometry in
             let geoSize = geometry.size;
             ZStack(alignment: Alignment.center) {
-                GetViewForState()
+                navStateView
                     .frameMax(geoSize, Alignment.center)
                     .mask(Styling.roundedRect)
                 
@@ -34,13 +35,19 @@ struct BlueprintPanel: View {
         
     }
     
-    func GetViewForState() -> some View {
+    var navStateView: some View {
         if (state.isNavState(.analysis)) {
             guard let canvas: ArtCanvas = state.canvas else { return RootView.anyEmpty }
             guard let analysis: ArtAnalysis = canvas.analysis else { return RootView.anyEmpty }
-            return AnyView(BrickArtLayer(analysis: analysis, drag: $brickDrag, zoom: $brickZoom))
+            return AnyView(
+                BrickArtLayer(analysis: analysis, drag: $brickDrag, zoom: $brickZoom)
+            )
         } else {            
-            return AnyView(SourceLayer(canvases: $canvases, source: source))
+            return AnyView(
+                SourceLayer(load: load, source: source, canvases: $canvases, overlayContent: {
+                    CanvasesLayer(canvases: $canvases, source: source, borderColor: Styling.white.opacity(0.25))
+                })
+            )
         } 
     }
     

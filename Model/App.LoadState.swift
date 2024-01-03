@@ -42,4 +42,23 @@ class LoadState : ObservableObject {
         self.image = LoadState.defaultImage
         self.isImageSet = false
     }
+    
+    public func importImage(result: Result<URL, Error>) -> Void {
+        do {
+            let fileUrl = try result.get()
+            print(fileUrl)
+            
+            guard fileUrl.startAccessingSecurityScopedResource() else { return }
+            if let imageData = try? Data(contentsOf: fileUrl),
+               let image = PImage(data: imageData) {
+                self.set(image)
+            }
+            fileUrl.stopAccessingSecurityScopedResource()
+            
+        } catch {
+            
+            print ("Error reading file from disk.")
+            print (error.localizedDescription)
+        }
+    }
 }
