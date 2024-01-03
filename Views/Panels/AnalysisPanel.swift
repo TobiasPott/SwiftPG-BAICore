@@ -12,7 +12,16 @@ struct AnalysisPanel: View {
     @State var selectedPlate: Int2 = Int2(x: 0, y: 0);
     
     var body: some View {
-        GroupBox(label: Text("Instructions").font(Styling.title2Font), content: { })
+        
+        RoundedPanel(content: {
+            HStack {
+                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(.setup, true) })
+                Text("Back")
+                Spacer()
+            }.padding(.horizontal).padding(.vertical, 8)
+        }, orientation: PanelOrientation.vertical)
+        
+        
         GuideText(text: "Some details about your generated brick art. You can also export the instructions to PDF")
         RoundedPanel(content: {
             CanvasDetailHeader(canvas: canvas).padding(.horizontal, 12).padding(.vertical, 6);

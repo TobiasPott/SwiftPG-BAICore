@@ -13,12 +13,6 @@ struct LoadPanel: View {
     
     var body: some View {
         
-        GroupBox(label: Text("Make your Brick Art").font(Styling.title2Font), content: { })
-        
-        UserModePicker(userMode: $state.userMode)
-            .pickerStyle(.segmented)
-        GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
-        
         if (load.isImageSet) {
             RoundedPanel(content: {
                 GuideText(text: "Continue to setup your canvas.").padding([.horizontal, .top])
@@ -28,7 +22,13 @@ struct LoadPanel: View {
                     RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { startProject() })
                 }.padding(.horizontal).padding(.vertical, 8)
             }, orientation: PanelOrientation.vertical)
+        } else {
+            GroupBox(label: Text("Make your Brick Art").font(Styling.title2Font), content: { })
         }
+        UserModePicker(userMode: $state.userMode)
+            .pickerStyle(.segmented)
+        GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
+        
         if (state.userMode != .advanced) {
             GroupBox(label: Text("Quick Setup").font(Styling.title2Font), content: {
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")

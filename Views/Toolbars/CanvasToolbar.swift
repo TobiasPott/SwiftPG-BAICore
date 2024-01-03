@@ -51,6 +51,7 @@ struct CanvasToolbar: View {
                         VerticalSlider<CGFloat>(value: $canvas.scale, in: 1.0...canvas.maxScale, step: 0.1, onEditingChanged: { changed in
                             if (sliderChange) { 
                                 sliderChange = false
+                                updateScale(0.0)
                             } else {
                                 sliderChange = true
                             }

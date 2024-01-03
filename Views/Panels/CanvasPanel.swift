@@ -13,6 +13,19 @@ struct CanvasPanel: View {
     
     var body: some View {
         
+        RoundedPanel(content: {
+            HStack {
+                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(.load, true) })
+                Text("Back")
+                Spacer()
+                Text("Analyze")
+                RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
+                    _ = canvas.Analyse(source, state.palette);
+                    state.setNavState(.analysis, true)
+                })
+            }.padding(.horizontal).padding(.vertical, 8)
+        }, orientation: PanelOrientation.vertical)
+        
         GroupBox(content: {
             GuideText(text: "You can give your canvas a custom name.")
             Highlight(content: {
@@ -25,38 +38,6 @@ struct CanvasPanel: View {
             }
         })
         
-        RoundedPanel(content: {
-            HStack {
-                RoundedButton(systemName: "arrow.counterclockwise.circle", size: 42, action: { 
-                    _ = canvas.Analyse(source, state.palette);
-                })
-                Text("Refresh")
-                Spacer()
-                Text("Analyze")
-                RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
-                    _ = canvas.Analyse(source, state.palette);
-                    state.setNavState(.analysis, true)
-                })
-            }.padding(.horizontal).padding(.vertical, 8)
-        }, orientation: PanelOrientation.vertical)
-        
-//        
-//        HStack {
-//            RoundedButton(systemName: "trash.circle", action: { 
-//                _ = canvas.DiscardAnalysis();
-//            }, background: canvas.analysis == nil ? Styling.buttonColor : Styling.red).disabled(canvas.analysis == nil)
-//            RoundedButton(systemName: "arrow.counterclockwise.circle", action: { 
-//                _ = canvas.Analyse(source, state.palette);
-//            })
-//            Spacer()
-//            if(canvas.analysis != nil) {
-//                // gear.circle
-//                RoundedButton(systemName: "arrowshape.right.circle.fill", action: { 
-//                    state.setNavState(.analysis, true); 
-//                })
-//            }
-//        }
-//        
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
         HStack(alignment: VerticalAlignment.center) {
             detailPanel

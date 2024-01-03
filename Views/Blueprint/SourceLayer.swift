@@ -13,6 +13,8 @@ struct SourceLayer<Content: View>: View {
     @State var openFile: Bool = false
     
     var body: some View {
+        // ToDo: Fix source view to prioritize load.image when it is set over source
+        //       ponder if this is correct and works out
         ZStack {
             ZStack {
                 ZStack() {
@@ -85,7 +87,7 @@ struct SourceLayer<Content: View>: View {
                 }, label: {
                     ZStack {
                         if (load.isImageSet) {
-                            Styling.blueprintColor
+                            Styling.gray
                             load.image.swuiImage.rs()
                             
                             RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
