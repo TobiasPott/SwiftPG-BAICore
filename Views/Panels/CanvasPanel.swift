@@ -15,15 +15,15 @@ struct CanvasPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(.load, true) })
+                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(NavState.load, true) })
                 Text("Back")
                 Spacer()
                 Text("Analyze")
                 RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
                     _ = canvas.Analyse(source, state.palette);
-                    state.setNavState(.analysis, true)
+                    state.setNavState(NavState.analysis, true)
                 })
-            }.padding(.horizontal).padding(.vertical, 8)
+            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8)
         }, orientation: PanelOrientation.vertical)
         
         GroupBox(content: {
@@ -47,7 +47,7 @@ struct CanvasPanel: View {
                 if(canvas.analysis != nil) {
                     let img = canvas.analysis?.image;
                     img?.swuiImage
-                        .interpolation(.none).resizable()
+                        .interpolation(Image.Interpolation.none).resizable()
                         .frame(maxHeight: 320)
                         .scaledToFit()
                         .frame(maxWidth: CGFloat.infinity)
@@ -67,15 +67,15 @@ struct CanvasPanel: View {
         GroupBox(content: {
             VStack {
                 LabelledText(label: "Width", text: "\(Int(canvas.tileWidth))", alignment: VerticalAlignment.top)
-                    .padding(.top, 6)
+                    .padding(Edge.Set.top, 6)
                 LabelledText(label: "Height", text: "\(Int(canvas.tileHeight))", alignment: VerticalAlignment.top)
-                    .padding(.top, 6)
+                    .padding(Edge.Set.top, 6)
                 
                 
                 LabelledText(label: "Dimensions", text: "\(Int(canvas.size.width)) x \(Int(canvas.size.height))", alignment: VerticalAlignment.top)
-                    .padding(.top, 6)
+                    .padding(Edge.Set.top, 6)
                 LabelledText(label: "Bricks", text: "\(Int(canvas.size.width * canvas.size.height))", alignment: VerticalAlignment.top)
-                    .padding(.top, 6)
+                    .padding(Edge.Set.top, 6)
                 Spacer()
             }
         })

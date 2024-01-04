@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct LoadPanel: View {
     @EnvironmentObject var state: GlobalState;
@@ -15,21 +16,23 @@ struct LoadPanel: View {
         
         if (load.isImageSet) {
             RoundedPanel(content: {
-                GuideText(text: "Continue to setup your canvas.").padding([.horizontal, .top])
+                GuideText(text: "Continue to setup your canvas.").padding([Edge.Set.horizontal, Edge.Set.top])
                 HStack {
                     Spacer()
                     Text("Create")
                     RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { startProject() })
-                }.padding(.horizontal).padding(.vertical, 8)
+                }
+                .padding(Edge.Set.horizontal)
+                .padding(Edge.Set.vertical, 8)
             }, orientation: PanelOrientation.vertical)
         } else {
             GroupBox(label: Text("Make your Brick Art").font(Styling.title2Font), content: { })
         }
         UserModePicker(userMode: $state.userMode)
-            .pickerStyle(.segmented)
+            .pickerStyle(SegmentedPickerStyle())
         GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
         
-        if (state.userMode != .advanced) {
+        if (state.userMode != UserMode.advanced) {
             GroupBox(label: Text("Quick Setup").font(Styling.title2Font), content: {
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")
                 HStack(alignment: VerticalAlignment.top) { selectFileMenu }
@@ -68,12 +71,12 @@ struct LoadPanel: View {
                         load.image.swuiImage.rs()
                             .frame(maxHeight: 64)
                             .mask(Styling.roundedRectHalf)
-                            .padding(.leading, 6)
+                            .padding(Edge.Set.leading, 6)
                     } 
-                }.padding(.trailing, 6)
+                }.padding(Edge.Set.trailing, 6)
             })
         }
-        .fileImporter(isPresented: $openFile, allowedContentTypes: [.image]) { result in load.importImage(result: result) }
+        .fileImporter(isPresented: $openFile, allowedContentTypes: [UTType.image]) { result in load.importImage(result: result) }
         .sheet(isPresented: $openSamples, content: {
             SamplesSheet(isOpen: $openSamples, onSelect: { image in load.set(image) })
         })
@@ -100,7 +103,7 @@ struct LoadPanel: View {
                         ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
                     })
                 }
-            }.padding(.top, -6)
+            }.padding(Edge.Set.top, -6)
         }
     }
     var paletteMenu: some View {
@@ -126,12 +129,12 @@ struct LoadPanel: View {
         state.palette = load.palette
         if (load.isImageSet) {
             source.setImage(image: load.image)
-            if (state.userMode != .advanced) {
+            if (state.userMode != UserMode.advanced) {
                 let canvas = load.getCanvas(refSize: source.image.size)
                 canvases.append(canvas)
                 state.canvas = canvas
             }
-            state.setNavState(.setup, true);
+            state.setNavState(NavState.setup, true);
         }
         // reset load info after loading
         //        load.reset()

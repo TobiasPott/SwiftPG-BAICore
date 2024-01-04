@@ -7,10 +7,10 @@ struct SplashScreenPanel: View {
     
     var body: some View {
         BlueprintGrid(baseSpacing: 64, lineWidth: isWide ? 1.5 : 0.75)
-            .task(priority: .medium, delayCover)
+            .task(priority: TaskPriority.medium, delayCover)
             .zIndex(1)
             .scaleEffect(isWide ? 2.76 : 4.8)
-            .transition(.move(edge: isWide ? .leading : .top))
+            .transition(AnyTransition.move(edge: isWide ? Edge.leading : Edge.top))
             .overlay(content: {
                 GroupBox(content: {
                     Button(action: {
@@ -30,6 +30,8 @@ struct SplashScreenPanel: View {
                     })
                 })
                 .padding()
+                // ToDo: integrate photo sheet into "select from" menus
+//                PhotoSheet()
             })
     }
     

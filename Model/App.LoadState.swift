@@ -6,7 +6,7 @@ class LoadState : ObservableObject {
     @Published public var name: String = "Canvas"
     @Published public var width: Int = 3;
     @Published public var height: Int = 3;
-    @Published public var builtInPalette: BuiltInPalette = .legoReduced
+    @Published public var builtInPalette: BuiltInPalette = BuiltInPalette.legoReduced
     @Published public var palette: Palette
     
     @Published public var isImageSet: Bool = false

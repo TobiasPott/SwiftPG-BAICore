@@ -22,11 +22,11 @@ extension PImage {
             var r : UInt32 = 0
             var g : UInt32 = 0
             var b : UInt32 = 0
-            if cgImage.byteOrderInfo == .orderDefault || cgImage.byteOrderInfo == .order32Big {
+            if cgImage.byteOrderInfo == CGImageByteOrderInfo.orderDefault || cgImage.byteOrderInfo == CGImageByteOrderInfo.order32Big {
                 r = pixel & 255
                 g = (pixel >> 8) & 255
                 b = (pixel >> 16) & 255
-            } else if cgImage.byteOrderInfo == .order32Little {
+            } else if cgImage.byteOrderInfo == CGImageByteOrderInfo.order32Little {
                 r = (pixel >> 16) & 255
                 g = (pixel >> 8) & 255
                 b = pixel & 255
@@ -54,7 +54,7 @@ extension PImage {
             provider: providerRef,
             decode: nil,
             shouldInterpolate: true,
-            intent: .defaultIntent)
+            intent: CGColorRenderingIntent.defaultIntent)
         else { return nil }
         self.init(cgImage: cgim)
     }

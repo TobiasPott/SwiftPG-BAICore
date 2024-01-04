@@ -15,7 +15,7 @@ struct UserModePicker: View {
 
 struct Highlight<Content: View>: View{
     var content: () -> Content;
-    var alignment: VerticalAlignment = .center
+    var alignment: VerticalAlignment = VerticalAlignment.center
     
     var color: Color = Styling.highlightColor
     var useCaption: Bool = true
@@ -43,7 +43,7 @@ struct Highlight<Content: View>: View{
                         .mask(Styling.roundedRectTLBR)
                         .frameSquare(20)
                 }
-                .padding(.top, -16)
+                .padding(Edge.Set.top, -16)
             }
         }
         .background(Styling.roundedRect.stroke(color, lineWidth: 2.0))
@@ -59,7 +59,7 @@ struct GuideText: View {
     var alignment: VerticalAlignment = VerticalAlignment.center
     
     var body: some View {
-        if (state.userMode == .guided) {
+        if (state.userMode == UserMode.guided) {
             Highlight(content: { Text(text) })
         } else {
             EmptyView()
@@ -71,7 +71,7 @@ struct LabelledText: View {
     let label: String;
     let text: String;
     
-    var alignment: VerticalAlignment = .center
+    var alignment: VerticalAlignment = VerticalAlignment.center
     
     var body: some View {
         HStack(alignment: alignment) { 
@@ -91,13 +91,17 @@ struct CompactIconPicker<Content: View>: View {
     
     var body: some View {
         ZStack() {
-            HStack(alignment: VerticalAlignment.center) { SNImage.get(systemName).resizable().aspectRatio(contentMode: .fit).frame(width: size, height: size) 
+            HStack(alignment: VerticalAlignment.center) { 
+                SNImage.get(systemName)
+                    .resizable()
+                    .aspectRatio(contentMode: ContentMode.fit)
+                    .frame(width: size, height: size) 
                 if(autoSpace) { Spacer(minLength: 0); }
             }
             HStack { 
                 if(autoSpace) { Spacer(minLength: 0); }
                 Picker(selection: $value, label: EmptyView()) { content() }
-                    .padding(.trailing, -16)
+                    .padding(Edge.Set.trailing, -16)
             }
         }
         .frame(maxWidth: 36 + size + (autoExpand ? CGFloat.infinity : 0))

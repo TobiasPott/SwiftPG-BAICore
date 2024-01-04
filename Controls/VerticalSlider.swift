@@ -34,13 +34,13 @@ struct VerticalSlider<V: BinaryFloatingPoint>: View {
                 VStack(spacing: 0) {
                     // Gray section of line
                     Rectangle()
-                        .foregroundColor(Color(.systemGray4))
+                        .foregroundColor(Color(UIColor.systemGray4))
                         .frame(height: self.getPoint(in: geometry).y)
                         .clipShape(RoundedRectangle(cornerRadius: 2))
                     
                     // Blue section of line
                     Rectangle()
-                        .foregroundColor(Color(.systemBlue))
+                        .foregroundColor(Color(UIColor.systemBlue))
                         .frame(height: geometry.size.height - self.getPoint(in: geometry).y)
                         .clipShape(RoundedRectangle(cornerRadius: 3))
                 }

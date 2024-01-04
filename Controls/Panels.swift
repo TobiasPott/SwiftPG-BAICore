@@ -13,18 +13,18 @@ struct RoundedPanel<Content: View>: View {
     var paddingIsSpacing: Bool = false;
     
     
-    var verticalAlignment: HorizontalAlignment = .center;
-    var horizontalAlignment: VerticalAlignment = .center; 
+    var verticalAlignment: HorizontalAlignment = HorizontalAlignment.center;
+    var horizontalAlignment: VerticalAlignment = VerticalAlignment.center; 
     
     var body: some View {
         Group {
-            if(orientation == .vertical) {
+            if(orientation == PanelOrientation.vertical) {
                 VStack(alignment: verticalAlignment, spacing: paddingIsSpacing ? padding : spacing) { content(); }
             } else {
                 HStack(alignment: horizontalAlignment, spacing: paddingIsSpacing ? padding : spacing) { content(); }
             }
         }
-        .padding(.all, padding)
+        .padding(Edge.Set.all, padding)
         .background(background)
         .mask(Styling.roundedRect)
     }
@@ -39,8 +39,8 @@ struct ToolbarPanel<Content: View>: View {
     var paddingIsSpacing: Bool = false;
     
     
-    var verticalAlignment: HorizontalAlignment = .center;
-    var horizontalAlignment: VerticalAlignment = .center; 
+    var verticalAlignment: HorizontalAlignment = HorizontalAlignment.center;
+    var horizontalAlignment: VerticalAlignment = VerticalAlignment.center; 
     
     var body: some View {
         RoundedPanel(content: content, orientation: orientation, padding: padding, spacing: spacing, background: background, paddingIsSpacing: paddingIsSpacing, verticalAlignment: verticalAlignment, horizontalAlignment: horizontalAlignment)

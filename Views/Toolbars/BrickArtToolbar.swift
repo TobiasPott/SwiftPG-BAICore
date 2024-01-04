@@ -11,10 +11,10 @@ struct BrickArtToolbar: View {
             RoundedButton(systemName: "viewfinder.circle", action: { drag.location = CGPoint.zero; drag.fixedLocation = CGPoint.zero })
             
             RoundedLockButton(systemName: "circle.square", action: { 
-                brickOutline = brickOutline == .outlined ? .none : .outlined
-            }, isLocked: brickOutline == .none)
+                brickOutline = brickOutline == BrickOutlineMode.outlined ? BrickOutlineMode.none : BrickOutlineMode.outlined
+            }, isLocked: brickOutline == BrickOutlineMode.none)
             
-        }, orientation: .vertical)
-        .toggleStyle(.button)
+        }, orientation: PanelOrientation.vertical)
+        .toggleStyle(ButtonToggleStyle())
     }
 }

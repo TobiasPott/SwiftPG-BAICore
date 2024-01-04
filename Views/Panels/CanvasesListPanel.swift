@@ -18,7 +18,7 @@ struct CanvasesListPanel: View {
                 CompactIconPicker(value: $newCanvasWidth, systemName: "arrow.left.and.right", content: {
                     ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
                 }, size: 16)
-                    .padding(.trailing)
+                    .padding(Edge.Set.trailing)
                 CompactIconPicker(value: $newCanvasHeight, systemName: "arrow.up.and.down", content: {
                     ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
                 }, size: 16)
@@ -42,7 +42,7 @@ struct CanvasesListPanel: View {
                         state.canvas = canvas;
                     }
                 }, label: {
-                    CanvasHeader(source: source, canvas: canvas, selected: canvas.equals(state.canvas)).padding(.vertical, 6)
+                    CanvasHeader(source: source, canvas: canvas, selected: canvas.equals(state.canvas)).padding(Edge.Set.vertical, 6)
                 })
                 .contextMenu(menuItems: {
                     Button("Delete", action: { 
@@ -55,8 +55,8 @@ struct CanvasesListPanel: View {
             }
             .onDelete(perform: delete)
         }
-        .padding(.leading)
-        .padding(.trailing, 6)
+        .padding(Edge.Set.leading)
+        .padding(Edge.Set.trailing, 6)
         
         // only display footer if list has items
         if (canvases.items.count > 0) {

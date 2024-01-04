@@ -20,7 +20,7 @@ struct PlatesPreviewSheet: View {
                             PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: $selection)
                                 .frameRow(200, Alignment.leading)
                             Spacer()
-                            PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: .outlined)
+                            PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: BrickOutlineMode.outlined)
                                 .overlay(content: { Grid(4, gridColor: Styling.white.opacity(0.5)) })      
                         }
                         PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: isWide)
@@ -29,7 +29,7 @@ struct PlatesPreviewSheet: View {
             })
             HStack { Spacer()
                 Button("Close", action: { isOpen.toggle() })    
-            }.frameStretch(.topTrailing).padding()
+            }.frameStretch(Alignment.topTrailing).padding()
         }.padding()
     }
     
@@ -37,7 +37,7 @@ struct PlatesPreviewSheet: View {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         
         return AnyView(ZStack {
-            analysis.image.swuiImage.interpolation(.none).rs(fit: true)
+            analysis.image.swuiImage.interpolation(Image.Interpolation.none).rs(fit: true)
             VStack(spacing: 0) {
                 ForEach(0..<analysis.tileHeight, id: \.self) { y in
                     HStack(spacing: 0) { 
@@ -49,7 +49,7 @@ struct PlatesPreviewSheet: View {
                             }, label: {
                                 Rectangle()
                                     .foregroundColor(isSelected ? Styling.clear : Color.black.opacity(0.2))
-                                    .aspectRatio(1.0, contentMode: .fit)
+                                    .aspectRatio(1.0, contentMode: ContentMode.fit)
                                     .border(isSelected ? Styling.white : Styling.black, width: 1.0)
                             })
                         }
@@ -58,7 +58,7 @@ struct PlatesPreviewSheet: View {
             }
         })
     }
-    public static func getTileArt(canvas: ArtCanvas, tileCoords: Int2, display: BrickOutlineMode = .none) -> AnyView {
+    public static func getTileArt(canvas: ArtCanvas, tileCoords: Int2, display: BrickOutlineMode = BrickOutlineMode.none) -> AnyView {
         guard let analysis = canvas.analysis else { return RootView.anyEmpty; }
         
         return AnyView(
@@ -67,7 +67,7 @@ struct PlatesPreviewSheet: View {
                 let yOffset = tileCoords.y * 16
                 let rowLength = analysis.tileWidth * 16
                 BrickTileView(colorInfo: analysis.colorInfo, display: display, xOffset: xOffset, yOffset: yOffset, rowLength: rowLength)
-                    .aspectRatio(1.0, contentMode: .fit)
+                    .aspectRatio(1.0, contentMode: ContentMode.fit)
             }
         )
     }

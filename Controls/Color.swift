@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct ColorSwatchList: View {
-    private static let gridItem: GridItem = GridItem(.adaptive(minimum: 160, maximum: 165));
+    private static let gridItem: GridItem = GridItem(GridItem.Size.adaptive(minimum: 160, maximum: 165));
     
     let colorsWithCount: Dictionary<MultiColor, Int>;
     let palette: Palette;
@@ -14,7 +14,7 @@ struct ColorSwatchList: View {
                 let kvPair = colorsWithCount[index];
                 
                 ColorSwatch(color: kvPair.key, numberOfUses: kvPair.value, palette: palette)
-                    .aspectRatio(5, contentMode: .fit)
+                    .aspectRatio(5, contentMode: ContentMode.fit)
             }
         }.padding(6)
     }
@@ -33,14 +33,13 @@ struct ColorSwatch: View {
         
         HStack(spacing: 4) {
             color.swuiColor
-                .aspectRatio(1.0, contentMode: .fill)
+                .aspectRatio(1.0, contentMode: ContentMode.fill)
                 .mask(Styling.roundedRect)
                 .frameMax(32)
             VStack(alignment: HorizontalAlignment.leading) {
-                HStack(spacing: 0) { Text("x \(numberOfUses)"); Spacer(); }.fontWeight(.bold)
+                HStack(spacing: 0) { Text("x \(numberOfUses)"); Spacer(); }.fontWeight(Font.Weight.bold)
                 HStack(spacing: 0) { Text("\(colorInfo.name)") }
             }
-//            .padding(.ß, 3)
             .frameStretch(Alignment.topLeading)
             .font(Styling.footnoteFont)
         }

@@ -11,13 +11,13 @@ struct FeedbackSheet: View {
                     Divider()
                     VStack(alignment: HorizontalAlignment.leading) {
                         Text("Feel free to give me feedback to this app and share your ideas, feature suggestions and problems you have.")
-                            .padding(.bottom, 3)
+                            .padding(Edge.Set.bottom, 3)
                         Text("You can do so with the review and feedback function of your device's app store or open a new issue on the GitHub repository.")
-                            .padding(.bottom, 3)
+                            .padding(Edge.Set.bottom, 3)
                     }
                     Divider()
                     HStack {
-                        Spacer(); Link("Go to Github", destination: .init(string: "https://github.com/TobiasPott/SwiftPG-BrickArtInstructor")!)
+                        Spacer(); Link("Go to Github", destination: URL(string: "https://github.com/TobiasPott/SwiftPG-BrickArtInstructor")!)
                     }
                     Spacer()
                 }
@@ -25,7 +25,7 @@ struct FeedbackSheet: View {
             }).padding()
             HStack { Spacer()
                 Button("Close", action: { isOpen.toggle() })    
-            }.frameStretch(.topTrailing).padding().padding()
+            }.frameStretch(Alignment.topTrailing).padding().padding()
         }
         
     }

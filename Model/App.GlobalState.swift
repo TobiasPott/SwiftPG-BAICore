@@ -13,10 +13,10 @@ public enum BrickOutlineMode {
 class GlobalState : ObservableObject
 {
     @Published var showSplashScreen: Bool = true;
-    @Published var userMode: UserMode = .simple;   
-    @Published var navState: NavState = .load;
+    @Published var userMode: UserMode = UserMode.simple;   
+    @Published var navState: NavState = NavState.load;
     
-    @Published var builtInPalette: BuiltInPalette = .legoReduced
+    @Published var builtInPalette: BuiltInPalette = BuiltInPalette.legoReduced
     @Published var palette: Palette = ArtPalette.reduced
     @Published var inventory: ArtInventory = UserData.inventory
     @Published var canvas: ArtCanvas? = nil;
@@ -26,7 +26,7 @@ class GlobalState : ObservableObject
     @Published var drag: DragInfo = DragInfo();
     @Published var zoom: ZoomInfo = ZoomInfo(scale: 30, lastScale: 30);
     
-    @Published var brickOutline: BrickOutlineMode = .outlined;
+    @Published var brickOutline: BrickOutlineMode = BrickOutlineMode.outlined;
     @Published var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
     @Published var brickDrag: DragInfo = DragInfo();
     
@@ -58,6 +58,6 @@ class GlobalState : ObservableObject
         srcZoomLocked = false;
         
         canvas = nil;
-        navState = .load
+        navState = NavState.load
     }
 }

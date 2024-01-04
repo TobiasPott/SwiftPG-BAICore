@@ -15,21 +15,21 @@ struct AnalysisPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(.setup, true) })
+                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(NavState.setup, true) })
                 Text("Back")
                 Spacer()
-            }.padding(.horizontal).padding(.vertical, 8)
+            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8)
         }, orientation: PanelOrientation.vertical)
         
         
         GuideText(text: "Some details about your generated brick art. You can also export the instructions to PDF")
         RoundedPanel(content: {
-            CanvasDetailHeader(canvas: canvas).padding(.horizontal, 12).padding(.vertical, 6);
+            CanvasDetailHeader(canvas: canvas).padding(Edge.Set.horizontal, 12).padding(Edge.Set.vertical, 6);
             
             ExportMenu() {
                 AnalysisPDFView(source: source, canvas: canvas, palette: state.palette, outWidth: 1280)
             }
-        }, orientation: .horizonal)
+        }, orientation: PanelOrientation.horizonal)
         
         GuideText(text: "Your interactive instructions for every plate with the required bricks and colors")
         GroupBox(content: {
@@ -50,13 +50,13 @@ struct AnalysisPanel: View {
             HStack {
                 Text("All Colors")
                 Spacer()
-                Toggle(showColors ? "Hide" : "Show", isOn: $showColors).toggleStyle(.button)
+                Toggle(showColors ? "Hide" : "Show", isOn: $showColors).toggleStyle(ButtonToggleStyle())
             }
         })
         if (showColors) {
             RoundedPanel(content: {
                 ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: state.palette, isWide: isWide)
-            }, orientation: .vertical)
+            }, orientation: PanelOrientation.vertical)
         }
     }
 }

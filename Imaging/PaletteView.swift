@@ -14,7 +14,7 @@ struct PaletteRowPreview: View {
             let overhang = palette.count - nMin
             let fMax = (overhang > 0 ? nMin : cMin)
             ZStack {
-                LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size), spacing: 2)]) {
+                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2)]) {
                     ForEach(0..<fMax, id: \.self) { i in
                         palette.artColors[i].swuiColor.frameSquare(size)
                             .mask(Styling.roundedRectHalf)
@@ -48,32 +48,31 @@ struct PalettePreview: View {
                 Spacer(); 
                 Toggle(isOn: $showList, label: {
                     Image(systemName: "list.dash")
-                }).toggleStyle(.button)
+                }).toggleStyle(ButtonToggleStyle())
             }.font(Styling.captionFont)
             if (!showList) {
-                LazyVGrid(columns: [.init(.adaptive(minimum: size, maximum: size), spacing: 2, alignment: Alignment.topTrailing)]) {
+                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2, alignment: Alignment.topTrailing)]) {
                     ForEach(0..<palette.count, id: \.self) { i in
-                        palette.artColors[i].swuiColor.aspectRatio(1.0, contentMode: .fit)
+                        palette.artColors[i].swuiColor.aspectRatio(1.0, contentMode: ContentMode.fit)
                             .mask(Styling.roundedRectHalf)
                     }
                 }
             } else {
                 ScrollView(content: {
-                VStack(alignment: .leading, spacing: 2){
-                    ForEach(0..<palette.count, id: \.self) { i in
-                        HStack {
-                            palette.artColors[i].swuiColor
-                                .aspectRatio(1.0, contentMode: .fit)
-                                .mask(Styling.roundedRectHalf)
-                            Text("\(palette.artColors[i].name)")
-                            Spacer()
-                        }.frame(maxHeight: 18)
-                    }
-                }   
-                .font(Styling.captionFont.monospaced())
+                    VStack(alignment: HorizontalAlignment.leading, spacing: 2){
+                        ForEach(0..<palette.count, id: \.self) { i in
+                            HStack {
+                                palette.artColors[i].swuiColor
+                                    .aspectRatio(1.0, contentMode: ContentMode.fit)
+                                    .mask(Styling.roundedRectHalf)
+                                Text("\(palette.artColors[i].name)")
+                                Spacer()
+                            }.frame(maxHeight: 18)
+                        }
+                    }   
+                    .font(Styling.captionFont.monospaced())
                 })
                 .frame(maxHeight: 240)
-//                .background(.red.opacity(0.4))
             }
         }
     }

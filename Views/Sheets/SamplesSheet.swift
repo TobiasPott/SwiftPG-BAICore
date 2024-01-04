@@ -38,7 +38,7 @@ struct SamplesSheet: View {
             
             HStack { Spacer()
                 Button("Close", action: { isOpen.toggle() })    
-            }.frameStretch(.topTrailing).padding().padding()
+            }.frameStretch(Alignment.topTrailing).padding().padding()
         }
         
     }    

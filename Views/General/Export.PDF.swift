@@ -19,7 +19,7 @@ struct ExportMenu<Content: View>: View {
             SNImage.squareAndArrowUp
                 .rs(fit: true)
                 .frame(width: 28, height: 28)
-                .padding([.top, .trailing], 6)
+                .padding([Edge.Set.top, Edge.Set.trailing], 6)
                 .frame(maxHeight: CGFloat.infinity, alignment: Alignment.topTrailing)
         })
     }
@@ -64,7 +64,7 @@ struct ExportMenu<Content: View>: View {
 
 extension PDFDocument: Transferable {
     public static var transferRepresentation: some TransferRepresentation {
-        DataRepresentation(exportedContentType: .pdf) { pdf in 
+        DataRepresentation(exportedContentType: UTType.pdf) { pdf in 
             return pdf.dataRepresentation()!
         }
     }

@@ -62,7 +62,7 @@ struct BlueprintGrid: View {
             Grid(baseSpacing, gridColor: BlueprintGrid.lineColor, lineWidth: lineWidth)
             Grid(baseSpacing / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: lineWidth)
         }
-        .aspectRatio(1.0, contentMode: .fit)
+        .aspectRatio(1.0, contentMode: ContentMode.fit)
     }
 }
 
@@ -82,7 +82,7 @@ struct BlueprintGroupBoxStyle: GroupBoxStyle {
                 Styling.blueprintColor
                 Grid(64, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
                 Grid(32 / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
-            }.aspectRatio(1.0, contentMode: .fill)
+            }.aspectRatio(1.0, contentMode: ContentMode.fill)
         })
         .mask(Styling.roundedRect)
     }

@@ -73,7 +73,6 @@ struct RoundedImage: View {
             .foregroundColor(foreground)
             .padding(padding)
             .frame(width: size, height: size)
-//            .background(Styling.roundedRect.foregroundColor(background))
             .background(background)
             .mask(Styling.roundedRect)
     }

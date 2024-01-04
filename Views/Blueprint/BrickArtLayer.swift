@@ -18,7 +18,7 @@ struct BrickArtLayer: View {
                             Grid(cols: floor(analysis.size.width / 16), rows: floor(analysis.size.height / 16), gridColor: Styling.white)
                         })
                 }
-                .scaleEffect(zoom.scale, anchor: .center)
+                .scaleEffect(zoom.scale, anchor: UnitPoint.center)
                 .frameMax(geometry.size, Alignment.center)
                 
             }
@@ -27,8 +27,8 @@ struct BrickArtLayer: View {
             .offset(x: drag.fixedLocation.x, y: drag.fixedLocation.y)  
             
             if (drag.active) {
-                BrickCanvasView(analysis: analysis, display: .none)
-                    .scaleEffect(zoom.scale, anchor: .center)
+                BrickCanvasView(analysis: analysis, display: BrickOutlineMode.none)
+                    .scaleEffect(zoom.scale, anchor: UnitPoint.center)
                     .frameMax(geometry.size)
                     .offset(drag.location.cgSize())
             }
@@ -57,7 +57,7 @@ struct BrickArtLayer: View {
 struct BrickCanvasView: View {
     
     let analysis: ArtAnalysis
-    var display: BrickOutlineMode = .none;
+    var display: BrickOutlineMode = BrickOutlineMode.none;
     
     var body: some View {
         let spacing: CGFloat = 0.0;
@@ -84,7 +84,7 @@ struct BrickTileView: View {
     
     
     let colorInfo: ArtColors
-    var display: BrickOutlineMode = .none;
+    var display: BrickOutlineMode = BrickOutlineMode.none;
     
     var xOffset: Int = 0;
     var yOffset: Int = 0;
@@ -102,7 +102,7 @@ struct BrickTileView: View {
                             let index = baseIndex + Int(x);
                             if (index < colorInfo.colors.count) {
                                 colorInfo.colors[index].swuiColor
-                                    .aspectRatio(1.0, contentMode: .fill)
+                                    .aspectRatio(1.0, contentMode: ContentMode.fill)
                                 
                             }
                             
@@ -110,7 +110,7 @@ struct BrickTileView: View {
                     }                    
                 }
             }
-            if (display == .outlined) {
+            if (display == BrickOutlineMode.outlined) {
                 BrickPlateOutlines()
             }
         }
@@ -138,7 +138,7 @@ struct BrickPlateOutlines: View {
     
     var body: some View {
         BrickTileView.outline.swuiImage.resizable()
-            .colorMultiply(.yellow.opacity(0.75)).blendMode(.difference)        
+            .colorMultiply(Color.yellow.opacity(0.75)).blendMode(BlendMode.difference)        
     }
     
 }

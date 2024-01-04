@@ -20,12 +20,12 @@ struct AnalysisPDFView: View {
                     }                
                 })
                 .groupBoxStyle(BlueprintGroupBoxStyle())
-                .padding(.top)
+                .padding(Edge.Set.top)
                 
                 ForEach(0..<analysis.tileHeight, id: \.self) { y in
                     ForEach(0..<analysis.tileWidth, id: \.self) { x in
                         PlatePDFPage(source: source, canvas: canvas, palette: palette, coords: Int2(x: x, y: y))
-                            .padding(.vertical)
+                            .padding(Edge.Set.vertical)
                     }
                 }
                 
@@ -41,12 +41,12 @@ struct AnalysisPDFView: View {
                 
                 GroupBox(content: {
                     HStack {
-                        Text("Created with Brick Art Instructor").font(Styling.captionFont).fontWeight(.bold)
+                        Text("Created with Brick Art Instructor").font(Styling.captionFont).fontWeight(Font.Weight.bold)
                         Spacer();
                     }
                 })
                 .groupBoxStyle(BlueprintGroupBoxStyle())
-                .padding(.bottom)
+                .padding(Edge.Set.bottom)
             }
             .frame(alignment: Alignment.top)
             .frame(width: outWidth)
@@ -74,7 +74,7 @@ struct PlatePDFPage: View {
                         PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: .constant(coords))
                             .frame(maxWidth: 150)
                         Spacer()
-                        PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .outlined)
+                        PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: BrickOutlineMode.outlined)
                             .overlay(content: {
                                 Grid(4, gridColor: Styling.white.opacity(0.5))
                             })      
@@ -84,14 +84,14 @@ struct PlatePDFPage: View {
                     Spacer(minLength: 0)
                 }
                 .frame(maxHeight: CGFloat.infinity)
-                PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: .outlined)
+                PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: BrickOutlineMode.outlined)
                     .overlay(content: {
                         Grid(4, gridColor: Styling.white.opacity(0.5))
                     })      
                     .mask(Styling.roundedRect)
             }
         }).groupBoxStyle(BlueprintGroupBoxStyle())
-            .colorScheme(.dark)
-            .preferredColorScheme(.dark)
+            .colorScheme(ColorScheme.dark)
+            .preferredColorScheme(ColorScheme.dark)
     }
 }

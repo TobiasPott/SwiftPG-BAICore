@@ -9,10 +9,10 @@ extension View {
         }
     }
     
-    func labelOverlay(label: String, alignment: Alignment = .topLeading, color: Color = Styling.panelColor, textColor: Color = .primary) -> some View {
+    func labelOverlay(label: String, alignment: Alignment = Alignment.topLeading, color: Color = Styling.panelColor, textColor: Color = Color.primary) -> some View {
         return self.overlay(content: { 
             Text(label).foregroundColor(textColor)    
-                .padding(.horizontal, 3)
+                .padding(Edge.Set.horizontal, 3)
                 .padding(3).frame(minWidth: 24)
                 .font(Styling.captionFont)
                 .background(Styling.roundedRect.foregroundColor(color.opacity(0.75)))

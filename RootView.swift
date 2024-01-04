@@ -16,7 +16,7 @@ struct RootView: View {
             let isLandscape: Bool = (geometry.size.width / geometry.size.height) > 1       
             ContentView(load: load, canvases: $canvases, source: source, isWide: isLandscape)
                 .frame(alignment: Alignment.topLeading)     
-                .ignoresSafeArea(.keyboard)
+                .ignoresSafeArea(SafeAreaRegions.keyboard)
                 .environmentObject(state)   
                 .environmentObject(sheets)   
         }

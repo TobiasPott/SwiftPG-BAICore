@@ -40,7 +40,7 @@ struct PreferencesSheet: View {
             
             HStack { Spacer()
                 Button("Close", action: { isOpen.toggle() })    
-            }.frameStretch(.topTrailing).padding().padding()
+            }.frameStretch(Alignment.topTrailing).padding().padding()
         }
         
     }
@@ -60,7 +60,7 @@ struct PreferencesSheet: View {
             Spacer()
             VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $state.builtInPalette)
-                    .padding(.top, -6)
+                    .padding(Edge.Set.top, -6)
                 PalettePreview(palette: state.palette, size: 14)
             }
         }.onChange(of: state.builtInPalette, perform: { value in
@@ -68,7 +68,7 @@ struct PreferencesSheet: View {
         })
     }
     
-    @State var filter: ListFilter = ListFilter(filterBy: "", sortBy: .name, sortMode: .asc)
+    @State var filter: ListFilter = ListFilter(filterBy: "", sortBy: ListSortBy.name, sortMode: ListSortMode.asc)
     var inventoryMenu: some View {
         Group {
             VStack(alignment: HorizontalAlignment.leading) {
@@ -76,7 +76,6 @@ struct PreferencesSheet: View {
                     Text("Inventory").frame(width: Styling.labelWidth, alignment: Alignment.leading)
                     Spacer()
                     Text("Uses Palette").font(Styling.captionFont)
-//                    Button("", systemImage: "square.and.arrow.down", action: { state.inventory.load(state.palette) })
                 }
                 
                 // ToDo: check how to reset focus to textfield on successfull submit
@@ -92,11 +91,10 @@ struct PreferencesSheet: View {
                                 if (i >= 0) { inventoryItemEntry($state.inventory.items[i]) }
                             }
                         }
-                        .frame(maxWidth: .infinity)
+                        .frame(maxWidth: CGFloat.infinity)
                         .font(Styling.captionFont.monospaced())
-                        //                    .background(.red)
                     })
-                    .frame(maxHeight: state.inventory.items.count > 0 ? 115 : 0, alignment: .topLeading)
+                    .frame(maxHeight: state.inventory.items.count > 0 ? 115 : 0, alignment: Alignment.topLeading)
                     Divider()
                 }.disabled(true)
                 DisclosureGroup("Add from Palette") {
@@ -112,17 +110,17 @@ struct PreferencesSheet: View {
                     ScrollView(content: {
                         
                         let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
-                        LazyVGrid(columns: [.init(.flexible()), .init(.flexible())], content: {
+                        LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
                             
                             ForEach(filteredColors) { item in
                                 if (!state.inventory.contains(item.name)) {
-                                    Button("\(item.name)", action: { state.inventory.items.append(ArtInventory.Item(item.name, 0))  }).frame(maxWidth: .infinity)
+                                    Button("\(item.name)", action: { state.inventory.items.append(ArtInventory.Item(item.name, 0))  }).frame(maxWidth: CGFloat.infinity)
                                 }
                             }
                         })
                     })
                     .font(Styling.captionFont.monospaced())
-                    .frame(maxHeight: 115, alignment: .topLeading)   
+                    .frame(maxHeight: 115, alignment: Alignment.topLeading)   
                 }.disabled(true)
             }
         }
@@ -132,14 +130,14 @@ struct PreferencesSheet: View {
         //        let item = state.inventory.items[i]
         return HStack(spacing: 0) {
             TextField("", value: item.quantity, format: .number)
-                .multilineTextAlignment(.trailing)
-                .padding(3).padding(.trailing, 3)
+                .multilineTextAlignment(TextAlignment.trailing)
+                .padding(3).padding(Edge.Set.trailing, 3)
                 .frame(width: Styling.labelWidth / 1.25 - 10)
-                .background(.black.opacity(0.25))
+                .background(Color.black.opacity(0.25))
                 .mask(Styling.roundedRect)
-                .padding(.trailing, 6)
+                .padding(Edge.Set.trailing, 6)
             Text("\(item.name.wrappedValue)")
-                .allowsTightening(true).truncationMode(.tail)
+                .allowsTightening(true).truncationMode(Text.TruncationMode.tail)
             Spacer()
         }
     }
@@ -154,11 +152,11 @@ struct ListFilterHeader: View {
     var body: some View {
         HStack {
             TextField("Filter", text: $filter.filterBy)
-                .multilineTextAlignment(.leading)
-                .padding(3).padding(.leading, 3)
-                .background(.black.opacity(0.25))
+                .multilineTextAlignment(TextAlignment.leading)
+                .padding(3).padding(Edge.Set.leading, 3)
+                .background(Color.black.opacity(0.25))
                 .mask(Styling.roundedRect)
-                .padding(.trailing, 6)
+                .padding(Edge.Set.trailing, 6)
                 .onSubmit(onFilterSubmit)
         }
     }

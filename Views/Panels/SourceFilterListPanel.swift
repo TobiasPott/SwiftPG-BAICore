@@ -28,7 +28,7 @@ struct SourceFilterListPanel: View {
                 HStack {
                     Spacer()
                     addFilterMenu
-                }.padding(.trailing)
+                }.padding(Edge.Set.trailing)
                 
             })
         let bgColor: Color = Styling.black.opacity(0.01)
@@ -49,7 +49,7 @@ struct SourceFilterListPanel: View {
             HStack {
                 RoundedButton(systemName: "trash.circle", action: { source.filters.reset() }, background: Styling.red)
                 Spacer()
-                RoundedButton(systemName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: Styling.red).rotationEffect(.degrees(-180))
+                RoundedButton(systemName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: Styling.red).rotationEffect(Angle.degrees(-180))
                 RoundedButton(systemName: "play.square.fill", action: { source.applyFilter(); })
             }
             Divider()

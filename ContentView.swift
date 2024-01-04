@@ -20,8 +20,8 @@ struct ContentView: View {
                 ZStack {
                     VStack {
                         MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
-                            .padding(.horizontal)
-                            .padding(.top, 6)
+                            .padding(Edge.Set.horizontal)
+                            .padding(Edge.Set.top, 6)
                         contentPanel
                     }
                     // ToDo: Add different maxWidth for maxOS high res
@@ -29,7 +29,7 @@ struct ContentView: View {
                 }
                 .frame(alignment: Alignment.center)
                 
-            }, orientation: isWide ? .horizonal : .vertical, padding: 0, background: Styling.clear)
+            }, orientation: isWide ? PanelOrientation.horizonal : PanelOrientation.vertical, padding: 0, background: Styling.clear)
             
             if (state.showSplashScreen) {
                 SplashScreenPanel(isOpen: $state.showSplashScreen, isWide: isWide)
@@ -41,22 +41,22 @@ struct ContentView: View {
     
     var loadPanel: some View {
         VStack() { 
-            VStack { LoadPanel(load: load, canvases: $canvases, source: source) }.padding(.bottom)
+            VStack { LoadPanel(load: load, canvases: $canvases, source: source) }.padding(Edge.Set.bottom)
             Spacer()
         }
     }
     var setupPanel: some View {
         VStack() {
             GuideText(text: "On the blueprint panel you can use the slider on the left/top to zoom in and out and the slider on the right/bottom to scale your canvas. You can drag and move the canvas to your desired place.")
-                .padding(.top, 6)
-            if (state.userMode == .advanced) {
-                VStack { SourceFilterListPanel(source: source) }.padding(.bottom)
-                VStack { CanvasesListPanel(source: source, canvases: $canvases) }.padding(.bottom)
+                .padding(Edge.Set.top, 6)
+            if (state.userMode == UserMode.advanced) {
+                VStack { SourceFilterListPanel(source: source) }.padding(Edge.Set.bottom)
+                VStack { CanvasesListPanel(source: source, canvases: $canvases) }.padding(Edge.Set.bottom)
             }
             if (state.canvas != nil) {
-                VStack { CanvasPanel(source: source, canvas: state.canvas!) }.padding(.bottom)
-            } else if(state.userMode == .guided) {
-                VStack { CanvasesListPanel(source: source, canvases: $canvases) }.padding(.bottom)
+                VStack { CanvasPanel(source: source, canvas: state.canvas!) }.padding(Edge.Set.bottom)
+            } else if(state.userMode == UserMode.guided) {
+                VStack { CanvasesListPanel(source: source, canvases: $canvases) }.padding(Edge.Set.bottom)
             }
             Spacer() 
         }
@@ -77,12 +77,12 @@ struct ContentView: View {
     var contentPanel: some View {
         ScrollView(content: {
             switch state.navState {
-            case .load: 
-                loadPanel.padding(.horizontal)
-            case .setup:
-                setupPanel.padding(.horizontal)
-            case .analysis:
-                analysisPanel.padding(.horizontal)
+            case NavState.load: 
+                loadPanel.padding(Edge.Set.horizontal)
+            case NavState.setup:
+                setupPanel.padding(Edge.Set.horizontal)
+            case NavState.analysis:
+                analysisPanel.padding(Edge.Set.horizontal)
             }
         })
     }

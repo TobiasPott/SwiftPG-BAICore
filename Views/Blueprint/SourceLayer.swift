@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct SourceLayer<Content: View>: View {
     @EnvironmentObject var state: GlobalState
@@ -18,14 +19,14 @@ struct SourceLayer<Content: View>: View {
         ZStack {
             ZStack {
                 ZStack() {
-                    BlueprintGrid(baseSpacing: 64, lineWidth: 0.75).scaleEffect(12, anchor: .center)
+                    BlueprintGrid(baseSpacing: 64, lineWidth: 0.75).scaleEffect(12, anchor: UnitPoint.center)
                     if (source.isImageSet) {
                         source.image.swuiImage.overlay(content: { overlayContent() })
                     } else {
                         ZStack {   
                             Styling.appIcon.swuiImage
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
+                                .aspectRatio(contentMode: ContentMode.fill)
                                 .frameSquare(256)
                                 .overlay(content: { emptyOverlayContent })   
                                 .mask(Styling.roundedRect)
@@ -34,7 +35,7 @@ struct SourceLayer<Content: View>: View {
                         }.scaleEffect(4)
                     }
                 }       
-                .scaleEffect(state.zoom.scale / 100, anchor: .center)
+                .scaleEffect(state.zoom.scale / 100, anchor: UnitPoint.center)
                 .gesture(GetDragGesture(), enabled: source.isImageSet && !state.srcDragLocked)
                 .gesture(GetZoomGesture(), enabled: source.isImageSet && !state.srcZoomLocked)
             }
@@ -42,7 +43,7 @@ struct SourceLayer<Content: View>: View {
             
             if (state.drag.active) {
                 source.image.swuiImage
-                    .scaleEffect(state.zoom.scale / 100, anchor: .center)
+                    .scaleEffect(state.zoom.scale / 100, anchor: UnitPoint.center)
                     .offset(x: state.drag.location.x, y: state.drag.location.y)
                     .opacity(0.75)
             }
@@ -93,12 +94,13 @@ struct SourceLayer<Content: View>: View {
                             RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
                                 LoadPanel.StartProject(state, load, source, $canvases)
                             })
-                            .frameStretch(Alignment.bottom).padding(.bottom)
+                            .frameStretch(Alignment.bottom).padding(Edge.Set.bottom)
                         } else {
                             Text("Tap to select a picture")
                                 .font(Styling.title2Font).bold()
-                                .foregroundColor(.primary)
-                                .frameStretch(Alignment.bottom).padding(.bottom)
+                                .foregroundColor(Color.primary)
+                                .frameStretch(Alignment.bottom)
+                                .padding(Edge.Set.bottom)
                         }
                     }
                     .confirmationDialog("Select image from...", isPresented: $openMenu, actions: {
@@ -112,7 +114,7 @@ struct SourceLayer<Content: View>: View {
                 
             }
         }
-        .fileImporter(isPresented: $openFile, allowedContentTypes: [.image]) { result in load.importImage(result: result) }
+        .fileImporter(isPresented: $openFile, allowedContentTypes: [UTType.image]) { result in load.importImage(result: result) }
         .sheet(isPresented: $openSamples, content: {
             SamplesSheet(isOpen: $openSamples, onSelect: { image in load.set(image) })
         })

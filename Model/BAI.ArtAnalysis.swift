@@ -83,7 +83,7 @@ class ArtAnalysis : ObservableObject {
             provider: providerRef,
             decode: nil,
             shouldInterpolate: true,
-            intent: .defaultIntent
+            intent: CGColorRenderingIntent.defaultIntent
         )
         else { return nil }
         

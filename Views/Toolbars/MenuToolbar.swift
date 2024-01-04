@@ -11,12 +11,12 @@ struct MenuToolbar: View {
     
     var body: some View {
         HStack {
-            RoundedStateButton(systemName: "plus.square", action: { state.setNavState(.load); }, state: state.isNavState(.load), background: Styling.gray)
+            RoundedStateButton(systemName: "plus.square", action: { state.setNavState(NavState.load); }, state: state.isNavState(NavState.load), background: Styling.gray)
             Divider()
             if (isImageSet) {
-                RoundedStateButton(systemName: "photo.stack", action: { state.setNavState(.setup, true); }, state:  state.isNavState(.setup), background: Styling.gray)
+                RoundedStateButton(systemName: "photo.stack", action: { state.setNavState(NavState.setup, true); }, state:  state.isNavState(NavState.setup), background: Styling.gray)
                     .disabled(!isImageSet)
-                RoundedStateButton(systemName: "list.bullet.below.rectangle", action: { state.setNavState(.analysis, true); }, state: state.isNavState(.analysis), background: Styling.gray)
+                RoundedStateButton(systemName: "list.bullet.below.rectangle", action: { state.setNavState(NavState.analysis, true); }, state: state.isNavState(NavState.analysis), background: Styling.gray)
                     .disabled(state.canvas == nil)
                 Divider()
             }
