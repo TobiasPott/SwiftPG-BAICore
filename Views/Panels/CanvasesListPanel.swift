@@ -23,7 +23,7 @@ struct CanvasesListPanel: View {
                     ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
                 }, size: 16)
                 
-                Spacer(minLength: 0)
+                RootView.spacerZeroLength
                 RoundedButton(systemName: "plus.app.fill", action: {
                     canvases.items.append(ArtCanvas(newCanvasWidth, newCanvasHeight, size: source.image.size));
                     if(state.canvas == nil) {
@@ -67,7 +67,7 @@ struct CanvasesListPanel: View {
                     canvases.items = []
                     state.canvas = nil
                 }, background: Styling.red)
-                Spacer(minLength: 0)
+                RootView.spacerZeroLength
             }
             Divider()
         }

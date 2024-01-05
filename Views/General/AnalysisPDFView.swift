@@ -81,7 +81,7 @@ struct PlatePDFPage: View {
                     }
                     .frame(height: 240)
                     PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: coords, palette: palette, isWide: true)
-                    Spacer(minLength: 0)
+                    RootView.spacerZeroLength
                 }
                 .frame(maxHeight: CGFloat.infinity)
                 PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: BrickOutlineMode.outlined)

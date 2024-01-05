@@ -1,13 +1,13 @@
 import SwiftUI
 
-public enum NavState: Equatable, Codable {
+public enum NavState: Int, Equatable, Codable {
     case load, setup, analysis
 }
-public enum UserMode: Equatable, Codable {
+public enum UserMode: Int, Equatable, Codable {
     case guided, simple, advanced
 }
-public enum BrickOutlineMode {
-    case none, outlined 
+public enum BrickOutlineMode: Int {
+    case none, outlined
 }
 
 class GlobalState : ObservableObject

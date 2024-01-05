@@ -48,7 +48,8 @@ struct PreferencesSheet: View {
     var userModeMenu: some View {
         HStack(alignment: VerticalAlignment.center) {
             Text("Mode")
-            Spacer(minLength: 0)
+            
+            RootView.spacerZeroLength
             UserModePicker(userMode: $state.userMode)
                 .font(Styling.captionFont)
         }

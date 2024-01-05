@@ -33,7 +33,7 @@ struct Highlight<Content: View>: View{
         VStack(spacing: 0) {
             HStack(alignment: alignment) {
                 content()
-                Spacer(minLength: 0)
+                RootView.spacerZeroLength
             }
             .padding(6)
             if (useIcon) {
@@ -75,7 +75,7 @@ struct LabelledText: View {
     
     var body: some View {
         HStack(alignment: alignment) { 
-            Text(label); Spacer(minLength: 0); Text(text);
+            Text(label); RootView.spacerZeroLength; Text(text);
         }
     }
 }
@@ -96,10 +96,10 @@ struct CompactIconPicker<Content: View>: View {
                     .resizable()
                     .aspectRatio(contentMode: ContentMode.fit)
                     .frame(width: size, height: size) 
-                if(autoSpace) { Spacer(minLength: 0); }
+                if(autoSpace) { RootView.spacerZeroLength }
             }
             HStack { 
-                if(autoSpace) { Spacer(minLength: 0); }
+                if(autoSpace) { RootView.spacerZeroLength; }
                 Picker(selection: $value, label: EmptyView()) { content() }
                     .padding(Edge.Set.trailing, -16)
             }

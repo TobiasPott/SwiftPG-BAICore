@@ -24,11 +24,11 @@ struct SourceCodeSheet: View {
                         .frameRow()
                         .padding(Edge.Set.bottom, 3)
                     HStack {
-                        Text("BAI Core"); Spacer(minLength: 0); Link("on GitHub", destination: URL(string: "https://github.com/TobiasPott/SwiftPG-BAICore/")!)
+                        Text("BAI Core"); RootView.spacerZeroLength; Link("on GitHub", destination: URL(string: "https://github.com/TobiasPott/SwiftPG-BAICore/")!)
                     }
                     .padding(Edge.Set.bottom, 3)
                     HStack {
-                        Text("BAI Swift Playground"); Spacer(minLength: 0); Link("on GitHub", destination: URL(string: "https://github.com/TobiasPott/SwiftPG-BrickArtInstructor/")!)
+                        Text("BAI Swift Playground"); RootView.spacerZeroLength; Link("on GitHub", destination: URL(string: "https://github.com/TobiasPott/SwiftPG-BrickArtInstructor/")!)
                     }
                     Divider()
                     

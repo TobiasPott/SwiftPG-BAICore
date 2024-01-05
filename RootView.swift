@@ -3,6 +3,7 @@ import SwiftUI
 struct RootView: View {
     public static let anyEmpty: AnyView = AnyView(EmptyView())
     public static let anySpacer: AnyView = AnyView(Spacer())
+    public static let spacerZeroLength: Spacer = Spacer(minLength: 0)
     
     @StateObject var state: GlobalState = GlobalState();
     @StateObject var sheets: SheetsState = SheetsState();
