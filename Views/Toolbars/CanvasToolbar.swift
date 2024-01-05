@@ -11,7 +11,7 @@ struct CanvasToolbar: View {
     
     func updateScale(_ amount: CGFloat) {
         canvas.scale += amount
-        canvas.scale.clamp(to: 1...64)
+        canvas.scale = canvas.scale.clamped(to: 1...64)
         _ = canvas.Analyse(source, state.palette)
     }
     

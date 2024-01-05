@@ -22,7 +22,7 @@ public struct UserData {
         get { 
             let jsonData = Data(UserData.string(forKey: IO.keyInventory, "{}").utf8)
             do {
-                return try ArtInventory(jsonData: jsonData)
+                return try ArtInventory.fromJson(jsonData: jsonData) as! ArtInventory
             } catch {
                 return ArtInventory(name: "My Inventory")
             }

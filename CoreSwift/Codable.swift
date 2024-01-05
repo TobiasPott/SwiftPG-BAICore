@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension Encodable {
+public extension Encodable {
     func asJSONString() -> String {
         let jsonEncoder = JSONEncoder()
         jsonEncoder.outputFormatting = JSONEncoder.OutputFormatting.prettyPrinted;
@@ -11,8 +11,9 @@ extension Encodable {
     }
 }
 
-extension Decodable {
-    init(jsonData: Data) throws {
-        self = try JSONDecoder().decode(Self.self, from: jsonData)
+public extension Decodable {
+    static func fromJson(jsonData: Data) throws -> Decodable {
+//    init(jsonData: Data) throws {
+        return try JSONDecoder().decode(Self.self, from: jsonData)
     }
 }
