@@ -19,7 +19,7 @@ struct SourceLayer<Content: View>: View {
         ZStack {
             ZStack {
                 ZStack() {
-                    BlueprintGrid(baseSpacing: 64, lineWidth: 0.75).scaleEffect(12, anchor: UnitPoint.center)
+                    BlueprintGrid(baseSpacing: 64.0, lineWidth: 0.75).scaleEffect(12.0, anchor: UnitPoint.center)
                     if (source.isImageSet) {
                         source.image.swuiImage.overlay(content: { overlayContent() })
                     } else {
@@ -27,15 +27,15 @@ struct SourceLayer<Content: View>: View {
                             Styling.appIcon.swuiImage
                                 .resizable()
                                 .aspectRatio(contentMode: ContentMode.fill)
-                                .frameSquare(256)
+                                .frameSquare(256.0)
                                 .overlay(content: { emptyOverlayContent })   
                                 .mask(Styling.roundedRect)
-                                .shadow(color: Styling.black.opacity(0.75), radius: 32)
+                                .shadow(color: Styling.black.opacity(0.75), radius: 32.0)
                             
-                        }.scaleEffect(4)
+                        }.scaleEffect(4.0)
                     }
                 }       
-                .scaleEffect(state.zoom.scale / 100, anchor: UnitPoint.center)
+                .scaleEffect(state.zoom.scale / 100.0, anchor: UnitPoint.center)
                 .gesture(GetDragGesture(), enabled: source.isImageSet && !state.srcDragLocked)
                 .gesture(GetZoomGesture(), enabled: source.isImageSet && !state.srcZoomLocked)
             }
@@ -43,7 +43,7 @@ struct SourceLayer<Content: View>: View {
             
             if (state.drag.active) {
                 source.image.swuiImage
-                    .scaleEffect(state.zoom.scale / 100, anchor: UnitPoint.center)
+                    .scaleEffect(state.zoom.scale / 100.0, anchor: UnitPoint.center)
                     .offset(x: state.drag.location.x, y: state.drag.location.y)
                     .opacity(0.75)
             }
@@ -56,7 +56,7 @@ struct SourceLayer<Content: View>: View {
                 state.zoom.update(magValue)
             }.onEnded { magValue in
                 state.zoom.update(magValue, true)
-                state.zoom.clamp(10, 199)
+                state.zoom.clamp(10.0, 199.0)
             }
     }
     
@@ -91,7 +91,7 @@ struct SourceLayer<Content: View>: View {
                             Styling.gray
                             load.image.swuiImage.rs()
                             
-                            RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
+                            RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42.0, action: { 
                                 LoadPanel.StartProject(state, load, source, $canvases)
                             })
                             .frameStretch(Alignment.bottom).padding(Edge.Set.bottom)

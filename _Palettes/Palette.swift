@@ -33,7 +33,7 @@ public struct Palette: Identifiable, Hashable {
     }
     public func findClosest(_ inColor: ColorType, _ threshold: Float = 10.0) -> Int {
         var closestIndex: Int = -1;
-        var closestDist: Float = 1024.0;
+        var closestDist: Float = Float(1024.0);
         for i in 0..<self.count {
             let dist = simd_length(inColor.vectorRGBDiff(artColors[i].color))
             if (dist < closestDist) {

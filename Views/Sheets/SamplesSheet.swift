@@ -57,7 +57,7 @@ struct SampleEntry: View {
         }, label: {
             HStack { image.swuiImage.rs(fit: true).frame(maxWidth: CGFloat.infinity) }
                 .labelOverlay(label: label, alignment: Alignment.bottomLeading)
-                .frame(maxWidth: CGFloat.infinity, maxHeight: 240)
+                .frame(maxWidth: CGFloat.infinity, maxHeight: 240.0)
         }) 
     }
 }

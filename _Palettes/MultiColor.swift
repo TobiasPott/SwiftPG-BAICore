@@ -21,10 +21,10 @@ public struct MultiColor : Hashable {
     
     public init(cgColor: CGColor) {
         self.cgColor = cgColor;
-        var h: CGFloat = 0;
-        var s: CGFloat = 0;
-        var b: CGFloat = 0;
-        var a: CGFloat = 1;
+        var h: CGFloat = 0.0;
+        var s: CGFloat = 0.0;
+        var b: CGFloat = 0.0;
+        var a: CGFloat = 1.0;
         
 #if canImport(UIKit)
         if (UIColor(cgColor: cgColor).getHue(&h, saturation: &s, brightness: &b, alpha: &a)) {

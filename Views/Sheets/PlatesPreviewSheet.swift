@@ -18,10 +18,10 @@ struct PlatesPreviewSheet: View {
                         GuideText(text: "Select the plate you want to preview and show the color list for.")
                         HStack(alignment: VerticalAlignment.top) { 
                             PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: $selection)
-                                .frameRow(200, Alignment.leading)
+                                .frameRow(200.0, Alignment.leading)
                             Spacer()
                             PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: selection, display: BrickOutlineMode.outlined)
-                                .overlay(content: { Grid(4, gridColor: Styling.white.opacity(0.5)) })      
+                                .overlay(content: { Grid(4.0, gridColor: Styling.white.opacity(0.5)) })      
                         }
                         PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: isWide)
                     }
@@ -38,9 +38,9 @@ struct PlatesPreviewSheet: View {
         
         return AnyView(ZStack {
             analysis.image.swuiImage.interpolation(Image.Interpolation.none).rs(fit: true)
-            VStack(spacing: 0) {
+            VStack(spacing: 0.0) {
                 ForEach(0..<analysis.tileHeight, id: \.self) { y in
-                    HStack(spacing: 0) { 
+                    HStack(spacing: 0.0) { 
                         ForEach(0..<analysis.tileWidth, id: \.self) { x in
                             let coords: Int2 = Int2(x: x, y: y);
                             let isSelected: Bool = selection.wrappedValue == coords;

@@ -7,8 +7,8 @@ struct RoundedPanel<Content: View>: View {
     
     @ViewBuilder let content: () -> Content;
     let orientation: PanelOrientation;
-    var padding: CGFloat = 0;
-    var spacing: CGFloat = 5;
+    var padding: CGFloat = 0.0;
+    var spacing: CGFloat = 5.0;
     var background: Color = Styling.panelColor.opacity(0.75); 
     var paddingIsSpacing: Bool = false;
     
@@ -33,8 +33,8 @@ struct ToolbarPanel<Content: View>: View {
     
     @ViewBuilder let content: () -> Content;
     let orientation: PanelOrientation;
-    var padding: CGFloat = 5;
-    var spacing: CGFloat = 5;
+    var padding: CGFloat = 5.0;
+    var spacing: CGFloat = 5.0;
     var background: Color = Styling.black.opacity(0.6); 
     var paddingIsSpacing: Bool = false;
     

@@ -14,7 +14,7 @@ struct RootView: View {
     
     var body: some View {
         GeometryReader { geometry in
-            let isLandscape: Bool = (geometry.size.width / geometry.size.height) > 1       
+            let isLandscape: Bool = (geometry.size.width / geometry.size.height) > 1.0       
             ContentView(load: load, canvases: $canvases, source: source, isWide: isLandscape)
                 .frame(alignment: Alignment.topLeading)     
                 .ignoresSafeArea(SafeAreaRegions.keyboard)

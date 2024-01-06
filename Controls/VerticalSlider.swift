@@ -6,9 +6,9 @@ struct VerticalSlider<V: BinaryFloatingPoint>: View {
     var step: V.Stride? = nil
     var onEditingChanged: (Bool) -> Void = { _ in }
     
-    private let drawRadius: CGFloat = 11
-    private let dragRadius: CGFloat = 25
-    private let lineWidth: CGFloat = 3
+    private let drawRadius: CGFloat = 11.0
+    private let dragRadius: CGFloat = 25.0
+    private let lineWidth: CGFloat = 3.0
     
     @State private var validDrag = false
     
@@ -21,7 +21,7 @@ struct VerticalSlider<V: BinaryFloatingPoint>: View {
             while newUpperbound.advanced(by: step) <= range.upperBound{
                 newUpperbound = newUpperbound.advanced(by: step)
             }
-            self.range = ClosedRange(uncheckedBounds: (range.lowerBound, newUpperbound))
+            self.range = range.lowerBound...newUpperbound
         } else {
             self.range = range
         }
@@ -31,35 +31,35 @@ struct VerticalSlider<V: BinaryFloatingPoint>: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                VStack(spacing: 0) {
+                VStack(spacing: 0.0) {
                     // Gray section of line
                     Rectangle()
                         .foregroundColor(Color(UIColor.systemGray4))
                         .frame(height: self.getPoint(in: geometry).y)
-                        .clipShape(RoundedRectangle(cornerRadius: 2))
+                        .clipShape(RoundedRectangle(cornerRadius: 2.0))
                     
                     // Blue section of line
                     Rectangle()
                         .foregroundColor(Color(UIColor.systemBlue))
                         .frame(height: geometry.size.height - self.getPoint(in: geometry).y)
-                        .clipShape(RoundedRectangle(cornerRadius: 3))
+                        .clipShape(RoundedRectangle(cornerRadius: 3.0))
                 }
                 .frame(width: self.lineWidth)
                 
                 // Handle
 //                RoundedRectangle(cornerSize: Styling.roundedCornerSize)
                 Circle()
-                    .frame(width: 2 * self.drawRadius, height: 2 * self.drawRadius)
+                    .frame(width: 2.0 * self.drawRadius, height: 2.0 * self.drawRadius)
                     .position(self.getPoint(in: geometry))
                     .foregroundColor(Color.white)
-                    .shadow(radius: 2, y: 2)
+                    .shadow(radius: 2.0, y: 2.0)
                 
                 // Catches drag gesture
                 Rectangle()
                     .frame(minWidth: CGFloat(self.dragRadius))
                     .foregroundColor(Styling.red.opacity(0.001))
                     .gesture(
-                        DragGesture(minimumDistance: 0)
+                        DragGesture(minimumDistance: 0.0)
                             .onEnded({ _ in
                                 self.validDrag = false
                                 self.onEditingChanged(false)
@@ -73,9 +73,9 @@ struct VerticalSlider<V: BinaryFloatingPoint>: View {
 
 extension VerticalSlider {
     private func getPoint(in geometry: GeometryProxy) -> CGPoint {
-        let x = geometry.size.width / 2
+        let x = geometry.size.width / 2.0
         let location = value.wrappedValue - range.lowerBound
-        let scale = V(2 * drawRadius - geometry.size.height) / (range.upperBound - range.lowerBound)
+        let scale = V(2.0 * drawRadius - geometry.size.height) / (range.upperBound - range.lowerBound)
         let y = CGFloat(location * scale) + geometry.size.height - drawRadius
         return CGPoint(x: x, y: y)
     }
@@ -89,7 +89,7 @@ extension VerticalSlider {
             
             if self.validDrag {
                 let location = drag.location.y - geometry.size.height + self.drawRadius
-                let scale = CGFloat(self.range.upperBound - self.range.lowerBound) / (2 * self.drawRadius - geometry.size.height)
+                let scale = CGFloat(self.range.upperBound - self.range.lowerBound) / (2.0 * self.drawRadius - geometry.size.height)
                 let newValue = V(location * scale) + self.range.lowerBound
                 let clampedValue = max(min(newValue, self.range.upperBound), self.range.lowerBound)
                 

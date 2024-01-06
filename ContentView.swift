@@ -16,20 +16,20 @@ struct ContentView: View {
             RoundedPanel(content: {
                 BlueprintPanel(canvases: $canvases, source: source)
                     .environmentObject(load)
-                    .frame(maxHeight: isWide ? CGFloat.infinity : 380)
+                    .frame(maxHeight: isWide ? CGFloat.infinity : 380.0)
                 ZStack {
                     VStack {
                         MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
                             .padding(Edge.Set.horizontal)
-                            .padding(Edge.Set.top, 6)
+                            .padding(Edge.Set.top, 6.0)
                         contentPanel
                     }
                     // ToDo: Add different maxWidth for maxOS high res
-                    .frameRow(800, Alignment.center)
+                    .frameRow(800.0, Alignment.center)
                 }
                 .frame(alignment: Alignment.center)
                 
-            }, orientation: isWide ? PanelOrientation.horizonal : PanelOrientation.vertical, padding: 0, background: Styling.clear)
+            }, orientation: isWide ? PanelOrientation.horizonal : PanelOrientation.vertical, padding: 0.0, background: Styling.clear)
             
             if (state.showSplashScreen) {
                 SplashScreenPanel(isOpen: $state.showSplashScreen, isWide: isWide)
@@ -48,7 +48,7 @@ struct ContentView: View {
     var setupPanel: some View {
         VStack() {
             GuideText(text: "On the blueprint panel you can use the slider on the left/top to zoom in and out and the slider on the right/bottom to scale your canvas. You can drag and move the canvas to your desired place.")
-                .padding(Edge.Set.top, 6)
+                .padding(Edge.Set.top, 6.0)
             if (state.userMode == UserMode.advanced) {
                 VStack { SourceFilterListPanel(source: source) }.padding(Edge.Set.bottom)
                 VStack { CanvasesListPanel(source: source, canvases: $canvases) }.padding(Edge.Set.bottom)

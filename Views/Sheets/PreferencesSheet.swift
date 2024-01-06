@@ -6,10 +6,10 @@ public struct ListFilter {
     public var sortMode: ListSortMode
 }
 
-public enum ListSortBy: Equatable, Codable {
+public enum ListSortBy: Int, Equatable, Codable {
     case name, quantity
 }
-public enum ListSortMode: Equatable, Codable {
+public enum ListSortMode: Int, Equatable, Codable {
     case asc, desc
 }
 
@@ -61,8 +61,8 @@ struct PreferencesSheet: View {
             Spacer()
             VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $state.builtInPalette)
-                    .padding(Edge.Set.top, -6)
-                PalettePreview(palette: state.palette, size: 14)
+                    .padding(Edge.Set.top, -6.0)
+                PalettePreview(palette: state.palette, size: 14.0)
             }
         }.onChange(of: state.builtInPalette, perform: { value in
             state.palette = Palette.getPalette(state.builtInPalette)
@@ -86,7 +86,7 @@ struct PreferencesSheet: View {
                     Divider()
                     ScrollView(content: {
                         
-                        VStack (alignment: HorizontalAlignment.leading, spacing: 4) {
+                        VStack (alignment: HorizontalAlignment.leading, spacing: 4.0) {
                             ForEach(state.inventory.items) { item in
                                 let i = state.inventory.items.firstIndex(of: item) ?? -1
                                 if (i >= 0) { inventoryItemEntry($state.inventory.items[i]) }
@@ -95,7 +95,7 @@ struct PreferencesSheet: View {
                         .frame(maxWidth: CGFloat.infinity)
                         .font(Styling.captionFont.monospaced())
                     })
-                    .frame(maxHeight: state.inventory.items.count > 0 ? 115 : 0, alignment: Alignment.topLeading)
+                    .frame(maxHeight: state.inventory.items.count > 0 ? 115.0 : 0.0, alignment: Alignment.topLeading)
                     Divider()
                 }.disabled(true)
                 DisclosureGroup("Add from Palette") {
@@ -121,7 +121,7 @@ struct PreferencesSheet: View {
                         })
                     })
                     .font(Styling.captionFont.monospaced())
-                    .frame(maxHeight: 115, alignment: Alignment.topLeading)   
+                    .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
                 }.disabled(true)
             }
         }
@@ -129,14 +129,14 @@ struct PreferencesSheet: View {
     
     func inventoryItemEntry(_ item: Binding<ArtInventory.Item>) -> some View {
         //        let item = state.inventory.items[i]
-        return HStack(spacing: 0) {
+        return HStack(spacing: 0.0) {
             TextField("", value: item.quantity, format: .number)
                 .multilineTextAlignment(TextAlignment.trailing)
-                .padding(3).padding(Edge.Set.trailing, 3)
-                .frame(width: Styling.labelWidth / 1.25 - 10)
+                .padding(3.0).padding(Edge.Set.trailing, 3.0)
+                .frame(width: Styling.labelWidth / 1.25 - 10.0)
                 .background(Color.black.opacity(0.25))
                 .mask(Styling.roundedRect)
-                .padding(Edge.Set.trailing, 6)
+                .padding(Edge.Set.trailing, 6.0)
             Text("\(item.name.wrappedValue)")
                 .allowsTightening(true).truncationMode(Text.TruncationMode.tail)
             Spacer()
@@ -154,10 +154,10 @@ struct ListFilterHeader: View {
         HStack {
             TextField("Filter", text: $filter.filterBy)
                 .multilineTextAlignment(TextAlignment.leading)
-                .padding(3).padding(Edge.Set.leading, 3)
+                .padding(3.0).padding(Edge.Set.leading, 3.0)
                 .background(Color.black.opacity(0.25))
                 .mask(Styling.roundedRect)
-                .padding(Edge.Set.trailing, 6)
+                .padding(Edge.Set.trailing, 6.0)
                 .onSubmit(onFilterSubmit)
         }
     }

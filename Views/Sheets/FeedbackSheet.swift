@@ -11,9 +11,9 @@ struct FeedbackSheet: View {
                     Divider()
                     VStack(alignment: HorizontalAlignment.leading) {
                         Text("Feel free to give me feedback to this app and share your ideas, feature suggestions and problems you have.")
-                            .padding(Edge.Set.bottom, 3)
+                            .padding(Edge.Set.bottom, 3.0)
                         Text("You can do so with the review and feedback function of your device's app store or open a new issue on the GitHub repository.")
-                            .padding(Edge.Set.bottom, 3)
+                            .padding(Edge.Set.bottom, 3.0)
                     }
                     Divider()
                     HStack {

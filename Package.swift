@@ -19,7 +19,7 @@ let package = Package(
             bundleIdentifier: "de.tobiaspott.playground.brickartinstructor",
             teamIdentifier: "LR2W97LX43",
             displayVersion: "0.9.1",
-            bundleVersion: "68",
+            bundleVersion: "69",
             appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.blue),
             supportedDeviceFamilies: [
@@ -38,15 +38,9 @@ let package = Package(
             appCategory: .graphicsDesign
         )
     ],
-    dependencies: [
-        .package(url: "https://github.com/TobiasPott/SwiftPG-CIFilters.git", "1.0.0"..<"2.0.0")
-    ],
     targets: [
         .executableTarget(
             name: "AppModule",
-            dependencies: [
-                .product(name: "SwiftPG-CIFilters", package: "SwiftPG-CIFilters")
-            ],
             path: ".",
             swiftSettings: [
                 .enableUpcomingFeature("BareSlashRegexLiterals")

@@ -1,12 +1,8 @@
 import SwiftUI
-import SwiftPG_CIFilters
 
 struct SourceFilterListPanel: View {
     @EnvironmentObject var state: GlobalState;
-    
     @ObservedObject var source: ArtSource;
-    
-    
     
     var body: some View {
         let addFilterMenu = Menu(content: {
@@ -49,7 +45,7 @@ struct SourceFilterListPanel: View {
             HStack {
                 RoundedButton(systemName: "trash.circle", action: { source.filters.reset() }, background: Styling.red)
                 Spacer()
-                RoundedButton(systemName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: Styling.red).rotationEffect(Angle.degrees(-180))
+                RoundedButton(systemName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: Styling.red).rotationEffect(Angle.degrees(-180.0))
                 RoundedButton(systemName: "play.square.fill", action: { source.applyFilter(); })
             }
             Divider()

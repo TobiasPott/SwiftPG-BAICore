@@ -72,21 +72,21 @@ struct PlatePDFPage: View {
                 VStack(alignment: HorizontalAlignment.leading) {
                     HStack(alignment: VerticalAlignment.top) { 
                         PlatesPreviewSheet.getTilePickerView(canvas: canvas, selection: .constant(coords))
-                            .frame(maxWidth: 150)
+                            .frame(maxWidth: 150.0)
                         Spacer()
                         PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: BrickOutlineMode.outlined)
                             .overlay(content: {
-                                Grid(4, gridColor: Styling.white.opacity(0.5))
+                                Grid(4.0, gridColor: Styling.white.opacity(0.5))
                             })      
                     }
-                    .frame(height: 240)
+                    .frame(height: 240.0)
                     PlatesPreviewSheet.getTileColorList(canvas: canvas, tileCoords: coords, palette: palette, isWide: true)
                     RootView.spacerZeroLength
                 }
                 .frame(maxHeight: CGFloat.infinity)
                 PlatesPreviewSheet.getTileArt(canvas: canvas, tileCoords: coords, display: BrickOutlineMode.outlined)
                     .overlay(content: {
-                        Grid(4, gridColor: Styling.white.opacity(0.5))
+                        Grid(4.0, gridColor: Styling.white.opacity(0.5))
                     })      
                     .mask(Styling.roundedRect)
             }

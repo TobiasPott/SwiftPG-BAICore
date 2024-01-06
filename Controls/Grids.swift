@@ -53,7 +53,7 @@ struct Grid: View {
 struct BlueprintGrid: View {
     public static let lineColor: Color = Styling.white.opacity(0.25)
     
-    var baseSpacing: CGFloat = 128;
+    var baseSpacing: CGFloat = 128.0;
     var lineWidth: CGFloat = 2.0;
     
     var body: some View {
@@ -80,8 +80,8 @@ struct BlueprintGroupBoxStyle: GroupBoxStyle {
         .background(content: {
             ZStack(alignment: Alignment.center) {
                 Styling.blueprintColor
-                Grid(64, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
-                Grid(32 / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
+                Grid(64.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
+                Grid(32.0 / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
             }.aspectRatio(1.0, contentMode: ContentMode.fill)
         })
         .mask(Styling.roundedRect)

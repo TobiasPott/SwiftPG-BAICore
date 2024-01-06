@@ -12,11 +12,11 @@ extension View {
     func labelOverlay(label: String, alignment: Alignment = Alignment.topLeading, color: Color = Styling.panelColor, textColor: Color = Color.primary) -> some View {
         return self.overlay(content: { 
             Text(label).foregroundColor(textColor)    
-                .padding(Edge.Set.horizontal, 3)
-                .padding(3).frame(minWidth: 24)
+                .padding(Edge.Set.horizontal, 3.0)
+                .padding(3.0).frame(minWidth: 24.0)
                 .font(Styling.captionFont)
                 .background(Styling.roundedRect.foregroundColor(color.opacity(0.75)))
-                .padding(6)
+                .padding(6.0)
                 .frameStretch(alignment)
         })
     }

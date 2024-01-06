@@ -13,7 +13,7 @@ public struct FilterView: View {
                 Toggle(isOn: $filter.enabled, label: { Text(filter.enabled ? "on" : "off") }).toggleStyle(.button).tint(filter.enabled ? .green : .red)
                 Text("\(filter.name)")
             }
-            .frame(maxWidth: 110, alignment: .leading)
+            .frame(maxWidth: 110.0, alignment: .leading)
             Divider()
             getArgsView()
         }

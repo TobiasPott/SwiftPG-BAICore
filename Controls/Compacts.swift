@@ -25,7 +25,7 @@ struct Highlight<Content: View>: View{
     var icon: some View {
         Image(systemName: systemName)
             .resizable()
-            .padding(3)
+            .padding(3.0)
             .background(color)
     }
     
@@ -35,15 +35,15 @@ struct Highlight<Content: View>: View{
                 content()
                 RootView.spacerZeroLength
             }
-            .padding(6)
+            .padding(6.0)
             if (useIcon) {
                 HStack {
                     Spacer()
                     icon
                         .mask(Styling.roundedRectTLBR)
-                        .frameSquare(20)
+                        .frameSquare(20.0)
                 }
-                .padding(Edge.Set.top, -16)
+                .padding(Edge.Set.top, -16.0)
             }
         }
         .background(Styling.roundedRect.stroke(color, lineWidth: 2.0))
@@ -87,7 +87,7 @@ struct CompactIconPicker<Content: View>: View {
     var autoExpand: Bool = false
     
     @ViewBuilder let content: () -> Content;
-    var size: CGFloat = 18;
+    var size: CGFloat = 18.0;
     
     var body: some View {
         ZStack() {
@@ -101,10 +101,10 @@ struct CompactIconPicker<Content: View>: View {
             HStack { 
                 if(autoSpace) { RootView.spacerZeroLength; }
                 Picker(selection: $value, label: EmptyView()) { content() }
-                    .padding(Edge.Set.trailing, -16)
+                    .padding(Edge.Set.trailing, -16.0)
             }
         }
-        .frame(maxWidth: 36 + size + (autoExpand ? CGFloat.infinity : 0))
+        .frame(maxWidth: 36.0 + size + (autoExpand ? CGFloat.infinity : 0.0))
     }
 }
 

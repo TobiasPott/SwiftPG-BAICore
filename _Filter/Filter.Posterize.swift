@@ -17,7 +17,7 @@ public extension FilterView {
     func getPosterizeView() -> AnyView {
         AnyView(HStack {
             Text("Levels \(Int(filter.args[0]))")
-            Slider(value: $filter.args[0], in: 1...32.0, step: 1.0)
+            Slider(value: $filter.args[0], in: 1.0...32.0, step: 1.0)
         })
     }
 }

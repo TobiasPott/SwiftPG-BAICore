@@ -20,10 +20,10 @@ struct LoadPanel: View {
                 HStack {
                     Spacer()
                     Text("Create")
-                    RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { startProject() })
+                    RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42.0, action: { startProject() })
                 }
                 .padding(Edge.Set.horizontal)
-                .padding(Edge.Set.vertical, 8)
+                .padding(Edge.Set.vertical, 8.0)
             }, orientation: PanelOrientation.vertical)
         } else {
             GroupBox(label: Text("Make your Brick Art").font(Styling.title2Font), content: { })
@@ -66,14 +66,14 @@ struct LoadPanel: View {
             }, label: {
                 HStack() {
                     Text("Select")
-                        .frame(maxHeight: 26)
+                        .frame(maxHeight: 26.0)
                     if (load.isImageSet) {
                         load.image.swuiImage.rs()
-                            .frame(maxHeight: 64)
+                            .frame(maxHeight: 64.0)
                             .mask(Styling.roundedRectHalf)
-                            .padding(Edge.Set.leading, 6)
+                            .padding(Edge.Set.leading, 6.0)
                     } 
-                }.padding(Edge.Set.trailing, 6)
+                }.padding(Edge.Set.trailing, 6.0)
             })
         }
         .fileImporter(isPresented: $openFile, allowedContentTypes: [UTType.image]) { result in load.importImage(result: result) }
@@ -88,7 +88,7 @@ struct LoadPanel: View {
             Text("Plates").frame(width: Styling.labelWidth, alignment: Alignment.leading)
             Divider()
             Spacer()
-            VStack(spacing: 0) {
+            VStack(spacing: 0.0) {
                 HStack {
                     Text("X")
                     Spacer()
@@ -103,7 +103,7 @@ struct LoadPanel: View {
                         ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
                     })
                 }
-            }.padding(Edge.Set.top, -6)
+            }.padding(Edge.Set.top, -6.0)
         }
     }
     var paletteMenu: some View {
@@ -113,7 +113,7 @@ struct LoadPanel: View {
             Spacer()
             VStack(alignment: HorizontalAlignment.trailing) {
                 PalettePicker(selection: $load.builtInPalette)
-                PaletteRowPreview(palette: load.palette, size: 12)
+                PaletteRowPreview(palette: load.palette, size: 12.0)
             }
         }.onChange(of: load.builtInPalette, perform: { value in
             load.palette = Palette.getPalette(load.builtInPalette)
@@ -121,23 +121,7 @@ struct LoadPanel: View {
     }
     
     func startProject() {
-        state.reset()
-        source.reset()
-        canvases.reset()
-        // set palette from load info
-        state.builtInPalette = load.builtInPalette;
-        state.palette = load.palette
-        if (load.isImageSet) {
-            source.setImage(image: load.image)
-            if (state.userMode != UserMode.advanced) {
-                let canvas = load.getCanvas(refSize: source.image.size)
-                canvases.append(canvas)
-                state.canvas = canvas
-            }
-            state.setNavState(NavState.setup, true);
-        }
-        // reset load info after loading
-        //        load.reset()
+        LoadPanel.StartProject(state, load, source, $canvases)
     }
     
     static func StartProject(_ state: GlobalState, _ load: LoadState, _ source: ArtSource, _ canvases : Binding<Canvases> ) {

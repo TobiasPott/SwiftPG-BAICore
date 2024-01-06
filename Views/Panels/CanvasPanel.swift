@@ -15,15 +15,15 @@ struct CanvasPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(NavState.load, true) })
+                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.load, true) })
                 Text("Back")
                 Spacer()
                 Text("Analyze")
-                RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42, action: { 
+                RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42.0, action: { 
                     _ = canvas.Analyse(source, state.palette);
                     state.setNavState(NavState.analysis, true)
                 })
-            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8)
+            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8.0)
         }, orientation: PanelOrientation.vertical)
         
         GroupBox(content: {
@@ -41,14 +41,14 @@ struct CanvasPanel: View {
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
         HStack(alignment: VerticalAlignment.center) {
             detailPanel
-                .frame(width: 120)
+                .frame(width: 120.0)
                 .frame(maxHeight: CGFloat.infinity)
             VStack {
                 if(canvas.analysis != nil) {
                     let img = canvas.analysis?.image;
                     img?.swuiImage
                         .interpolation(Image.Interpolation.none).resizable()
-                        .frame(maxHeight: 320)
+                        .frame(maxHeight: 320.0)
                         .scaledToFit()
                         .frame(maxWidth: CGFloat.infinity)
                         .mask(Styling.roundedRect)
@@ -56,7 +56,7 @@ struct CanvasPanel: View {
                 else
                 {
                     SNImage.questionmarkApp.rs(fit: true)
-                        .frameMax(32, Alignment.center)
+                        .frameMax(32.0, Alignment.center)
                         .frame(maxWidth: CGFloat.infinity)
                 }
             }
@@ -67,15 +67,15 @@ struct CanvasPanel: View {
         GroupBox(content: {
             VStack {
                 LabelledText(label: "Width", text: "\(Int(canvas.tileWidth))", alignment: VerticalAlignment.top)
-                    .padding(Edge.Set.top, 6)
+                    .padding(Edge.Set.top, 6.0)
                 LabelledText(label: "Height", text: "\(Int(canvas.tileHeight))", alignment: VerticalAlignment.top)
-                    .padding(Edge.Set.top, 6)
+                    .padding(Edge.Set.top, 6.0)
                 
                 
                 LabelledText(label: "Dimensions", text: "\(Int(canvas.size.width)) x \(Int(canvas.size.height))", alignment: VerticalAlignment.top)
-                    .padding(Edge.Set.top, 6)
+                    .padding(Edge.Set.top, 6.0)
                 LabelledText(label: "Bricks", text: "\(Int(canvas.size.width * canvas.size.height))", alignment: VerticalAlignment.top)
-                    .padding(Edge.Set.top, 6)
+                    .padding(Edge.Set.top, 6.0)
                 Spacer()
             }
         })
@@ -101,7 +101,7 @@ struct CanvasHeader: View {
                     .font(Styling.caption2Font)
             }
             Spacer()
-            RoundedStateButton(systemName: "lock.fill", size: 26, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray, padding: 8.0)
+            RoundedStateButton(systemName: "lock.fill", size: 26.0, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray, padding: 8.0)
         }
     }
 }
@@ -114,7 +114,7 @@ struct CanvasDetailHeader: View {
             VStack(alignment: HorizontalAlignment.leading) {
                 Text("\(canvas.name)")
                 Text("\(canvas.tileWidth) x \(canvas.tileHeight) tiles" +
-                     "\n\(canvas.tileWidth*16) x \(canvas.tileHeight*16) bricks")
+                     "\n\(canvas.tileWidth * 16) x \(canvas.tileHeight * 16) bricks")
                 .font(Styling.caption2Font)
                 getAnalysisView()
             }

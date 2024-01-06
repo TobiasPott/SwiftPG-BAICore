@@ -1,5 +1,4 @@
 import SwiftUI
-import SwiftPG_CIFilters
 
 class ArtSource : ObservableObject, Codable {
     private enum CodingKeys: String, CodingKey {
@@ -57,7 +56,7 @@ class ArtSource : ObservableObject, Codable {
     func makeUniform(_ input: PImage) -> PImage {
         let context = CIContext()
         let maxDim: CGFloat = max(input.size.width, input.size.height); 
-        let scale: CGFloat = (1024 / maxDim);
+        let scale: CGFloat = (1024.0 / maxDim);
         let ciImage = CIImage(image: input)?
             .transformed(by: CGAffineTransform(scaleX: scale, y: scale))
         

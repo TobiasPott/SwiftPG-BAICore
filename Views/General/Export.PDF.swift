@@ -18,8 +18,8 @@ struct ExportMenu<Content: View>: View {
         }, label: {
             SNImage.squareAndArrowUp
                 .rs(fit: true)
-                .frame(width: 28, height: 28)
-                .padding([Edge.Set.top, Edge.Set.trailing], 6)
+                .frame(width: 28.0, height: 28.0)
+                .padding([Edge.Set.top, Edge.Set.trailing], 6.0)
                 .frame(maxHeight: CGFloat.infinity, alignment: Alignment.topTrailing)
         })
     }
@@ -42,7 +42,7 @@ struct ExportMenu<Content: View>: View {
         // 3: Start the rendering process
         renderer.render { size, context in
             // 4: Tell SwiftUI our PDF should be the same size as the views we're rendering
-            var box = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+            var box = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
             // 5: Create the CGContext for our PDF pages
             guard let pdf = CGContext(url as CFURL, mediaBox: &box, nil) else {
                 print("Failed to create CGContext")
@@ -60,12 +60,4 @@ struct ExportMenu<Content: View>: View {
         return url
     }
     
-}
-
-extension PDFDocument: Transferable {
-    public static var transferRepresentation: some TransferRepresentation {
-        DataRepresentation(exportedContentType: UTType.pdf) { pdf in 
-            return pdf.dataRepresentation()!
-        }
-    }
 }

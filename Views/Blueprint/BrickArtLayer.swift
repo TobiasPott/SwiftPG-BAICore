@@ -12,10 +12,10 @@ struct BrickArtLayer: View {
         GeometryReader(content: { geometry in
             ZStack {
                 ZStack{
-                    BlueprintGrid(baseSpacing: 128, lineWidth: 0.25).scaleEffect(12.0)
+                    BlueprintGrid(baseSpacing: 128.0, lineWidth: 0.25).scaleEffect(12.0)
                     BrickCanvasView(analysis: analysis, display: state.brickOutline)
                         .overlay(content: {
-                            Grid(cols: floor(analysis.size.width / 16), rows: floor(analysis.size.height / 16), gridColor: Styling.white)
+                            Grid(cols: floor(analysis.size.width / 16.0), rows: floor(analysis.size.height / 16.0), gridColor: Styling.white)
                         })
                 }
                 .scaleEffect(zoom.scale, anchor: UnitPoint.center)
@@ -33,7 +33,7 @@ struct BrickArtLayer: View {
                     .offset(drag.location.cgSize())
             }
         })
-        .frame(maxWidth: 800)
+        .frame(maxWidth: 800.0)
     }
     func GetZoomGesture() -> _EndedGesture<_ChangedGesture<MagnificationGesture>> {
         return MagnificationGesture()

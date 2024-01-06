@@ -15,19 +15,19 @@ struct AnalysisPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42, action: { state.setNavState(NavState.setup, true) })
+                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.setup, true) })
                 Text("Back")
                 Spacer()
-            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8)
+            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8.0)
         }, orientation: PanelOrientation.vertical)
         
         
         GuideText(text: "Some details about your generated brick art. You can also export the instructions to PDF")
         RoundedPanel(content: {
-            CanvasDetailHeader(canvas: canvas).padding(Edge.Set.horizontal, 12).padding(Edge.Set.vertical, 6);
+            CanvasDetailHeader(canvas: canvas).padding(Edge.Set.horizontal, 12.0).padding(Edge.Set.vertical, 6.0);
             
             ExportMenu() {
-                AnalysisPDFView(source: source, canvas: canvas, palette: state.palette, outWidth: 1280)
+                AnalysisPDFView(source: source, canvas: canvas, palette: state.palette, outWidth: 1280.0)
             }
         }, orientation: PanelOrientation.horizonal)
         

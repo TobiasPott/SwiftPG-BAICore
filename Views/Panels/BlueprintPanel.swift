@@ -18,18 +18,18 @@ struct BlueprintPanel: View {
                     .frameMax(geoSize, Alignment.center)
                     .mask(Styling.roundedRect)
                 
-                VStack(spacing: 6) {
+                VStack(spacing: 6.0) {
                     if (state.isNavState(NavState.setup)) { SourceToolbar(source: source); }
                     if (state.isNavState(NavState.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
                 }
                 .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.leading)
-                .padding(Edge.Set.all, 6)
+                .padding(Edge.Set.all, 6.0)
                 
-                VStack(spacing: 6) {
+                VStack(spacing: 6.0) {
                     if (state.isNavState(NavState.analysis)) { BrickArtToolbar(brickOutline: $state.brickOutline, drag: $brickDrag, zoom: $brickZoom); }
                 }
                 .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)
-                .padding(Edge.Set.all, 6)
+                .padding(Edge.Set.all, 6.0)
             }
         }
         

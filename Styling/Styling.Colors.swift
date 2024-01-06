@@ -15,7 +15,7 @@ public extension Styling {
     static let highlightColor: Color = Color.accentColor;
     static let buttonColor: Color = Color.accentColor;
     static let sliderColor: Color = Color.accentColor;
-    static let blueprintColor: Color = MultiColor(cgColor: CGColor(srgbRed: 0, green: 49 / 100.0, blue: 83 / 100.0, alpha: 1.0)).swuiColor
-    static let panelColor: Color = Color(UIColor.tertiarySystemFill)
+    static let blueprintColor: Color = MultiColor(cgColor: CGColor(srgbRed: 0.0, green: 49.0 / 100.0, blue: 83.0 / 100.0, alpha: 1.0)).swuiColor
+    static let panelColor: Color = Color(cgColor: UIColor.tertiarySystemFill.cgColor)
     
 }

@@ -31,7 +31,7 @@ extension PImage {
                 g = (pixel >> 8) & 255
                 b = pixel & 255
             }
-            let color = CGColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 1)
+            let color = CGColor(red: CGFloat(r) / 255.0, green: CGFloat(g) / 255.0, blue: CGFloat(b) / 255.0, alpha: 1.0)
             result.append(color)
         }
         return result

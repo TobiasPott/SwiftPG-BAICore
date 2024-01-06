@@ -8,13 +8,13 @@ struct PaletteRowPreview: View {
     
     var body: some View {
         GeometryReader(content: { geometry in
-            let cMin = min(palette.count, Int(floor(geometry.size.width / (size + 2))))
-            let isCapped = (CGFloat(cMin) * (size + 2)) >= CGFloat(geometry.size.width - 8)
-            let nMin = cMin - (isCapped ? Int(ceil(50 / size)) : 0) 
+            let cMin = min(palette.count, Int(floor(geometry.size.width / (size + 2.0))))
+            let isCapped = (CGFloat(cMin) * (size + 2.0)) >= CGFloat(geometry.size.width - 8.0)
+            let nMin = cMin - (isCapped ? Int(ceil(50.0 / size)) : 0) 
             let overhang = palette.count - nMin
             let fMax = (overhang > 0 ? nMin : cMin)
             ZStack {
-                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2)]) {
+                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2.0)]) {
                     ForEach(0..<fMax, id: \.self) { i in
                         palette.artColors[i].swuiColor.frameSquare(size)
                             .mask(Styling.roundedRectHalf)
@@ -37,7 +37,7 @@ struct PaletteRowPreview: View {
 
 struct PalettePreview: View { 
     let palette: Palette;
-    var size: CGFloat = 24
+    var size: CGFloat = 24.0
     
     @State var showList: Bool = false
     
@@ -51,7 +51,7 @@ struct PalettePreview: View {
                 }).toggleStyle(ButtonToggleStyle())
             }.font(Styling.captionFont)
             if (!showList) {
-                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2, alignment: Alignment.topTrailing)]) {
+                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2.0, alignment: Alignment.topTrailing)]) {
                     ForEach(0..<palette.count, id: \.self) { i in
                         palette.artColors[i].swuiColor.aspectRatio(1.0, contentMode: ContentMode.fit)
                             .mask(Styling.roundedRectHalf)
@@ -59,7 +59,7 @@ struct PalettePreview: View {
                 }
             } else {
                 ScrollView(content: {
-                    VStack(alignment: HorizontalAlignment.leading, spacing: 2){
+                    VStack(alignment: HorizontalAlignment.leading, spacing: 2.0){
                         ForEach(0..<palette.count, id: \.self) { i in
                             HStack {
                                 palette.artColors[i].swuiColor
@@ -67,12 +67,12 @@ struct PalettePreview: View {
                                     .mask(Styling.roundedRectHalf)
                                 Text("\(palette.artColors[i].name)")
                                 Spacer()
-                            }.frame(maxHeight: 18)
+                            }.frame(maxHeight: 18.0)
                         }
                     }   
                     .font(Styling.captionFont.monospaced())
                 })
-                .frame(maxHeight: 240)
+                .frame(maxHeight: 240.0)
             }
         }
     }

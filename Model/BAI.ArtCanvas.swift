@@ -11,7 +11,7 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
     @Published public var name: String;
     @Published public var tileWidth: Int;
     @Published public var tileHeight: Int;
-    @Published public var scale: CGFloat = 10;
+    @Published public var scale: CGFloat = 10.0;
     @Published public var isLocked: Bool = false;
     
     @Published var drag: DragInfo = DragInfo();
@@ -86,7 +86,7 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
             .samplingNearest()
             .transformed(by: CGAffineTransform(scaleX: invScale, y: invScale))
             .dither(inputIntensity: 0.25)
-            .posterize(inputLevels: 6)
+            .posterize(inputLevels: 6.0)
         
         guard let fixedImage = ciImage else { return result; }
         let grabRect: CGRect = CGRect(origin: fixedImage.extent.origin, size: size)
@@ -101,15 +101,15 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
     
     func autoFit(_ newWidth: Int, _ newHeight: Int, size: CGSize) -> Void {
         
-        self.tileWidth = newWidth.clamped(lowerBound: 1, upperBound: 9);
-        self.tileHeight = newHeight.clamped(lowerBound: 1, upperBound: 9);
+        self.tileWidth = newWidth.clamped(lowerBound: 1, upperBound: 6);
+        self.tileHeight = newHeight.clamped(lowerBound: 1, upperBound: 6);
         
-        let tileScaleX: CGFloat = 16 * CGFloat(newWidth);                    
-        let tileScaleY: CGFloat = 16 * CGFloat(newHeight);
+        let tileScaleX: CGFloat = 16.0 * CGFloat(newWidth);                    
+        let tileScaleY: CGFloat = 16.0 * CGFloat(newHeight);
         let scale: CGFloat = min(size.width / tileScaleX, size.height / tileScaleY);
         self.scale = scale;
         self.maxScale = scale;
-        let location: CGPoint = CGPoint(x: (size.width - (scale * tileScaleX)) / 2, y: (size.height - (scale * tileScaleY)) / 2)
+        let location: CGPoint = CGPoint(x: (size.width - (scale * tileScaleX)) / 2.0, y: (size.height - (scale * tileScaleY)) / 2.0)
         self.drag.location = location;
         self.drag.fixedLocation = location;
     }

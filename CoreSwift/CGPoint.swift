@@ -37,7 +37,7 @@ extension CGPoint {
         return CGPoint(x: min(max(self.x, lower.x), upper.x), y: min(max(self.y, lower.y), upper.y))
     }
     func distance(to point: CGPoint) -> CGFloat {
-        sqrt(pow(x - point.x, 2) + pow(y - point.y, 2))
+        sqrt(pow(x - point.x, 2.0) + pow(y - point.y, 2.0))
     }
     func cgSize() -> CGSize {
         return CGSize(width: self.x, height: self.y)

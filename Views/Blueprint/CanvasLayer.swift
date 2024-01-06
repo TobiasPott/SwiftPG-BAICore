@@ -21,7 +21,7 @@ struct CanvasLayer: View {
     var fixedCanvas: some View {
         ZStack() {
             Styling.black.opacity(0.01)
-            Grid(cols: CGFloat(canvas.tileWidth) * 16, rows: CGFloat(canvas.tileHeight) * 16, gridColor: Styling.black.opacity(0.75))
+            Grid(cols: CGFloat(canvas.tileWidth) * 16.0, rows: CGFloat(canvas.tileHeight) * 16.0, gridColor: Styling.black.opacity(0.75))
             Grid(cols: CGFloat(canvas.tileWidth), rows: CGFloat(canvas.tileHeight), gridColor: canvas.isLocked ? Styling.red : Styling.white, lineWidth: 3.0)
         }
         .border(canvas.isLocked ? Styling.red : borderColor, width: max(canvas.scale * 0.25, 6.0))
@@ -31,7 +31,7 @@ struct CanvasLayer: View {
     var draggedCanvas: some View {
         ZStack() {
             Styling.black.opacity(0.01)
-            Grid(cols: CGFloat(canvas.tileWidth) * 16, rows: CGFloat(canvas.tileHeight) * 16, gridColor: Styling.gray.opacity(0.75))
+            Grid(cols: CGFloat(canvas.tileWidth) * 16.0, rows: CGFloat(canvas.tileHeight) * 16.0, gridColor: Styling.gray.opacity(0.75))
             Grid(cols: CGFloat(canvas.tileWidth), rows: CGFloat(canvas.tileHeight), gridColor: canvas.isLocked ? Styling.red : Styling.white, lineWidth: 3.0)
         }
         .border(canvas.isLocked ? Styling.red : borderColor, width: max(canvas.scale * 0.25, 6.0))

@@ -17,11 +17,11 @@ struct CanvasesListPanel: View {
             HStack {
                 CompactIconPicker(value: $newCanvasWidth, systemName: "arrow.left.and.right", content: {
                     ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
-                }, size: 16)
+                }, size: 16.0)
                     .padding(Edge.Set.trailing)
                 CompactIconPicker(value: $newCanvasHeight, systemName: "arrow.up.and.down", content: {
                     ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }
-                }, size: 16)
+                }, size: 16.0)
                 
                 RootView.spacerZeroLength
                 RoundedButton(systemName: "plus.app.fill", action: {
@@ -42,7 +42,7 @@ struct CanvasesListPanel: View {
                         state.canvas = canvas;
                     }
                 }, label: {
-                    CanvasHeader(source: source, canvas: canvas, selected: canvas.equals(state.canvas)).padding(Edge.Set.vertical, 6)
+                    CanvasHeader(source: source, canvas: canvas, selected: canvas.equals(state.canvas)).padding(Edge.Set.vertical, 6.0)
                 })
                 .contextMenu(menuItems: {
                     Button("Delete", action: { 
@@ -56,7 +56,7 @@ struct CanvasesListPanel: View {
             .onDelete(perform: delete)
         }
         .padding(Edge.Set.leading)
-        .padding(Edge.Set.trailing, 6)
+        .padding(Edge.Set.trailing, 6.0)
         
         // only display footer if list has items
         if (canvases.items.count > 0) {

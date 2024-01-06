@@ -11,4 +11,6 @@ public extension Styling {
     static let bodyFont: Font = Font.body
     static let footnoteFont: Font = Font.footnote
     
+    static let captionMono: Font = Font.monospaced(Font.caption)()
+    static let caption2Mono: Font = Font.monospaced(Font.caption2)()
 }
