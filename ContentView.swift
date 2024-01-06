@@ -112,13 +112,20 @@ struct ContentView: View {
     }
     func loadAppState() -> Void {
         do {
+            let prevOrigImage = self.source.originalImage
+            let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
+            self.source.reset(source)
+            self.source.setImage(image: prevOrigImage)
+            print("Decoded Source: \(source.asJSONString())")
+            
             let canvases = try UserData.lastCanvases.decode(model: Canvases.self) as! Canvases
             self.canvases.reset(canvases)
             print("Decoded Canvases: \(canvases.asJSONString())")
+            if (self.canvases.items.count > 0) {
+                state.canvas = self.canvases.items[0]
+                _ = state.canvas?.Analyse(self.source, state.palette)
+            }
             
-            let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
-            self.source.reset(source)
-            print("Decoded Source: \(source.asJSONString())")
         } catch { print(error.localizedDescription) }
         
     }
