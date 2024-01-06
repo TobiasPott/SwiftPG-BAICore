@@ -1,8 +1,6 @@
 import SwiftUI
 
 class LoadState : ObservableObject {
-    public static let defaultImage: PImage = PImage();
-    
     @Published public var name: String = "Canvas"
     @Published public var width: Int = 3;
     @Published public var height: Int = 3;
@@ -10,24 +8,24 @@ class LoadState : ObservableObject {
     @Published public var palette: Palette
     
     @Published public var isImageSet: Bool = false
-    @Published var image: PImage = LoadState.defaultImage;
+    @Published var image: PImage = Defaults.image;
     public var sizePx: CGSize { get { return CGSize(width: width * 16, height: height * 16); } }
     
     
     
-    init(_ width: Int, _ height: Int, _ name: String = "Canvas", _ builtInPalette: BuiltInPalette = BuiltInPalette.legoReduced, _ image: PImage = LoadState.defaultImage) {
+    init(_ width: Int, _ height: Int, _ name: String = "Canvas", _ builtInPalette: BuiltInPalette = BuiltInPalette.legoReduced, _ image: PImage = Defaults.image) {
         self.width = width;
         self.height = height;
         self.name = name;
         self.builtInPalette = builtInPalette;
         self.palette = Palette.getPalette(builtInPalette)
         self.image = image;
-        self.isImageSet = image != LoadState.defaultImage
+        self.isImageSet = image != Defaults.image
     }
     
     func set(_ image: PImage) {
         self.image = image;
-        self.isImageSet = image != LoadState.defaultImage
+        self.isImageSet = image != Defaults.image
     }
     
     func getCanvas(refSize: CGSize) -> ArtCanvas {
@@ -39,7 +37,7 @@ class LoadState : ObservableObject {
         self.height = 3;
         self.builtInPalette = BuiltInPalette.legoReduced
         self.palette = Palette.getPalette(BuiltInPalette.legoReduced)
-        self.image = LoadState.defaultImage
+        self.image = Defaults.image
         self.isImageSet = false
     }
     

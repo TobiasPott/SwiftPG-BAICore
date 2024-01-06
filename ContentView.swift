@@ -112,12 +112,10 @@ struct ContentView: View {
     }
     func loadAppState() -> Void {
         do {
-            let prevOrigImage = self.source.originalImage
             let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
             self.source.reset(source)
-            self.source.setImage(image: prevOrigImage)
-            print("Decoded Source: \(source.asJSONString())")
-            
+//            print("Decoded Source: \(source.asJSONString())")
+            // ToDo: add correct set of scale and scale limits and positions
             let canvases = try UserData.lastCanvases.decode(model: Canvases.self) as! Canvases
             self.canvases.reset(canvases)
             print("Decoded Canvases: \(canvases.asJSONString())")
@@ -125,7 +123,10 @@ struct ContentView: View {
                 state.canvas = self.canvases.items[0]
                 _ = state.canvas?.Analyse(self.source, state.palette)
             }
-            
+            // change to setup state and keep canvas if user is still in load state
+            if (state.isNavState(NavState.load)) {
+                state.setNavState(NavState.setup, true)
+            }
         } catch { print(error.localizedDescription) }
         
     }

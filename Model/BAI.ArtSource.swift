@@ -2,11 +2,11 @@ import SwiftUI
 
 class ArtSource : ObservableObject, Codable {
     private enum CodingKeys: String, CodingKey {
-        case filters
+        case filters, imageBase64
     }
     
     @Published var isImageSet: Bool = false;
-    @Published var originalImage: PImage = LoadState.defaultImage;
+    @Published var originalImage: PImage = Defaults.image;
     @Published var workImage: PImage? = nil;
     
     @Published var filters: Filters = Filters();
@@ -17,23 +17,33 @@ class ArtSource : ObservableObject, Codable {
     
     init() {
         workImage = makeUniform(originalImage);
-        isImageSet = originalImage != LoadState.defaultImage;
+        isImageSet = originalImage != Defaults.image;
     }
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         filters = try container.decode(Filters.self, forKey: .filters)
+
+        let imageAsBase64 = try container.decode(String.self, forKey: .imageBase64)
+        let imageData = Data(base64Encoded: imageAsBase64, options: .ignoreUnknownCharacters)
+        let decodedimage = UIImage(data: imageData!) ?? Defaults.image
+        self.setImage(image: decodedimage)
     }
     
     func encode(to encoder: Encoder) throws {
         var container = encoder.container(keyedBy: CodingKeys.self)
         try container.encode(filters, forKey: .filters)
+        
+        //Now use image to create into NSData format
+        guard let imageData: Data = (workImage ?? originalImage).pngData() else { return }
+        let imageAsBase64: String = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
+        try container.encode(imageAsBase64, forKey: .imageBase64)
     }
     
     func reset() {
         filters.reset()
-        originalImage = LoadState.defaultImage;
+        originalImage = Defaults.image;
         resetImage()
-        isImageSet = originalImage != LoadState.defaultImage;
+        isImageSet = originalImage != Defaults.image;
     }
     
     func reset(_ to: ArtSource) {
@@ -41,7 +51,7 @@ class ArtSource : ObservableObject, Codable {
         filters.append(other: to.filters)
         originalImage = to.originalImage;
         resetImage()
-        isImageSet = originalImage != LoadState.defaultImage;
+        isImageSet = originalImage != Defaults.image;
     }
     
     func resetImage() {
@@ -50,7 +60,7 @@ class ArtSource : ObservableObject, Codable {
     func setImage(image: PImage) {
         originalImage = image;
         workImage = makeUniform(image);
-        isImageSet = image != LoadState.defaultImage;
+        isImageSet = image != Defaults.image;
     }
     
     func makeUniform(_ input: PImage) -> PImage {

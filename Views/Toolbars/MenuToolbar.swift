@@ -23,16 +23,16 @@ struct MenuToolbar: View {
             Spacer()                
             
             Menu(content: {
-                Button("Clear", systemImage: "trash.fill", action: onClear)
-                Button("Load", systemImage: "square.and.arrow.up.fill", action: onLoad)
-                Button("Save", systemImage: "square.and.arrow.down.fill", action: onSave)
+                Button("Clear", systemImage: "trash", action: onClear)
+                Button("Load last state", systemImage: "square.and.arrow.down", action: onLoad)
+                Button("Save current state", systemImage: "square.and.arrow.up", action: onSave)
                 Divider()
                 Button("Preferences...", systemImage: "gearshape.2", action: { sheets.preferences.toggle() })
                 Divider()
                 Menu(content: {
                     UserModePicker(userMode: $state.userMode)
                 }, label: {
-                    Button("Mode", systemImage: "filemenu.and.selection", action: { })
+                    Button("Mode", systemImage: "ellipsis", action: { })
                 })
                 
                 
