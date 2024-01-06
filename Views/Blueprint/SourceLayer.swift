@@ -98,7 +98,7 @@ struct SourceLayer<Content: View>: View {
                         } else {
                             Text("Tap to select a picture")
                                 .font(Styling.title2Font).bold()
-                                .foregroundColor(Color.primary)
+                                .foregroundColor(Styling.primary)
                                 .frameStretch(Alignment.bottom)
                                 .padding(Edge.Set.bottom)
                         }

@@ -6,7 +6,7 @@ struct CanvasLayer: View {
     @ObservedObject var canvas: ArtCanvas;
     let source: ArtSource;
     
-    var borderColor: Color = Color.white;
+    var borderColor: Color = Styling.white;
     
     var body: some View {
         let canSize: CGSize = canvas.size.mul(canvas.scale) 

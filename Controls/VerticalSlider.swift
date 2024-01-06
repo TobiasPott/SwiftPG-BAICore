@@ -51,7 +51,7 @@ struct VerticalSlider<V: BinaryFloatingPoint>: View {
                 Circle()
                     .frame(width: 2.0 * self.drawRadius, height: 2.0 * self.drawRadius)
                     .position(self.getPoint(in: geometry))
-                    .foregroundColor(Color.white)
+                    .foregroundColor(Styling.white)
                     .shadow(radius: 2.0, y: 2.0)
                 
                 // Catches drag gesture

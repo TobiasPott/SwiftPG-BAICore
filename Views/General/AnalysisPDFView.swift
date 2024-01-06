@@ -51,7 +51,7 @@ struct AnalysisPDFView: View {
             .frame(alignment: Alignment.top)
             .frame(width: outWidth)
             .padding()
-            .foregroundColor(Color.white)
+            .foregroundColor(Styling.white)
         } else {
             EmptyView();
         }

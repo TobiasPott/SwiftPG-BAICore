@@ -19,9 +19,9 @@ extension PImage {
         var result = [CGColor]()
         result.reserveCapacity(size)
         for pixel in buffer {
-            var r : UInt32 = 0
-            var g : UInt32 = 0
-            var b : UInt32 = 0
+            var r : UInt32 = UInt32(0)
+            var g : UInt32 = UInt32(0)
+            var b : UInt32 = UInt32(0)
             if cgImage.byteOrderInfo == CGImageByteOrderInfo.orderDefault || cgImage.byteOrderInfo == CGImageByteOrderInfo.order32Big {
                 r = pixel & 255
                 g = (pixel >> 8) & 255

@@ -48,7 +48,7 @@ struct PlatesPreviewSheet: View {
                                 selection.wrappedValue = coords;
                             }, label: {
                                 Rectangle()
-                                    .foregroundColor(isSelected ? Styling.clear : Color.black.opacity(0.2))
+                                    .foregroundColor(isSelected ? Styling.clear : Styling.black.opacity(0.2))
                                     .aspectRatio(1.0, contentMode: ContentMode.fit)
                                     .border(isSelected ? Styling.white : Styling.black, width: 1.0)
                             })

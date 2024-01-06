@@ -7,10 +7,17 @@ public extension Styling {
     static let black: Color = Color.black;
     
     static let accent: Color = Color.accentColor;
+    static let primary: Color = Color.primary;
+    static let secondary: Color = Color.secondary;
+    
+    
     static let red: Color = Color.red;
     static let green: Color = Color.green;
     static let blue: Color = Color.blue;
+    static let yellow: Color = Color.yellow;
     static let gray: Color = Color.gray;
+    
+    
     
     static let highlightColor: Color = Color.accentColor;
     static let buttonColor: Color = Color.accentColor;

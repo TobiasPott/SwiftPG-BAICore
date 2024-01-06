@@ -1,5 +1,6 @@
 import SwiftUI
 
+
 struct RoundedLockButton: View {
     let systemName: String;
     var size: CGFloat = Styling.buttonSize;
@@ -7,7 +8,7 @@ struct RoundedLockButton: View {
     
     let isLocked: Bool;
     
-    var foreground: Color = Color.white;
+    var foreground: Color = Styling.white;
     var background: Color = Styling.buttonColor;    
     var padding: CGFloat = Styling.buttonPadding;
     
@@ -31,7 +32,7 @@ struct RoundedStateButton: View {
     let state: Bool;
     var stateColor: Color = Styling.buttonColor;
     
-    var foreground: Color = Color.white;
+    var foreground: Color = Styling.white;
     var background: Color = Styling.buttonColor;    
     var padding: CGFloat = Styling.buttonPadding;
     
@@ -47,7 +48,7 @@ struct RoundedButtonMedium: View {
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
-    var foreground: Color = Color.white;
+    var foreground: Color = Styling.white;
     var background: Color = Styling.buttonColor;
     var padding: CGFloat = Styling.medButtonPadding;
     
@@ -62,7 +63,7 @@ struct RoundedImage: View {
     let systemName: String;
     var size: CGFloat = defaultSize;
     
-    var foreground: Color = Color.white;
+    var foreground: Color = Styling.white;
     var background: Color = Styling.buttonColor;
     var padding: CGFloat = Styling.buttonPadding;
     
@@ -84,7 +85,7 @@ struct RoundedButton: View {
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
-    var foreground: Color = Color.white;
+    var foreground: Color = Styling.white;
     var background: Color = Styling.buttonColor;
     var padding: CGFloat = Styling.buttonPadding;
     
@@ -101,7 +102,7 @@ struct RoundedButtonMini: View {
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
-    var foreground: Color = Color.white;
+    var foreground: Color = Styling.white;
     var background: Color = Styling.buttonColor;
     var padding: CGFloat = 6.0;
     

@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     @EnvironmentObject var state: GlobalState
+    @EnvironmentObject var sheets: SheetsState;
     
     @ObservedObject var load: LoadState;
     @Binding var canvases: Canvases;
@@ -28,6 +29,24 @@ struct ContentView: View {
                     .frameRow(800.0, Alignment.center)
                 }
                 .frame(alignment: Alignment.center)
+                .sheet(isPresented: $sheets.about, content: { 
+                    AboutSheet(isOpen: $sheets.about) 
+                })
+                .sheet(isPresented: $sheets.sourceCode, content: { 
+                    SourceCodeSheet(isOpen: $sheets.sourceCode) 
+                })
+                .sheet(isPresented: $sheets.feedback, content: { 
+                    FeedbackSheet(isOpen: $sheets.feedback) 
+                })
+                .sheet(isPresented: $sheets.preferences, content: {
+                    PreferencesSheet(isOpen: $sheets.preferences)
+                        .environmentObject(state)
+                        .onDisappear(perform: {
+                            if (state.canvas != nil) {
+                                _ = state.canvas?.Analyse(source, state.palette)
+                            }
+                        })
+                })
                 
             }, orientation: isWide ? PanelOrientation.horizonal : PanelOrientation.vertical, padding: 0.0, background: Styling.clear)
             

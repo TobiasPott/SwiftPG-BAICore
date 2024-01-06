@@ -51,10 +51,5 @@ struct MenuToolbar: View {
             })
         }
         .frame(maxHeight: 32.0)
-        .sheet(isPresented: $sheets.about, content: { AboutSheet(isOpen: $sheets.about) })
-        .sheet(isPresented: $sheets.sourceCode, content: { SourceCodeSheet(isOpen: $sheets.sourceCode) })
-        .sheet(isPresented: $sheets.feedback, content: { FeedbackSheet(isOpen: $sheets.feedback) })
-        .sheet(isPresented: $sheets.preferences, content: { PreferencesSheet(isOpen: $sheets.preferences).environmentObject(state) })
-        
     }
 }

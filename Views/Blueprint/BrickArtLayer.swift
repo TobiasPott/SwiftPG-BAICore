@@ -138,7 +138,7 @@ struct BrickPlateOutlines: View {
     
     var body: some View {
         BrickTileView.outline.swuiImage.resizable()
-            .colorMultiply(Color.yellow.opacity(0.75)).blendMode(BlendMode.difference)        
+            .colorMultiply(Styling.yellow.opacity(0.75)).blendMode(BlendMode.difference)        
     }
     
 }
