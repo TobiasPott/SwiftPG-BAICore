@@ -5,9 +5,10 @@ struct SplashScreenPanel: View {
     var duration: UInt64 = UInt64(15)
     var isWide: Bool
     
+    @State var task: Task<Void, Never>? = nil 
+    
     var body: some View {
         BlueprintGrid(baseSpacing: 64.0, lineWidth: isWide ? 1.5 : 0.75)
-            .task(priority: TaskPriority.medium, delayCover)
             .zIndex(1)
             .scaleEffect(isWide ? 2.76 : 4.8)
             .transition(AnyTransition.move(edge: isWide ? Edge.leading : Edge.top))
@@ -15,7 +16,8 @@ struct SplashScreenPanel: View {
                 GroupBox(content: {
                     Button(action: {
                         withAnimation {
-                            isOpen.toggle()
+                            isOpen.toggle() 
+                            task?.cancel()
                         }
                     }, label: {
                         VStack{
@@ -28,6 +30,9 @@ struct SplashScreenPanel: View {
                         }
                         .frameRow(300.0, Alignment.center)
                     })
+                    .onAppear {
+                        self.task = delayCover()
+                    }
                 })
                 .padding()
                 // ToDo: integrate photo sheet into "select from" menus
@@ -35,13 +40,21 @@ struct SplashScreenPanel: View {
             })
     }
     
-    @Sendable private func delayCover() async {
-        // Delay of 7.5 seconds (1 second = 1_000_000_000 nanoseconds)
-        try? await Task.sleep(nanoseconds: (duration * 1_000_000_000))
-        withAnimation {
-            isOpen = false
+    private func delayCover() -> Task<Void, Never>? {
+        return Task {
+            do {
+                try await Task.sleep(nanoseconds: duration * 1_000_000_000)
+                withAnimation {
+                    if (isOpen) {
+                        isOpen = false
+                    }
+                }
+            } catch is CancellationError {
+                print("Task was cancelled")
+            } catch {
+                print("ooops! \(error)")
+            }
         }
     }
-    
     
 }

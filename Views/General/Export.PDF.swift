@@ -34,7 +34,7 @@ struct ExportMenu: View {
         
         let doc: PDFDocument = PDFDocument()
         
-        doc.insert(PDFHeader(canvas: canvas).asPDFPage(width)!, at: doc.pageCount)
+        doc.insert(PDFHeader(canvas: canvas).asPDFPage(width / 2.0)!, at: doc.pageCount)
         doc.insert(PDFColorList(canvas: canvas, palette: palette).asPDFPage(width)!, at: doc.pageCount)
         doc.insert(PDFFooter().asPDFPage(width)!, at: doc.pageCount)
         for coords in canvas.plateCoordinates {

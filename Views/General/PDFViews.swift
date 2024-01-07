@@ -36,12 +36,20 @@ struct PDFHeader: View {
     let canvas: ArtCanvas;
     var body: some View {
         GroupBox(content: {
-            HStack {
-                Text("Brick Art Instructor - Instruction, Parts and Color List '\(canvas.name)'").font(Styling.titleFont.bold());
-                Spacer();
+            HStack(alignment: VerticalAlignment.top) {
+                VStack(alignment: HorizontalAlignment.leading) {
+                    Text("Brick Art Instructor").font(Styling.titleFont.bold())
+                    Text("Instruction, Parts and Color List").font(Styling.title2Font);
+                    Text("for '\(canvas.name)'").font(Styling.title2Font);
+                }
             }
+            .padding(Edge.Set.vertical)
+            .padding(Edge.Set.vertical)
+            .padding(Edge.Set.vertical)
+            .padding(Edge.Set.vertical)
             .foregroundColor(Styling.white)
         }).groupBoxStyle(BlueprintGroupBoxStyle())
+//            .aspectRatio(1.0, contentMode: .fill)
     }
 }
 struct PDFPlate: View {
@@ -75,7 +83,8 @@ struct PDFPlate: View {
                     .mask(Styling.roundedRect)
             }
         }).groupBoxStyle(BlueprintGroupBoxStyle())
-//            .colorScheme(ColorScheme.dark)
-//            .preferredColorScheme(ColorScheme.dark)
+            .foregroundColor(Styling.white)
+        //            .colorScheme(ColorScheme.dark)
+        //            .preferredColorScheme(ColorScheme.dark)
     }
 }
