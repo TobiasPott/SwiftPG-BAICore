@@ -31,15 +31,14 @@ struct ExportMenu: View {
     @MainActor public static func renderToPDF(filename: String, canvas: ArtCanvas, source: ArtSource, palette: Palette, width: CGFloat) -> URL {
         // 1: Save it to our documents directory
         let url = URL.documentsDirectory.appending(path: filename)
-        
         let doc: PDFDocument = PDFDocument()
         
         doc.insert(PDFHeader(canvas: canvas).asPDFPage(width / 2.0)!, at: doc.pageCount)
         doc.insert(PDFColorList(canvas: canvas, palette: palette).asPDFPage(width)!, at: doc.pageCount)
-        doc.insert(PDFFooter().asPDFPage(width)!, at: doc.pageCount)
         for coords in canvas.plateCoordinates {
             doc.insert(PDFPlate(source: source, canvas: canvas, palette: palette, coords: coords).asPDFPage(width)!, at: doc.pageCount)   
         }
+        doc.insert(PDFFooter().asPDFPage(width)!, at: doc.pageCount)
         // https://betterprogramming.pub/convert-a-uiimage-to-pdf-in-swift-bf9f22b127c5
         
         let data = doc.dataRepresentation()
