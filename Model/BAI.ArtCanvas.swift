@@ -27,6 +27,15 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
             return CGSize(width: tileWidth * 16, height: tileHeight * 16);
         }
     }
+    public var plateCoordinates: [Int2] {
+        get {
+            var result: [Int2] = []
+            for x in 0..<tileWidth {
+                for y in 0..<tileHeight { result.append(Int2(x: x, y: y)) }
+            }
+            return result
+        }
+    }
     
     init(_ tileWidth: Int, _ tileHeight: Int, size: CGSize? = nil) {
         let newId = UUID();

@@ -1,4 +1,5 @@
 import SwiftUI
+import PDFKit
 
 extension View {
     func hidden(_ isHidden: Bool) -> some View {
@@ -27,5 +28,9 @@ extension View {
         } else {
             return AnyView(self);
         }
+    }
+    
+    @MainActor public func asPDFPage(_ width: CGFloat) -> PDFPage? {
+        return PDFPage(image: ImageRenderer(content: self.frame(width: width)).uiImage!)
     }
 }

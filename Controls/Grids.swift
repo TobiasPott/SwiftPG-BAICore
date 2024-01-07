@@ -67,23 +67,25 @@ struct BlueprintGrid: View {
 }
 
 struct BlueprintGroupBoxStyle: GroupBoxStyle {
+    static var gridBackground: some View { 
+        ZStack(alignment: Alignment.center) {
+            Styling.blueprintColor
+            Grid(64.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
+            Grid(32.0 / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
+        }
+    }
+    
     func makeBody(configuration: Configuration) -> some View {
         VStack {
             HStack {
-                configuration.label
-                    .font(Styling.headlineFont)
+                configuration.label.font(Styling.headlineFont)
                 Spacer()
             }
             configuration.content
         }
         .padding()
         .background(content: {
-            ZStack(alignment: Alignment.center) {
-                Styling.blueprintColor
-                Grid(64.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
-                Grid(32.0 / 4.0, gridColor: BlueprintGrid.lineColor, lineWidth: 1.0)
-            }.aspectRatio(1.0, contentMode: ContentMode.fill)
+            BlueprintGroupBoxStyle.gridBackground.aspectRatio(1.0, contentMode: ContentMode.fill)
         })
-        .mask(Styling.roundedRect)
     }
 }

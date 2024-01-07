@@ -2,17 +2,21 @@ import SwiftUI
 import PDFKit
 import UniformTypeIdentifiers
 
-struct ExportMenu<Content: View>: View {
-    
+struct ExportMenu: View {
     var filename: String = "Instructions.pdf"
-    @ViewBuilder let content: () -> Content;
     
+    let source: ArtSource;
+    let canvas: ArtCanvas;
+    let palette: Palette
+
+    let width: CGFloat
     
     @State var exportPDF: Bool = false
     
     var body: some View {
         Menu(content: {
-            ShareLink(item: ExportMenu.renderToPDF(filename: filename, content: content), label: {
+            let url = ExportMenu.renderToPDF(filename: filename, canvas: canvas, source: source, palette: palette, width: width)
+            ShareLink(item: url, label: {
                 Text("Export as PDF")
             })
         }, label: {
@@ -24,40 +28,29 @@ struct ExportMenu<Content: View>: View {
         })
     }
     
-    func onCompletion(result: Result<URL, Error>) {
-        switch result {
-        case .success(let file):
-            print(file.absoluteString)
-        case .failure(let error):
-            print(error.localizedDescription)
-        }
-    }
-    
-    @MainActor public static func renderToPDF<InnerView: View>(filename: String, @ViewBuilder content: () -> InnerView) -> URL {
+    @MainActor public static func renderToPDF(filename: String, canvas: ArtCanvas, source: ArtSource, palette: Palette, width: CGFloat) -> URL {
         // 1: Save it to our documents directory
         let url = URL.documentsDirectory.appending(path: filename)
         
-        // 2: Render Hello World with some modifiers
-        let renderer = ImageRenderer(content: content() )
-        // 3: Start the rendering process
-        renderer.render { size, context in
-            // 4: Tell SwiftUI our PDF should be the same size as the views we're rendering
-            var box = CGRect(x: 0.0, y: 0.0, width: size.width, height: size.height)
-            // 5: Create the CGContext for our PDF pages
-            guard let pdf = CGContext(url as CFURL, mediaBox: &box, nil) else {
-                print("Failed to create CGContext")
-                return
-            }
-            // 6: Start a new PDF page
-            pdf.beginPDFPage(nil)
-            // 7: Render the SwiftUI view data onto the page
-            context(pdf)
-            // 8: End the page and close the file
-            pdf.endPDFPage()
-            pdf.closePDF()
-        }
+        let doc: PDFDocument = PDFDocument()
         
+        doc.insert(PDFHeader(canvas: canvas).asPDFPage(width)!, at: doc.pageCount)
+        doc.insert(PDFColorList(canvas: canvas, palette: palette).asPDFPage(width)!, at: doc.pageCount)
+        doc.insert(PDFFooter().asPDFPage(width)!, at: doc.pageCount)
+        for coords in canvas.plateCoordinates {
+            doc.insert(PDFPlate(source: source, canvas: canvas, palette: palette, coords: coords).asPDFPage(width)!, at: doc.pageCount)   
+        }
+        // https://betterprogramming.pub/convert-a-uiimage-to-pdf-in-swift-bf9f22b127c5
+        
+        let data = doc.dataRepresentation()
+        do {       
+            try data?.write(to: url)       
+        } catch(let error) {
+            print("error is \(error.localizedDescription)")
+        }
         return url
     }
     
 }
+
+
