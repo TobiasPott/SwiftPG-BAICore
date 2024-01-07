@@ -12,7 +12,7 @@ struct CanvasToolbar: View {
     func updateScale(_ amount: CGFloat) {
         canvas.scale += amount
         canvas.scale = canvas.scale.clamped(to: 1.0...64.0)
-        _ = canvas.Analyse(source, state.palette)
+        _ = canvas.AnalyseAsync(source, state.palette)
     }
     
     var body: some View {

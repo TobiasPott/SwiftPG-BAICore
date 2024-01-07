@@ -68,15 +68,26 @@ class ArtCanvas : ObservableObject, Identifiable, Codable
         try container.encode(scale, forKey: .scale)
     }
     
-    func Analyse(_ source: ArtSource, _ palette: Palette) -> Bool {
+    public func AnalyseAsync(_ source: ArtSource, _ palette: Palette) -> Task<Void, Never> {
+        return Task {   
+            _ = await freezeAsync(source, palette)
+        }
+    }
+    
+    public func Analyse(_ source: ArtSource, _ palette: Palette) -> Bool {
         return freeze(source, palette)
     }
-    func DiscardAnalysis() -> Bool {
+    public func DiscardAnalysis() -> Bool {
         if(analysis != nil) {
             analysis = nil;
             return true;
         }
         return false;
+    }
+    
+    @MainActor
+    private func freezeAsync(_ source: ArtSource, _ palette: Palette) async -> Bool {
+        return freeze(source, palette)
     }
     private func freeze(_ source: ArtSource, _ palette: Palette) -> Bool {
         var result: Bool = false;

@@ -20,7 +20,7 @@ struct CanvasPanel: View {
                 Spacer()
                 Text("Analyze")
                 RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42.0, action: { 
-                    _ = canvas.Analyse(source, state.palette);
+                    _ = canvas.AnalyseAsync(source, state.palette);
                     state.setNavState(NavState.analysis, true)
                 })
             }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8.0)
@@ -34,7 +34,7 @@ struct CanvasPanel: View {
         })        
         .onAppear(perform: {
             if(canvas.analysis == nil) {
-                _ = canvas.Analyse(source, state.palette)
+                _ = canvas.AnalyseAsync(source, state.palette)
             }
         })
         

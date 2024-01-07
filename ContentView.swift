@@ -43,7 +43,7 @@ struct ContentView: View {
                         .environmentObject(state)
                         .onDisappear(perform: {
                             if (state.canvas != nil) {
-                                _ = state.canvas?.Analyse(source, state.palette)
+                                _ = state.canvas?.AnalyseAsync(source, state.palette)
                             }
                         })
                 })
@@ -114,14 +114,14 @@ struct ContentView: View {
         do {
             let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
             self.source.reset(source)
-//            print("Decoded Source: \(source.asJSONString())")
+            //            print("Decoded Source: \(source.asJSONString())")
             // ToDo: add correct set of scale and scale limits and positions
             let canvases = try UserData.lastCanvases.decode(model: Canvases.self) as! Canvases
             self.canvases.reset(canvases)
             print("Decoded Canvases: \(canvases.asJSONString())")
             if (self.canvases.items.count > 0) {
                 state.canvas = self.canvases.items[0]
-                _ = state.canvas?.Analyse(self.source, state.palette)
+                _ = state.canvas?.AnalyseAsync(self.source, state.palette)
             }
             // change to setup state and keep canvas if user is still in load state
             if (state.isNavState(NavState.load)) {

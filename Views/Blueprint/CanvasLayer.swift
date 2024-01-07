@@ -50,7 +50,7 @@ struct CanvasLayer: View {
             // clamp to source image size
             let clampSize: CGSize = source.image.size.sub(canvas.size.mul(canvas.scale)); 
             canvas.drag.clamp(CGPoint.zero, clampSize.cgPoint());        
-            _ = canvas.Analyse(source, state.palette)
+            _ = canvas.AnalyseAsync(source, state.palette)
         }
     }
     

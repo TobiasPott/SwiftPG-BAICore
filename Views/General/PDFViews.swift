@@ -37,19 +37,20 @@ struct PDFHeader: View {
     var body: some View {
         GroupBox(content: {
             HStack(alignment: VerticalAlignment.top) {
+                canvas.analysis?.image.swuiImage
+                    .interpolation(Image.Interpolation.none)
+                    .rs(fit: true)
+                    .frameMax(128.0)
+                    .mask(Styling.roundedRect)
                 VStack(alignment: HorizontalAlignment.leading) {
                     Text("Brick Art Instructor").font(Styling.titleFont.bold())
                     Text("Instruction, Parts and Color List").font(Styling.title2Font);
                     Text("for '\(canvas.name)'").font(Styling.title2Font);
                 }
+                Spacer()
             }
-            .padding(Edge.Set.vertical)
-            .padding(Edge.Set.vertical)
-            .padding(Edge.Set.vertical)
-            .padding(Edge.Set.vertical)
             .foregroundColor(Styling.white)
         }).groupBoxStyle(BlueprintGroupBoxStyle())
-//            .aspectRatio(1.0, contentMode: .fill)
     }
 }
 struct PDFPlate: View {
