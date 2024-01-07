@@ -10,7 +10,7 @@ extension View {
         }
     }
     
-    func labelOverlay(label: String, alignment: Alignment = Alignment.topLeading, color: Color = Styling.panelColor, textColor: Color = Styling.primary) -> some View {
+    func labelOverlay(label: String, alignment: Alignment = Alignment.topLeading, color: Color = Styling.black, textColor: Color = Styling.primary) -> some View {
         return self.overlay(content: { 
             Text(label).foregroundColor(textColor)    
                 .padding(Edge.Set.horizontal, 3.0)
