@@ -27,6 +27,7 @@ struct ContentView: View {
                     }
                     // ToDo: Add different maxWidth for maxOS high res
                     .frameRow(800.0, Alignment.center)
+                    
                 }
                 .frame(alignment: Alignment.center)
                 .sheet(isPresented: $sheets.about, content: { 

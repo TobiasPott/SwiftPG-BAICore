@@ -9,7 +9,13 @@ extension View {
             return AnyView(self);
         }
     }
-    
+    func shadowOutline(_ color: Color, _ radius: CGFloat, _ offset: CGFloat = 1.0) -> some View {
+        return self
+        .shadow(color: color, radius: radius, x: 0, y: offset)
+        .shadow(color: color, radius: radius, x: 0, y: -offset)
+        .shadow(color: color, radius: radius, x: offset, y: 0)
+        .shadow(color: color, radius: radius, x: -offset, y: 0)
+    }
     func labelOverlay(label: String, alignment: Alignment = Alignment.topLeading, color: Color = Styling.black, textColor: Color = Styling.primary) -> some View {
         return self.overlay(content: { 
             Text(label).foregroundColor(textColor)    

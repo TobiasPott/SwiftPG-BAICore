@@ -72,7 +72,7 @@ struct SourceLayer<Content: View>: View {
     
     var emptyOverlayContent: some View {
         Group { 
-            Styling.roundedRect.foregroundColor(Styling.black.opacity(0.25))
+            //            Styling.roundedRect.foregroundColor(Styling.black.opacity(0.25))
             selectFileMenu
                 .frameStretch(Alignment.center)
             Styling.roundedRect.stroke(Styling.black.opacity(0.9), lineWidth: 2.0)
@@ -90,14 +90,20 @@ struct SourceLayer<Content: View>: View {
                         if (load.isImageSet) {
                             Styling.gray
                             load.image.swuiImage.rs()
-                            
-                            RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42.0, action: { 
-                                LoadPanel.StartProject(state, load, source, $canvases)
+                            Grid(cols: CGFloat(load.width), rows: CGFloat(load.height), gridColor: Styling.white).aspectRatio(CGFloat(load.width) / CGFloat(load.height), contentMode: .fit)
+                            Button("", systemImage: "trash", action: {
+                                withAnimation { load.set(Defaults.image) }
                             })
-                            .frameStretch(Alignment.bottom).padding(Edge.Set.bottom)
+                            .font(Styling.title2Font).bold()
+                            .shadowOutline(Styling.black.opacity(075), 0.5, 0.5)
+                            .foregroundColor(Styling.primary)
+                            .frameStretch(Alignment.topLeading)
+                            .padding(Edge.Set.leading)
+                            .padding(Edge.Set.top)
                         } else {
                             Text("Tap to select a picture")
                                 .font(Styling.title2Font).bold()
+                                .shadowOutline(Styling.black.opacity(0.75), 1, 1)
                                 .foregroundColor(Styling.primary)
                                 .frameStretch(Alignment.bottom)
                                 .padding(Edge.Set.bottom)

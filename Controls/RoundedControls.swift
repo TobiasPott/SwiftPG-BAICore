@@ -91,7 +91,7 @@ struct RoundedButton: View {
     
     var body: some View {
         RoundedImage(systemName: systemName, size: size, foreground: foreground, background: background, padding: padding)
-            .onTapGesture(perform: action)
+            .onTapGesture(perform: { withAnimation { action() } })
     }
 }
 
