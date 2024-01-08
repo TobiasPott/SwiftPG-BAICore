@@ -12,7 +12,10 @@ public enum BrickOutlineMode: Int {
 
 class GlobalState : ObservableObject
 {
-    @Published var showSplashScreen: Bool = false;
+    public static let defaultZoomScale: CGFloat = 30.0
+    
+    
+    @Published var showSplashScreen: Bool = true;
     @Published var showProgress: Bool = false;
     @Published var userMode: UserMode = UserMode.simple;   
     @Published var navState: NavState = NavState.load;
@@ -26,7 +29,7 @@ class GlobalState : ObservableObject
     @Published public var srcDragLocked: Bool = false;
     @Published public var srcZoomLocked: Bool = false;
     @Published var drag: DragInfo = DragInfo();
-    @Published var zoom: ZoomInfo = ZoomInfo(scale: 30.0, lastScale: 30.0);
+    @Published var zoom: ZoomInfo = ZoomInfo(scale: defaultZoomScale, lastScale: defaultZoomScale);
     
     @Published var brickOutline: BrickOutlineMode = BrickOutlineMode.outlined;
     @Published var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);

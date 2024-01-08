@@ -20,7 +20,7 @@ struct SourceLayer<Content: View>: View {
             ZStack {
                 ZStack() {
                     BlueprintGrid(baseSpacing: 64.0, lineWidth: 0.75).scaleEffect(12.0, anchor: UnitPoint.center)
-                    if (source.isImageSet) {
+                    if (!state.isNavState(NavState.load) && source.isImageSet) {
                         source.image.swuiImage.overlay(content: { overlayContent() })
                     } else {
                         ZStack {   
@@ -95,17 +95,18 @@ struct SourceLayer<Content: View>: View {
                             Button("", systemImage: "trash", action: {
                                 withAnimation { load.set(Defaults.image) }
                             })
-                            .font(Styling.title2Font).bold()
-                            .shadowOutline(Styling.black.opacity(075), 0.5, 0.5)
-                            .foregroundColor(Styling.primary)
-                            .frameStretch(Alignment.topLeading)
-                            .padding(Edge.Set.leading)
+                            .modifier(ShadowOutline())
+                            .frameStretch(Alignment.bottom)
+                            .padding(Edge.Set.bottom)
                             .padding(Edge.Set.top)
+                            
+                            Text("Tap to pick another")
+                                .modifier(ShadowText())
+                                .frameStretch(Alignment.bottom)
+                                .padding(Edge.Set.bottom)
                         } else {
                             Text("Tap to select a picture")
-                                .font(Styling.title2Font).bold()
-                                .shadowOutline(Styling.black.opacity(0.75), 1, 1)
-                                .foregroundColor(Styling.primary)
+                                .modifier(ShadowText())
                                 .frameStretch(Alignment.bottom)
                                 .padding(Edge.Set.bottom)
                         }

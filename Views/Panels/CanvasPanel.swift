@@ -41,8 +41,7 @@ struct CanvasPanel: View {
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
         HStack(alignment: VerticalAlignment.center) {
             detailPanel
-                .frame(width: 120.0)
-                .frame(maxHeight: CGFloat.infinity)
+//                .frame(maxHeight: CGFloat.infinity)
             VStack {
                 if(canvas.analysis != nil) {
                     let img = canvas.analysis?.image;
@@ -76,6 +75,22 @@ struct CanvasPanel: View {
                     .padding(Edge.Set.top, 6.0)
                 LabelledText(label: "Bricks", text: "\(Int(canvas.size.width * canvas.size.height))", alignment: VerticalAlignment.top)
                     .padding(Edge.Set.top, 6.0)
+                Divider()
+                
+                LabelledText(label: "Colors", text: "\(Int(canvas.analysis?.colorInfo.uniqueColors ?? 0))", alignment: VerticalAlignment.top)
+                    .padding(Edge.Set.top, 6.0)
+//                
+//                let colors: Dictionary<MultiColor, Int> = canvas.analysis?.colorInfo.mappedColorCounts ?? [:]
+//                
+//                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2.0)]) {
+//                    
+//                    ForEach(colors) { kv in
+//                        
+//                        palette.artColors[i].swuiColor.frameSquare(size)
+//                            .mask(Styling.roundedRectHalf)
+//                    }
+//                }
+//                
                 Spacer()
             }
         })
