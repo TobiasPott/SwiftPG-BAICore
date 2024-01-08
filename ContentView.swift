@@ -122,10 +122,10 @@ struct ContentView: View {
             print("Decoded Canvases: \(canvases.asJSONString())")
             if (self.canvases.items.count > 0) {
                 state.canvas = self.canvases.items[0]
-                _ = state.canvas?.AnalyseAsync(self.source, state.palette)
+                _ = state.canvas?.Analyse(self.source, state.palette)
             }
             // change to setup state and keep canvas if user is still in load state
-            if (state.isNavState(NavState.load)) {
+            if (state.canvas != nil) {
                 state.setNavState(NavState.setup, true)
             }
         } catch { print(error.localizedDescription) }
