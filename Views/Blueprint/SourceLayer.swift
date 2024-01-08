@@ -35,7 +35,7 @@ struct SourceLayer<Content: View>: View {
                         }.scaleEffect(4.0)
                     }
                 }       
-                .scaleEffect(state.zoom.scale / 100.0, anchor: UnitPoint.center)
+                .scaleEffect(state.zoom.scale / 100.0)
                 .gesture(GetDragGesture(), enabled: source.isImageSet && !state.srcDragLocked)
                 .gesture(GetZoomGesture(), enabled: source.isImageSet && !state.srcZoomLocked)
             }
@@ -43,7 +43,7 @@ struct SourceLayer<Content: View>: View {
             
             if (state.drag.active) {
                 source.image.swuiImage
-                    .scaleEffect(state.zoom.scale / 100.0, anchor: UnitPoint.center)
+                    .scaleEffect(state.zoom.scale / 100.0)
                     .offset(x: state.drag.location.x, y: state.drag.location.y)
                     .opacity(0.75)
             }
@@ -72,7 +72,6 @@ struct SourceLayer<Content: View>: View {
     
     var emptyOverlayContent: some View {
         Group { 
-            //            Styling.roundedRect.foregroundColor(Styling.black.opacity(0.25))
             selectFileMenu
                 .frameStretch(Alignment.center)
             Styling.roundedRect.stroke(Styling.black.opacity(0.9), lineWidth: 2.0)
@@ -90,7 +89,9 @@ struct SourceLayer<Content: View>: View {
                         if (load.isImageSet) {
                             Styling.gray
                             load.image.swuiImage.rs()
-                            Grid(cols: CGFloat(load.width), rows: CGFloat(load.height), gridColor: Styling.white).aspectRatio(CGFloat(load.width) / CGFloat(load.height), contentMode: .fit)
+                                .overlay(content: {
+                                    Grid(cols: CGFloat(load.width), rows: CGFloat(load.height), gridColor: Styling.white).aspectRatio(load.aspect, contentMode: .fit)
+                                })
                             Button("", systemImage: "trash", action: {
                                 withAnimation { load.set(Defaults.image) }
                             })

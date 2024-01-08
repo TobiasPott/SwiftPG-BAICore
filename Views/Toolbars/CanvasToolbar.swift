@@ -17,13 +17,13 @@ struct CanvasToolbar: View {
     
     var body: some View {
         ToolbarPanel(content: {
-            RoundedLockButton(systemName: "magnifyingglass", size: 28.0, action: { canvas.isLocked.toggle(); }, isLocked: canvas.isLocked)
+            RoundedLockButton(sName: "magnifyingglass", size: 28.0, action: { canvas.isLocked.toggle(); }, isLocked: canvas.isLocked)
             
             if (!state.isNavState(NavState.analysis) ) {
                 
                 VStack (alignment: HorizontalAlignment.trailing, spacing: 3.0) {
                     
-                    RoundedImage(systemName: "plus.magnifyingglass", size: 28.0, padding: 10.0)
+                    RoundedImage(sName: "plus.magnifyingglass", size: 28.0, padding: 10.0)
                         .onTapGesture(perform: { updateScale(scaleFactor) })
                         .onLongPressGesture(minimumDuration: 0.5, perform: {
                             scaleFactor = scaleFactor == 1.0 ? 0.1 : 1.0
@@ -41,7 +41,7 @@ struct CanvasToolbar: View {
                     }, orientation: PanelOrientation.vertical, background: Styling.black.opacity(0.5))
                     
                     
-                    RoundedImage(systemName: "minus.magnifyingglass", size: 28.0, padding: 10.0)
+                    RoundedImage(sName: "minus.magnifyingglass", size: 28.0, padding: 10.0)
                         .onTapGesture(perform: { updateScale(-scaleFactor) })
                         .onLongPressGesture(minimumDuration: 0.5, perform: {
                             scaleFactor = scaleFactor == 1.0 ? 0.1 : 1.0

@@ -15,11 +15,11 @@ struct CanvasPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.load, true) })
+                RoundedButton(sName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.load, true) })
                 Text("Back")
                 Spacer()
                 Text("Analyze")
-                RoundedButton(systemName: "arrowshape.right.circle.fill", size: 42.0, action: { 
+                RoundedButton(sName: "arrowshape.right.circle.fill", size: 42.0, action: { 
                     _ = canvas.AnalyseAsync(source, state.palette);
                     state.setNavState(NavState.analysis, true)
                 })
@@ -101,7 +101,7 @@ struct CanvasHeader: View {
                     .font(Styling.caption2Font)
             }
             Spacer()
-            RoundedStateButton(systemName: "lock.fill", size: 26.0, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray, padding: 8.0)
+            RoundedStateButton(sName: "lock.fill", size: 26.0, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray, padding: 8.0)
         }
     }
 }

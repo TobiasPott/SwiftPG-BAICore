@@ -10,9 +10,9 @@ struct SourceToolbar: View {
     var body: some View {
         VStack(content: {
             ToolbarPanel(content: {
-                RoundedButton(systemName: "viewfinder.circle", size: 28.0, action: { state.drag.location = CGPoint.zero; state.drag.fixedLocation = CGPoint.zero })
-                RoundedLockButton(systemName: "arrow.up.and.down.and.arrow.left.and.right", size: 28.0, action: { state.srcDragLocked.toggle(); }, isLocked: state.srcDragLocked)
-                RoundedLockButton(systemName: "magnifyingglass", size: 28.0, action: { state.srcZoomLocked.toggle(); }, isLocked: state.srcZoomLocked, padding: 10.0)
+                RoundedButton(sName: "viewfinder.circle", size: 28.0, action: { state.drag.location = CGPoint.zero; state.drag.fixedLocation = CGPoint.zero })
+                RoundedLockButton(sName: "arrow.up.and.down.and.arrow.left.and.right", size: 28.0, action: { state.srcDragLocked.toggle(); }, isLocked: state.srcDragLocked)
+                RoundedLockButton(sName: "magnifyingglass", size: 28.0, action: { state.srcZoomLocked.toggle(); }, isLocked: state.srcZoomLocked, padding: 10.0)
             }, orientation: PanelOrientation.vertical)
         })        
     }

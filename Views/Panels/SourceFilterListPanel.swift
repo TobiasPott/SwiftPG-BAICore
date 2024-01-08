@@ -14,7 +14,7 @@ struct SourceFilterListPanel: View {
             Button("Sepia Tone", action: {source.filters.append(Filter.sepiaTone(inInputIntensity: 1.0))})
             Button("Hue Adjust", action: {source.filters.append(Filter.hueAdjust(inInputAngle: 0.0))})
         }, label: {
-            RoundedButton(systemName: "plus.app.fill", action: { })
+            RoundedButton(sName: "plus.app.fill", action: { })
         })
         
         
@@ -43,10 +43,10 @@ struct SourceFilterListPanel: View {
         if (source.filters.count > 0) {
             Divider()
             HStack {
-                RoundedButton(systemName: "trash.circle", action: { source.filters.reset() }, background: Styling.red)
+                RoundedButton(sName: "trash.circle", action: { source.filters.reset() }, background: Styling.red)
                 Spacer()
-                RoundedButton(systemName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: Styling.red).rotationEffect(Angle.degrees(-180.0))
-                RoundedButton(systemName: "play.square.fill", action: { source.applyFilter(); })
+                RoundedButton(sName: "arrow.counterclockwise.square.fill", action: { source.resetImage(); }, background: Styling.red).rotationEffect(Angle.degrees(-180.0))
+                RoundedButton(sName: "play.square.fill", action: { source.applyFilter(); })
             }
             Divider()
         }

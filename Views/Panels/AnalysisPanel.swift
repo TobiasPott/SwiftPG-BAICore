@@ -15,7 +15,7 @@ struct AnalysisPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(systemName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.setup, true) })
+                RoundedButton(sName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.setup, true) })
                 Text("Back")
                 Spacer()
             }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8.0)

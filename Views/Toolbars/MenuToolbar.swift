@@ -11,9 +11,9 @@ struct MenuToolbar: View {
     
     var body: some View {
         HStack {
-            RoundedImage(systemName: state.isNavState(NavState.load) ? "plus.square.fill" : "plus.square", background: Styling.clear)
-            RoundedImage(systemName: state.isNavState(NavState.setup) ? "photo.stack.fill" : "photo.stack", background: Styling.clear)
-            RoundedImage(systemName: state.isNavState(NavState.analysis) ? "square.grid.3x3.fill" : "square.grid.3x3", background: Styling.clear)
+            RoundedImage(sName: state.isNavState(NavState.load) ? "plus.square.fill" : "plus.square", background: Styling.clear)
+            RoundedImage(sName: state.isNavState(NavState.setup) ? "photo.stack.fill" : "photo.stack", background: Styling.clear)
+            RoundedImage(sName: state.isNavState(NavState.analysis) ? "square.grid.3x3.fill" : "square.grid.3x3", background: Styling.clear)
             Divider()
             //            }
             Spacer()                
@@ -33,7 +33,7 @@ struct MenuToolbar: View {
                 
                 
             }, label: {
-                RoundedButton(systemName: "ellipsis.circle", action: { })
+                RoundedButton(sName: "ellipsis.circle", action: { })
             })
             
             Menu(content: {
@@ -43,7 +43,7 @@ struct MenuToolbar: View {
                 Button("Source Code", systemImage: "terminal.fill", action: { sheets.sourceCode.toggle() })
                 Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: { sheets.feedback.toggle() })
             }, label: {
-                RoundedButton(systemName: "info.circle", action: { })
+                RoundedButton(sName: "info.circle", action: { })
             })
         }
         .frame(maxHeight: 32.0)

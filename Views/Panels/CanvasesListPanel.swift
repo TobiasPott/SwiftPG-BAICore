@@ -24,7 +24,7 @@ struct CanvasesListPanel: View {
                 }, size: 16.0)
                 
                 RootView.spacerZeroLength
-                RoundedButton(systemName: "plus.app.fill", action: {
+                RoundedButton(sName: "plus.app.fill", action: {
                     canvases.items.append(ArtCanvas(newCanvasWidth, newCanvasHeight, size: source.image.size));
                     if(state.canvas == nil) {
                         state.canvas = canvases.items[0];
@@ -63,7 +63,7 @@ struct CanvasesListPanel: View {
             Divider()
             // bottom content
             HStack {
-                RoundedButton(systemName: "trash.circle", action: { 
+                RoundedButton(sName: "trash.circle", action: { 
                     canvases.items = []
                     state.canvas = nil
                 }, background: Styling.red)

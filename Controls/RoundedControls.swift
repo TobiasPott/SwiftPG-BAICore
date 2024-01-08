@@ -1,8 +1,7 @@
 import SwiftUI
 
-
 struct RoundedLockButton: View {
-    let systemName: String;
+    let sName: String;
     var size: CGFloat = Styling.buttonSize;
     let action: () -> Void;
     
@@ -13,7 +12,7 @@ struct RoundedLockButton: View {
     var padding: CGFloat = Styling.buttonPadding;
     
     var body: some View {
-        RoundedButton(systemName: systemName, size: size, action: action, foreground: foreground, background: background, padding: padding)
+        RoundedButton(sName: sName, size: size, action: action, foreground: foreground, background: background, padding: padding)
             .overlay(content: {
                 Styling.roundedRectHalfTRBL.foregroundColor(isLocked ? Styling.red : Styling.green)
                     .frameSquare(size / 3.5)
@@ -25,7 +24,7 @@ struct RoundedLockButton: View {
 
 
 struct RoundedStateButton: View {
-    let systemName: String;
+    let sName: String;
     var size: CGFloat = Styling.buttonSize;
     let action: () -> Void;
     
@@ -37,30 +36,32 @@ struct RoundedStateButton: View {
     var padding: CGFloat = Styling.buttonPadding;
     
     var body: some View {
-        RoundedButton(systemName: systemName, size: size, action: action,  foreground: foreground, background: state ? stateColor: background, padding: padding)
+        RoundedButton(sName: sName, size: size, action: action,  foreground: foreground, background: state ? stateColor: background, padding: padding)
     }
 }
 
-struct RoundedButtonMedium: View {
-    public static let defaultSize: CGFloat = Styling.medButtonSize;
-    
-    let systemName: String;
-    var size: CGFloat = defaultSize;
-    let action: () -> Void;
+struct RoundedViewStyle: ViewModifier {
+    var size: CGFloat = Styling.buttonSize;
     
     var foreground: Color = Styling.white;
-    var background: Color = Styling.buttonColor;
-    var padding: CGFloat = Styling.medButtonPadding;
+    var background: Color = Styling.clear;
+    var padding: CGFloat = Styling.buttonPadding;
     
-    
-    var body: some View {
-        RoundedButton(systemName: systemName, size: size, action: action, foreground: foreground, background: background, padding: padding)
+    func body(content: Content) -> some View {
+        content
+            .frameSquare(size - padding)
+            .padding(padding)
+            .frame(width: size, height: size)
+            .foregroundColor(foreground)
+            .background(background)
+            .mask(Styling.roundedRect)
     }
 }
+
 struct RoundedImage: View {
     public static let defaultSize: CGFloat = Styling.buttonSize;
     
-    let systemName: String;
+    let sName: String;
     var size: CGFloat = defaultSize;
     
     var foreground: Color = Styling.white;
@@ -68,20 +69,15 @@ struct RoundedImage: View {
     var padding: CGFloat = Styling.buttonPadding;
     
     var body: some View {
-        Image(systemName: systemName)
+        Image(systemName: sName)
             .rs()
-            .frameSquare(size - padding)
-            .foregroundColor(foreground)
-            .padding(padding)
-            .frame(width: size, height: size)
-            .background(background)
-            .mask(Styling.roundedRect)
+            .modifier(RoundedViewStyle(size: size, foreground: foreground, background: background, padding: padding))
     }
 }
 struct RoundedButton: View {
     public static let defaultSize: CGFloat = Styling.buttonSize;
     
-    let systemName: String;
+    let sName: String;
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
@@ -90,23 +86,7 @@ struct RoundedButton: View {
     var padding: CGFloat = Styling.buttonPadding;
     
     var body: some View {
-        RoundedImage(systemName: systemName, size: size, foreground: foreground, background: background, padding: padding)
+        RoundedImage(sName: sName, size: size, foreground: foreground, background: background, padding: padding)
             .onTapGesture(perform: { withAnimation { action() } })
-    }
-}
-
-struct RoundedButtonMini: View {
-    public static let defaultSize: CGFloat = 28.0;
-    
-    let systemName: String;
-    var size: CGFloat = defaultSize;
-    let action: () -> Void;
-    
-    var foreground: Color = Styling.white;
-    var background: Color = Styling.buttonColor;
-    var padding: CGFloat = 6.0;
-    
-    var body: some View {
-        RoundedButton(systemName: systemName, size: size, action: action, foreground: foreground, background: background, padding: padding)
     }
 }
