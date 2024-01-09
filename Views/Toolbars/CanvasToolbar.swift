@@ -27,25 +27,21 @@ struct CanvasToolbar: View {
                         .onTapGesture(perform: { updateScale(scaleFactor * 10) })
                     RoundedImage(sName: "plus.magnifyingglass", size: 28.0)
                         .onTapGesture(perform: { updateScale(scaleFactor) })
-                        .onLongPressGesture(minimumDuration: 0.5, perform: {
-                            scaleFactor = scaleFactor == 1.0 ? 0.1 : 1.0
-                        })
                     RoundedPanel(content: {
                         ZStack(alignment: Alignment.trailing) {
                             Text("\(String(format: "%0.f", (canvas.scale * 10.0)))")
-                                .frame(maxHeight: 20.0)
+                                .frame(maxHeight: 26.0)
                             Text("\(scaleFactor == 1.0 ? "\u{2581}\u{0020}" : "\u{0020}\u{2581}")").offset(x: 0.0, y: 1.0)
                             Text("\(scaleFactor == 1.0 ? "\u{2594}\u{0020}" : "\u{0020}\u{2594}")").offset(x: 0.0, y: -3.0)
                         }
+                        .onLongPressGesture(minimumDuration: 0.5, perform: {
+                            scaleFactor = scaleFactor == 1.0 ? 0.1 : 1.0
+                        })
                         .frame(maxWidth: CGFloat.infinity)
-                        .padding(2.0)
                     }, orientation: PanelOrientation.vertical, background: Styling.black.opacity(0.5))
                     
                     RoundedImage(sName: "minus.magnifyingglass", size: 28.0)
                         .onTapGesture(perform: { updateScale(-scaleFactor) })
-                        .onLongPressGesture(minimumDuration: 0.5, perform: {
-                            scaleFactor = scaleFactor == 1.0 ? 0.1 : 1.0
-                        })
                     RoundedBadgeImage(sName: "minus.magnifyingglass", size: 28.0, badgeSName: "10.square.fill")
                         .onTapGesture(perform: { updateScale(-scaleFactor * 10) })
                 }
