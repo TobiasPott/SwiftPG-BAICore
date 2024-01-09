@@ -18,7 +18,7 @@ struct BrickArtLayer: View {
                             Grid(cols: floor(analysis.size.width / 16.0), rows: floor(analysis.size.height / 16.0), gridColor: Styling.white)
                         })
                 }
-                .scaleEffect(zoom.scale, anchor: UnitPoint.center)
+                .scaleEffect(zoom.scale)
                 .frameMax(geometry.size, Alignment.center)
                 
             }
@@ -28,7 +28,7 @@ struct BrickArtLayer: View {
             
             if (drag.active) {
                 BrickCanvasView(analysis: analysis, display: BrickOutlineMode.none)
-                    .scaleEffect(zoom.scale, anchor: UnitPoint.center)
+                    .scaleEffect(zoom.scale)
                     .frameMax(geometry.size)
                     .offset(drag.location.cgSize())
             }
@@ -123,9 +123,9 @@ struct BrickArtOutlines: View {
     var repeatY: Int = 1
     
     var body: some View {
-        VStack(spacing: 0) {
+        VStack(spacing: 0.0) {
             ForEach(0..<repeatY, id: \.self) { y in 
-                HStack(spacing: 0) {
+                HStack(spacing: 0.0) {
                     ForEach(0..<repeatX, id: \.self) { x in
                         BrickPlateOutlines()
                     }

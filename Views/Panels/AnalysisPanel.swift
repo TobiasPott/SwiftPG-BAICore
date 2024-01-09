@@ -25,7 +25,7 @@ struct AnalysisPanel: View {
         GuideText(text: "Some details about your generated brick art. You can also export the instructions to PDF")
         RoundedPanel(content: {
             CanvasDetailHeader(canvas: canvas).padding(Edge.Set.horizontal, 12.0).padding(Edge.Set.vertical, 6.0);
-            ExportMenu(source: source, canvas: canvas, palette: state.palette, width: 1538)
+            ExportMenu(source: source, canvas: canvas, palette: state.palette, width: 1538.0)
         }, orientation: PanelOrientation.horizonal)
         
         GuideText(text: "Your interactive instructions for every plate with the required bricks and colors")

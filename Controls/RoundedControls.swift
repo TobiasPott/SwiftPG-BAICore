@@ -21,6 +21,26 @@ struct RoundedLockButton: View {
         
     }
 }
+struct RoundedBadgeButton: View {
+    let sName: String;
+    var size: CGFloat = Styling.buttonSize;
+    let badgeSName: String;
+    let action: () -> Void;
+    
+    var foreground: Color = Styling.white;
+    var background: Color = Styling.buttonColor;    
+    var padding: CGFloat = Styling.buttonPadding;
+    
+    var body: some View {
+        RoundedButton(sName: sName, size: size, action: action, foreground: foreground, background: background, padding: padding)
+            .overlay(content: {
+                SNImage.get(badgeSName)
+                    .frameSquare(size / 3.5)
+                    .frameMax(size, Alignment.topTrailing)
+            })
+        
+    }
+}
 
 
 struct RoundedStateButton: View {
@@ -72,6 +92,29 @@ struct RoundedImage: View {
         Image(systemName: sName)
             .rs()
             .modifier(RoundedViewStyle(size: size, foreground: foreground, background: background, padding: padding))
+    }
+}
+struct RoundedBadgeImage: View {
+    public static let defaultSize: CGFloat = Styling.buttonSize;
+    
+    let sName: String;
+    var size: CGFloat = defaultSize;
+    let badgeSName: String;
+    
+    var foreground: Color = Styling.white;
+    var background: Color = Styling.buttonColor;
+    var padding: CGFloat = Styling.buttonPadding
+    
+    var body: some View {
+        Image(systemName: sName)
+            .rs()
+            .modifier(RoundedViewStyle(size: size, foreground: foreground, background: background, padding: padding))
+            .overlay(content: {
+                SNImage.get(badgeSName).resizable()
+                    .frameSquare(size / 3.0)
+                    .frameMax(size, Alignment.topTrailing)
+            })
+            .mask(Styling.roundedRect)
     }
 }
 struct RoundedButton: View {
