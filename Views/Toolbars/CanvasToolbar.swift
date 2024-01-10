@@ -17,7 +17,7 @@ struct CanvasToolbar: View {
     
     var body: some View {
         ToolbarPanel(content: {
-            RoundedLockButton(sName: "magnifyingglass", size: 28.0, action: { canvas.isLocked.toggle(); }, isLocked: canvas.isLocked)
+            RoundedLockButton(sName: "magnifyingglass", size: 28.0, action: { canvas.isLocked = canvas.isLocked.not; }, isLocked: canvas.isLocked)
             Divider().frame(width: 28.0)
             if (!state.isNavState(NavState.analysis) ) {
                 

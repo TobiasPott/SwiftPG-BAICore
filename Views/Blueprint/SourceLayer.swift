@@ -83,7 +83,7 @@ struct SourceLayer<Content: View>: View {
         Group {
             VStack {
                 Button(action: {
-                    openMenu.toggle()
+                    openMenu = openMenu.not
                 }, label: {
                     ZStack {
                         if (load.isImageSet) {
@@ -112,9 +112,9 @@ struct SourceLayer<Content: View>: View {
                         }
                     }
                     .confirmationDialog("Select image from...", isPresented: $openMenu, actions: {
-                        Button(action: { openFile.toggle(); }, 
+                        Button(action: { openFile = openFile.not }, 
                                label: { Label("Select from Files", systemImage: "folder") })
-                        Button(action: { openSamples.toggle(); }, 
+                        Button(action: { openSamples = openSamples.not }, 
                                label: { Label("Select from Samples", systemImage: "photo.on.rectangle.angled") })
                     })
                     .foregroundColor(Styling.accent)

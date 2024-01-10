@@ -15,7 +15,7 @@ struct SplashScreenPanel: View {
             .overlay(content: {
                 Button(action: {
                     withAnimation {
-                        isOpen.toggle() 
+                        isOpen = isOpen.not 
                         task?.cancel()
                     }
                 }, label: {

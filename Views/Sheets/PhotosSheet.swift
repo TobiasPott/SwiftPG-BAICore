@@ -14,7 +14,7 @@
 //            }
 //            
 //            Button("Open camera") {
-//                self.showCamera.toggle()
+//                self.showCamera = self.showCamera.not
 //            }
 //            .fullScreenCover(isPresented: self.$showCamera) {
 //                accessCameraView(selectedImage: self.$selectedImage)

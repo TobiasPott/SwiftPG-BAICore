@@ -63,10 +63,10 @@ struct LoadPanel: View {
             Divider()
             Spacer()
             Menu(content: {
-                Button(action: { openFile.toggle(); }, 
+                Button(action: { openFile = openFile.not }, 
                        label: { Label("Select from Files", systemImage: "folder") })
                 Divider();
-                Button(action: { openSamples.toggle(); }, 
+                Button(action: { openSamples = openSamples.not }, 
                        label: { Label("Select from Samples", systemImage: "photo.on.rectangle.angled") })
             }, label: {
                 HStack() {

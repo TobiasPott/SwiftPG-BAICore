@@ -116,7 +116,7 @@ struct CanvasHeader: View {
                     .font(Styling.caption2Font)
             }
             Spacer()
-            RoundedStateButton(sName: "lock.fill", size: 26.0, action: { canvas.isLocked.toggle(); }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray, padding: 8.0)
+            RoundedStateButton(sName: "lock.fill", size: 26.0, action: { canvas.isLocked = canvas.isLocked.not; }, state: canvas.isLocked, stateColor: Styling.red, background: Styling.gray, padding: 8.0)
         }
     }
 }

@@ -82,7 +82,7 @@ struct SourceCodeSheet: View {
             
             
             HStack { Spacer()
-                Button("Close", action: { isOpen.toggle() })    
+                Button("Close", action: { isOpen = isOpen.not })    
             }.frameStretch(Alignment.topTrailing).padding().padding()
         }
         

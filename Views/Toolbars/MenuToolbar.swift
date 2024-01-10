@@ -23,7 +23,7 @@ struct MenuToolbar: View {
                 Button("Load last state", systemImage: "square.and.arrow.down", action: onLoad)
                 Button("Save current state", systemImage: "square.and.arrow.up", action: onSave)
                 Divider()
-                Button("Preferences...", systemImage: "gearshape.2", action: { sheets.preferences.toggle() })
+                Button("Preferences...", systemImage: "gearshape.2", action: { sheets.preferences = sheets.preferences.not })
                 Divider()
                 Menu(content: {
                     UserModePicker(userMode: $state.userMode)
@@ -39,9 +39,12 @@ struct MenuToolbar: View {
             Menu(content: {
                 
                 
-                Button("About", systemImage: "info.square.fill", action: { sheets.about.toggle() })
-                Button("Source Code", systemImage: "terminal.fill", action: { sheets.sourceCode.toggle() })
-                Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: { sheets.feedback.toggle() })
+                Button("About", systemImage: "info.square.fill", action: {
+                    sheets.about = sheets.about.not })
+                Button("Source Code", systemImage: "terminal.fill", action: {
+                    sheets.sourceCode = sheets.sourceCode.not })
+                Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right.fill", action: {
+                    sheets.feedback = sheets.feedback.not })
             }, label: {
                 RoundedButton(sName: "info.circle", action: { })
             })
