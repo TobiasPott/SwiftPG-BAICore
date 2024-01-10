@@ -10,10 +10,13 @@ struct AboutSheet: View {
                 ScrollView {
                     Divider()
                     Styling.appIcon.swuiImage.rs(fit: true)
+                        .overlay(content: { VersionText() })
                         .mask(Styling.roundedRect)
                         .frame(maxHeight: 200.0)
+
                     
                     Text("About Brick Art Instructor").font(Styling.headlineFont).padding(Edge.Set.bottom, 6.0).padding(Edge.Set.top, 0.0)
+                    
                     VStack(alignment: HorizontalAlignment.leading) {
                         Text("Welcome to Brick Art Instructor. \nAn utility app to help you create instructions and part lists for artworks you can build with your construction bricks at home.")
                             .padding(Edge.Set.bottom, 3.0)
