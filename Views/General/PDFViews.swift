@@ -1,6 +1,57 @@
 import SwiftUI
 import Foundation
 
+struct PDFPreview: View {
+    @EnvironmentObject var state: GlobalState;
+    
+    @Binding var isOpen: Bool
+    @ObservedObject var canvas: ArtCanvas;
+    
+    var source: ArtSource
+    var width: CGFloat
+    
+    var body: some View {
+        ZStack {
+            
+            let views = getViews()
+            GroupBox(label: Text("PDF Pages"), content: {
+                ScrollView(content: {
+                    ForEach(views, id: \.self) { v in
+                        Image(uiImage: v)
+                            .resizable()
+                            .scaledToFit()
+                            .mask(Styling.roundedRect)
+                    }
+                    
+                })
+            })
+            HStack { Spacer()
+                let url = ExportMenu.renderToPDF(filename: "Instructions.pdf", views: views)
+                ShareLink(item: url, label: {
+                    Text("Export")
+                }).padding(Edge.Set.trailing)
+//                    .fileExporter(isPresented: $showExport, item: url, contentTypes: [.pdf], defaultFilename: "Instructions.pdf") { Result<URL, Error> in
+//                        
+//                    } onCancellation: { 
+//                            
+//                    }
+                Button("Close", action: { isOpen = isOpen.not })    
+            }.frameStretch(Alignment.topTrailing).padding()
+        }.padding()
+    }
+    
+    @MainActor func getViews() -> [UIImage] {
+        var results: [UIImage] = []
+        results.append(PDFHeader(canvas: canvas).asUIImage(width / 2.0))
+        results.append(PDFColorList(canvas: canvas, palette: state.palette).asUIImage(width))
+        for coords in canvas.plateCoordinates {
+            results.append(PDFPlate(source: source, canvas: canvas, palette: state.palette, coords: coords).asUIImage(width))   
+        }
+        results.append(PDFFooter().asUIImage(width))
+        return results
+    }
+}
+
 struct PDFColorList: View {
     let canvas: ArtCanvas;
     let palette: Palette

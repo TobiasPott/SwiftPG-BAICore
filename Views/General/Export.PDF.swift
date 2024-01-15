@@ -27,7 +27,23 @@ struct ExportMenu: View {
                 .frame(maxHeight: CGFloat.infinity, alignment: Alignment.topTrailing)
         })
     }
-    
+    static func renderToPDF(filename: String, views: [UIImage]) -> URL {
+        // 1: Save it to our documents directory
+        let url = URL.documentsDirectory.appending(path: filename)
+        let doc: PDFDocument = PDFDocument()
+        
+        for i in 0 ..< views.count {
+            guard let page = PDFPage(image: views[i]) else { continue; } 
+            doc.insert(page, at: doc.pageCount)
+        }
+        let data = doc.dataRepresentation()
+        do {       
+            try data?.write(to: url)       
+        } catch(let error) {
+            print("error is \(error.localizedDescription)")
+        }
+        return url
+    }
     @MainActor public static func renderToPDF(filename: String, canvas: ArtCanvas, source: ArtSource, palette: Palette, width: CGFloat) -> URL {
         // 1: Save it to our documents directory
         let url = URL.documentsDirectory.appending(path: filename)

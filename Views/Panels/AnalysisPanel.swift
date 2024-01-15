@@ -9,6 +9,7 @@ struct AnalysisPanel: View {
     
     @State var showColors: Bool = false;
     @State var showTiles: Bool = false;
+    @State var showPreview: Bool = false;
     @State var selectedPlate: Int2 = Int2(x: 0, y: 0);
     
     var body: some View {
@@ -25,15 +26,26 @@ struct AnalysisPanel: View {
         GuideText(text: "Some details about your generated brick art. You can also export the instructions to PDF")
         RoundedPanel(content: {
             CanvasDetailHeader(canvas: canvas).padding(Edge.Set.horizontal, 12.0).padding(Edge.Set.vertical, 6.0);
-            ExportMenu(source: source, canvas: canvas, palette: state.palette, width: 1538.0)
+//            ExportMenu(source: source, canvas: canvas, palette: state.palette, width: 1538.0)
         }, orientation: PanelOrientation.horizonal)
         
+        GroupBox(content: {
+            HStack {
+                Text("PDF")
+                Spacer()
+                Button("Prepare", action: { showPreview = true })
+            }
+        })
+        .sheet(isPresented: $showPreview, content: {
+            PDFPreview(isOpen: $showPreview, canvas: canvas, source: source, width: 1280)
+                .environmentObject(state)
+        })
         GuideText(text: "Your interactive instructions for every plate with the required bricks and colors")
         GroupBox(content: {
             HStack {
-                Text("Plates")
+                Text("Instructions")
                 Spacer()
-                Button("Preview", action: { showTiles = true })
+                Button("View", action: { showTiles = true })
             }
         })
         .sheet(isPresented: $showTiles, content: {
@@ -47,14 +59,14 @@ struct AnalysisPanel: View {
             HStack {
                 Text("All Colors")
                 Spacer()
-                Toggle(showColors ? "Hide" : "Show", isOn: $showColors).toggleStyle(ButtonToggleStyle())
+                Button("View", action: { showColors = true })
             }
         })
-        if (showColors) {
-            RoundedPanel(content: {
-                ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: state.palette, isWide: isWide)
-            }, orientation: PanelOrientation.vertical)
-        }
+        .sheet(isPresented: $showColors, content: {
+            ColorListSheet(isOpen: $showColors, canvas: canvas, isWide: isWide)
+                .environmentObject(state)
+        })
+        
     }
 }
 
