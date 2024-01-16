@@ -10,7 +10,7 @@ struct SamplesSheet: View {
     
     var body: some View {
         ZStack {
-            GroupBox(label: Text("Samples"), content: {
+            GroupView(label: { Text("Samples") }, content: {
                 ScrollView {
                     LazyVGrid(columns: [GridItem(), GridItem()]) {
                         SampleEntry(resourceName: "SwiftPG-BrickArtInstructor", label: "Brick Art Instructor", onSelect: { image in onSelect(image); isOpen = false; })

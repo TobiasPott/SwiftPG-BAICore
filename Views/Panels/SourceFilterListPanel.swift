@@ -19,7 +19,7 @@ struct SourceFilterListPanel: View {
         
         
         
-        GroupBox("Filters", content: { })
+        GroupView(label: { Text("Filters") }, content: { })
             .overlay(content: {
                 HStack {
                     Spacer()

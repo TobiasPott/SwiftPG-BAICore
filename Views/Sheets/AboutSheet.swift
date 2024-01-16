@@ -6,7 +6,7 @@ struct AboutSheet: View {
     
     var body: some View {
         ZStack {
-            GroupBox(label: Text("About"), content: {
+            GroupView(label: { Text("About") }, content: {
                 ScrollView {
                     Divider()
                     Styling.appIcon.swuiImage.rs(fit: true)

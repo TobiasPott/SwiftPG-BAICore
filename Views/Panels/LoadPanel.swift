@@ -1,9 +1,6 @@
 import SwiftUI
 import UniformTypeIdentifiers
 
-
-
-
 struct LoadPanel: View {
     @EnvironmentObject var state: GlobalState;
     
@@ -28,14 +25,14 @@ struct LoadPanel: View {
                 .padding(Edge.Set.vertical, 8.0)
             }, orientation: PanelOrientation.vertical)
         } else {
-            GroupBox(label: Text("Make your Brick Art").font(Styling.title2Font), content: { })
+            GroupView(label: { Text("Make your Brick Art").font(Styling.title2Font) }, content: {
+                UserModePicker(userMode: $state.userMode)
+                    .pickerStyle(SegmentedPickerStyle())    
+                GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
+            })
         }
-        UserModePicker(userMode: $state.userMode)
-            .pickerStyle(SegmentedPickerStyle())
-        GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
-        
         if (state.userMode != UserMode.advanced) {
-            GroupBox(label: Text("Quick Setup").font(Styling.title2Font), content: {
+            GroupView(label: { Text("Quick Setup") }, content: {
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")
                 HStack(alignment: VerticalAlignment.top) { selectFileMenu }
                 
@@ -49,7 +46,7 @@ struct LoadPanel: View {
                 HStack() { paletteMenu }
             })
         } else {
-            GroupBox(label: Text("Advanced").font(Styling.title2Font), content: {
+            GroupView(label: { Text("Advanced") }, content: {
                 HStack(alignment: VerticalAlignment.top) { selectFileMenu }
                 HStack() { paletteMenu }
             })

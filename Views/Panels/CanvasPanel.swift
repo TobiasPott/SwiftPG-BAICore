@@ -26,7 +26,7 @@ struct CanvasPanel: View {
             }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8.0)
         }, orientation: PanelOrientation.vertical)
         
-        GroupBox(content: {
+        GroupView(label: { EmptyView() }, content: {
             GuideText(text: "You can give your canvas a custom name.")
             Highlight(content: {
                 TextField(canvas.name, text: $canvas.name)                
@@ -63,7 +63,7 @@ struct CanvasPanel: View {
         
     }
     var detailPanel: some View {
-        GroupBox(content: {
+        GroupView(label: {}, content: {
             VStack {
                 LabelledText(label: "Width", text: "\(Int(canvas.tileWidth))", alignment: VerticalAlignment.top)
                     .padding(Edge.Set.top, 6.0)

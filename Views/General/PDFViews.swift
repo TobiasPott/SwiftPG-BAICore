@@ -1,5 +1,7 @@
 import SwiftUI
 import Foundation
+import PDFKit
+
 
 struct PDFPreview: View {
     @EnvironmentObject var state: GlobalState;
@@ -14,13 +16,14 @@ struct PDFPreview: View {
         ZStack {
             
             let views = getViews()
-            GroupBox(label: Text("PDF Pages"), content: {
+            GroupView(label: { Text("PDF Pages") }, content: {
                 ScrollView(content: {
                     ForEach(views, id: \.self) { v in
                         Image(uiImage: v)
                             .resizable()
                             .scaledToFit()
                             .mask(Styling.roundedRect)
+                        
                     }
                     
                 })
@@ -30,11 +33,11 @@ struct PDFPreview: View {
                 ShareLink(item: url, label: {
                     Text("Export")
                 }).padding(Edge.Set.trailing)
-//                    .fileExporter(isPresented: $showExport, item: url, contentTypes: [.pdf], defaultFilename: "Instructions.pdf") { Result<URL, Error> in
-//                        
-//                    } onCancellation: { 
-//                            
-//                    }
+                //                    .fileExporter(isPresented: $showExport, item: url, contentTypes: [.pdf], defaultFilename: "Instructions.pdf") { Result<URL, Error> in
+                //                        
+                //                    } onCancellation: { 
+                //                            
+                //                    }
                 Button("Close", action: { isOpen = isOpen.not })    
             }.frameStretch(Alignment.topTrailing).padding()
         }.padding()
@@ -57,7 +60,7 @@ struct PDFColorList: View {
     let palette: Palette
     
     var body: some View {
-        GroupBox(content: {
+        GroupView(label: {}, content: {
             VStack{
                 HStack {
                     Text("You need the following colors").font(Styling.headlineFont)
@@ -66,12 +69,12 @@ struct PDFColorList: View {
                 ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: palette, isWide: true) 
             }
             .foregroundColor(Styling.white)
-        }).groupBoxStyle(BlueprintGroupBoxStyle())
+        }, style: GroupViewStyles.blueprint)
     }
 }
 struct PDFFooter: View {
     var body: some View {
-        GroupBox(content: {
+        GroupView(label: {}, content: {
             HStack {
                 let date = Date()
                 // Create Date Formatter
@@ -80,13 +83,13 @@ struct PDFFooter: View {
                 Spacer();
             }
             .foregroundColor(Styling.white)
-        }).groupBoxStyle(BlueprintGroupBoxStyle())
+        }, style: GroupViewStyles.blueprint)
     }
 }
 struct PDFHeader: View {
     let canvas: ArtCanvas;
     var body: some View {
-        GroupBox(content: {
+        GroupView(label: {}, content: {
             HStack(alignment: VerticalAlignment.top) {
                 canvas.analysis?.image.swuiImage
                     .interpolation(Image.Interpolation.none)
@@ -101,7 +104,7 @@ struct PDFHeader: View {
                 Spacer()
             }
             .foregroundColor(Styling.white)
-        }).groupBoxStyle(BlueprintGroupBoxStyle())
+        }, style: GroupViewStyles.blueprint)
     }
 }
 struct PDFPlate: View {
@@ -111,7 +114,7 @@ struct PDFPlate: View {
     let coords: Int2
     
     var body: some View {
-        GroupBox("Plate (\(coords.x + 1), \(coords.y + 1))", content: {
+        GroupView(label: { Text("Plate (\(coords.x + 1), \(coords.y + 1))") }, content: {
             HStack {
                 VStack(alignment: HorizontalAlignment.leading) {
                     HStack(alignment: VerticalAlignment.top) { 
@@ -134,10 +137,7 @@ struct PDFPlate: View {
                         Grid(4.0, gridColor: Styling.white.opacity(0.5))
                     })      
                     .mask(Styling.roundedRect)
-            }
-        }).groupBoxStyle(BlueprintGroupBoxStyle())
-            .foregroundColor(Styling.white)
-        //            .colorScheme(ColorScheme.dark)
-        //            .preferredColorScheme(ColorScheme.dark)
+            }.foregroundColor(Styling.white)
+        }, style: GroupViewStyles.blueprint)
     }
 }

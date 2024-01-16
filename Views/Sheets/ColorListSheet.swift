@@ -10,7 +10,7 @@ struct ColorListSheet: View {
     
     var body: some View {
         ZStack(alignment: Alignment.topLeading) {
-            GroupBox(label: Text("Colors"), content: {
+            GroupView(label: { Text("Colors") }, content: {
                 if (canvas.analysis != nil) {
                     ScrollView(content: {
                         ColorSwatchList(colorsWithCount: canvas.analysis!.colorInfo.mappedColorCounts, palette: state.palette, isWide: isWide)

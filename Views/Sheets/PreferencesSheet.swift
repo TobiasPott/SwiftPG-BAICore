@@ -21,7 +21,7 @@ struct PreferencesSheet: View {
     
     var body: some View {
         ZStack {
-            GroupBox(label: Text("Preferences"), content: {
+            GroupView(label: { Text("Preferences") }, content: {
                 Text(" ")
                 GuideText(text: "'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
                 userModeMenu

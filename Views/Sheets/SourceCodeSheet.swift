@@ -6,7 +6,8 @@ struct SourceCodeSheet: View {
     
     var body: some View {
         ZStack {
-            GroupBox(label: Text("Source Code and FOSS"), content: {
+            
+            GroupView(label: { Text("Source Code and FOSS") }, content: {
                 ScrollView {
                     Divider()
                     

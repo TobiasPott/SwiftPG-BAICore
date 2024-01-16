@@ -6,7 +6,7 @@ struct FeedbackSheet: View {
     
     var body: some View {
         ZStack {
-            GroupBox(label: Text("Feedback"), content: {
+            GroupView(label: { Text("Feedback") }, content: {
                 ScrollView {
                     Divider()
                     VStack(alignment: HorizontalAlignment.leading) {

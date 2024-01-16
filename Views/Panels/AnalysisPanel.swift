@@ -29,7 +29,7 @@ struct AnalysisPanel: View {
 //            ExportMenu(source: source, canvas: canvas, palette: state.palette, width: 1538.0)
         }, orientation: PanelOrientation.horizonal)
         
-        GroupBox(content: {
+        GroupView(label: {}, content: {
             HStack {
                 Text("PDF")
                 Spacer()
@@ -41,7 +41,7 @@ struct AnalysisPanel: View {
                 .environmentObject(state)
         })
         GuideText(text: "Your interactive instructions for every plate with the required bricks and colors")
-        GroupBox(content: {
+        GroupView(label: {}, content: {
             HStack {
                 Text("Instructions")
                 Spacer()
@@ -55,7 +55,7 @@ struct AnalysisPanel: View {
         
         
         GuideText(text: "Your full list of colors and number of bricks needed for your brick art.")
-        GroupBox(content: {
+        GroupView(label: {}, content: {
             HStack {
                 Text("All Colors")
                 Spacer()

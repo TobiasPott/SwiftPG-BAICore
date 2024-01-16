@@ -13,7 +13,7 @@ struct CanvasesListPanel: View {
     var body: some View {
         
         
-        GroupBox("Canvases", content: { 
+        GroupView(label: { Text("Canvases") }, content: { 
             HStack {
                 CompactIconPicker(value: $newCanvasWidth, systemName: "arrow.left.and.right", content: {
                     ForEach(CanvasPanel.sizes, id: \.self) { i in Text("\(i)").tag(i) }

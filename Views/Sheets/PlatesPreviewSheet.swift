@@ -12,7 +12,7 @@ struct PlatesPreviewSheet: View {
     
     var body: some View {
         ZStack {
-            GroupBox(label: Text("Preview"), content: {
+            GroupView(label: { Text("Preview") }, content: {
                 ScrollView(content: {
                     VStack(alignment: HorizontalAlignment.center) {
                         GuideText(text: "Select the plate you want to preview and show the color list for.")
