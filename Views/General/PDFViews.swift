@@ -13,6 +13,7 @@ struct PDFFile: FileDocument {
     // a simple initializer that creates new, empty documents
     init(url: URL) {
         doc = PDFDocument(url: url) ?? PDFDocument()
+//        print("\(url)")
     }
     
     // this initializer loads data that has been saved previously
