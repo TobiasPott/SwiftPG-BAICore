@@ -14,7 +14,6 @@ struct PDFPreview: View {
     
     var body: some View {
         ZStack {
-            
             let views = getViews()
             GroupView(label: { Text("PDF Pages") }, content: {
                 ScrollView(content: {
@@ -23,21 +22,13 @@ struct PDFPreview: View {
                             .resizable()
                             .scaledToFit()
                             .mask(Styling.roundedRect)
-                        
                     }
-                    
                 })
             })
             HStack { Spacer()
-                let url = ExportMenu.renderToPDF(filename: "Instructions.pdf", views: views)
-                ShareLink(item: url, label: {
-                    Text("Export")
-                }).padding(Edge.Set.trailing)
-                //                    .fileExporter(isPresented: $showExport, item: url, contentTypes: [.pdf], defaultFilename: "Instructions.pdf") { Result<URL, Error> in
-                //                        
-                //                    } onCancellation: { 
-                //                            
-                //                    }
+                let url = ExportMenu.createPDF("Instructions.pdf", canvas: canvas, source: source, palette: state.palette)
+                ShareLink(item: url, label: { Text("Export") })
+                    .padding(Edge.Set.trailing)
                 Button("Close", action: { isOpen = isOpen.not })    
             }.frameStretch(Alignment.topTrailing).padding()
         }.padding()
@@ -122,9 +113,6 @@ struct PDFPlate: View {
                             .frame(maxWidth: 150.0)
                         Spacer()
                         PlateArt(canvas: canvas, tileCoords: coords, display: BrickOutlineMode.outlined)
-                            .overlay(content: {
-                                Grid(4.0, gridColor: Styling.white.opacity(0.5))
-                            })      
                     }
                     .frame(height: 240.0)
                     PlateColorList(canvas: canvas, tileCoords: coords, palette: palette, isWide: true)
@@ -133,11 +121,9 @@ struct PDFPlate: View {
                 .frame(maxHeight: CGFloat.infinity)
                 
                 PlateArt(canvas: canvas, tileCoords: coords, display: BrickOutlineMode.outlined)
-                    .overlay(content: {
-                        Grid(4.0, gridColor: Styling.white.opacity(0.5))
-                    })      
                     .mask(Styling.roundedRect)
-            }.foregroundColor(Styling.white)
+            }
         }, style: GroupViewStyles.blueprint)
+        .foregroundColor(Styling.white)
     }
 }

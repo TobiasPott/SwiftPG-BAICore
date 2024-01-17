@@ -43,4 +43,14 @@ extension View {
     @MainActor public func asUIImage(_ width: CGFloat) -> UIImage {
         return ImageRenderer(content: self.frame(width: width)).uiImage!
     }
+    
+    @MainActor
+    public func drawAsPDFPage(in context: CGContext, size: CGSize) {
+        context.beginPDFPage(nil)
+        let renderer = ImageRenderer(content: self.frame(width: size.width, height: size.height))
+        renderer.render { _, renderer in
+            renderer(context)
+        }
+        context.endPDFPage()
+    }
 }

@@ -81,7 +81,11 @@ struct PlateArt: View {
             let yOffset = tileCoords.y * 16
             let rowLength = analysis.tileWidth * 16
             BrickTileView(colorInfo: analysis.colorInfo, display: display, xOffset: xOffset, yOffset: yOffset, rowLength: rowLength)
+                .overlay(content: {
+                    Grid(4.0, gridColor: Styling.white.opacity(0.5))
+                })      
                 .aspectRatio(1.0, contentMode: ContentMode.fit)
+            Spacer()
         })
         
     }

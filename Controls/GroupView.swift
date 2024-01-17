@@ -17,9 +17,9 @@ struct GroupView<LabelType: View, Content: View>: View {
                 label
                     .font(Styling.headlineFont)
             }    
-            .frame(alignment: Alignment.topLeading)
             content()
         }
+            .frame(alignment: Alignment.topLeading)
             .padding()
             .mask(Styling.roundedRect)
         
@@ -32,46 +32,6 @@ struct GroupView<LabelType: View, Content: View>: View {
     }
     
 }
-
-//
-//protocol GroupViewStyle {
-//    associatedtype Body: View
-//    typealias Configuration = GroupViewStyleConfiguration
-//    
-//    func makeBody(configuration: Self.Configuration) -> Self.Body
-//}
-//struct GroupViewStyleConfiguration {
-//    /// A type-erased label of a Card.
-//    struct Label: View {
-//        init<Content: View>(content: Content) {
-//            body = AnyView(content)
-//        }
-//        var body: AnyView
-//    }
-//    struct Content: View {
-//        init<Content: View>(content: Content) {
-//            body = AnyView(content)
-//        }
-//        var body: AnyView
-//    }
-//    
-//    let label: GroupViewStyleConfiguration.Label
-//    let content: GroupViewStyleConfiguration.Content
-//}
-//
-//struct RoundedRectangleCardStyle: GroupViewStyle {
-//    func makeBody(configuration: Configuration) -> some View {
-//        VStack(alignment: HorizontalAlignment.leading) {
-//            HStack() {
-//                configuration.label
-//                    .font(Styling.headlineFont)
-//            }    
-//            .frame(alignment: Alignment.topLeading)
-//            configuration.content
-//        }
-//        
-//    }
-//}
 struct DefaultGroupViewStyle: ViewModifier {
     func body(content: Content) -> some View {
         content
@@ -79,6 +39,8 @@ struct DefaultGroupViewStyle: ViewModifier {
             .mask(Styling.roundedRect)  
     }
 }
+
+
 struct BlueprintGroupViewStyle: ViewModifier {
     static var gridBackground: some View { 
         ZStack(alignment: Alignment.center) {
