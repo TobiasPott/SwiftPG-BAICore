@@ -59,7 +59,7 @@ struct PDFPreview: View {
             })
             HStack(alignment: VerticalAlignment.center) { 
                 Spacer()
-#if os(iOS)
+#if !targetEnvironment(macCatalyst)
                 ShareLink("", item: ExportMenu.createPDF("Instructions.pdf", canvas: canvas, source: source, palette: state.palette), subject: Text("Brick Art Instructions"), message: Text("Your Brick art Instructions PDF"))
 #endif
                 Button("Export", action: { 
