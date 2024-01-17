@@ -1,7 +1,35 @@
 import SwiftUI
 import Foundation
 import PDFKit
+import UniformTypeIdentifiers
 
+struct PDFFile: FileDocument {
+    // tell the system we support only plain text
+    static var readableContentTypes = [UTType.pdf]
+    
+    // by default our document is empty
+    var doc: PDFDocument
+    
+    // a simple initializer that creates new, empty documents
+    init(url: URL) {
+        doc = PDFDocument(url: url) ?? PDFDocument()
+    }
+    
+    // this initializer loads data that has been saved previously
+    init(configuration: ReadConfiguration) throws {
+        if let data = configuration.file.regularFileContents {
+            doc = PDFDocument(data: data)  ?? PDFDocument()
+        } else {
+            throw CocoaError(.fileReadCorruptFile)
+        }
+    }
+    
+    // this will be called when the system wants to write our data to disk
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        let data = doc.dataRepresentation() ?? Data()
+        return FileWrapper(regularFileWithContents: data)
+    }
+}
 
 struct PDFPreview: View {
     @EnvironmentObject var state: GlobalState;
@@ -11,6 +39,9 @@ struct PDFPreview: View {
     
     var source: ArtSource
     var width: CGFloat
+    @State var pdfExport: Bool = false
+    @State var pdfFile: PDFFile?
+    @State var pdfUrl: URL?
     
     var body: some View {
         ZStack {
@@ -26,12 +57,17 @@ struct PDFPreview: View {
                 })
             })
             HStack { Spacer()
-                let url = ExportMenu.createPDF("Instructions.pdf", canvas: canvas, source: source, palette: state.palette)
-                ShareLink(item: url, label: { Text("Export") })
-                    .padding(Edge.Set.trailing)
+                Button("Export", action: { 
+                    pdfFile = PDFFile(url: ExportMenu.createPDF("Instructions.pdf", canvas: canvas, source: source, palette: state.palette))
+                    pdfExport = pdfExport.not 
+                })    
                 Button("Close", action: { isOpen = isOpen.not })    
             }.frameStretch(Alignment.topTrailing).padding()
-        }.padding()
+        }
+        .padding()
+        .fileExporter(isPresented: $pdfExport, document: pdfFile, contentType: .pdf, defaultFilename: "Instructions.pdf", onCompletion: { result in
+            isOpen = isOpen.not  
+        })
     }
     
     @MainActor func getViews() -> [UIImage] {
