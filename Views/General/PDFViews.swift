@@ -13,7 +13,7 @@ struct PDFFile: FileDocument {
     // a simple initializer that creates new, empty documents
     init(url: URL) {
         doc = PDFDocument(url: url) ?? PDFDocument()
-//        print("\(url)")
+        //        print("\(url)")
     }
     
     // this initializer loads data that has been saved previously
@@ -57,7 +57,11 @@ struct PDFPreview: View {
                     }
                 })
             })
-            HStack { Spacer()
+            HStack(alignment: VerticalAlignment.center) { 
+                Spacer()
+#if os(iOS)
+                ShareLink("", item: ExportMenu.createPDF("Instructions.pdf", canvas: canvas, source: source, palette: state.palette), subject: Text("Brick Art Instructions"), message: Text("Your Brick art Instructions PDF"))
+#endif
                 Button("Export", action: { 
                     pdfFile = PDFFile(url: ExportMenu.createPDF("Instructions.pdf", canvas: canvas, source: source, palette: state.palette))
                     pdfExport = pdfExport.not 
