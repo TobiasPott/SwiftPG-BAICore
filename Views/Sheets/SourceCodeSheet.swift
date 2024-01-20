@@ -70,6 +70,13 @@ struct SourceCodeSheet: View {
                                 Spacer(); Link("Visit Website", destination: URL(string: "https://www.bing.com/images/create?FORM=GENILP")!)
                             }
                         }
+                        DisclosureGroup("Hacking with Swift") {
+                            Text("Hacking with Swift is my go to resource four short concise sample of SwiftUI features and types.")
+                                .frameRow()
+                            HStack {
+                                Spacer(); Link("Visit Website", destination: URL(string: "https://www.hackingwithswift.com")!)
+                            }
+                        }
                     }
                     
                     // ToDo: Add rebrickable for color lists & references 
