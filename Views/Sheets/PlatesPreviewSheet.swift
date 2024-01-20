@@ -21,8 +21,7 @@ struct PlatesPreviewSheet: View {
                             PlatePicker(canvas: canvas, selection: $selection)
                                 .frameRow(200.0, Alignment.leading)
                             Spacer()
-                            PlateArt(canvas: canvas, tileCoords: selection, display: BrickOutlineMode.outlined)
-                                .overlay(content: { Grid(4.0, gridColor: Styling.white.opacity(0.5)) })      
+                            PlateArt(canvas: canvas, tileCoords: selection, display: BrickOutlineMode.outlined)      
                         }
                         PlateColorList(canvas: canvas, tileCoords: selection, palette: state.palette, isWide: isWide)
                     }

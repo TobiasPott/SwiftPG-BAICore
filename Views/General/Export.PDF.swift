@@ -26,12 +26,23 @@ struct ExportMenu {
             PDFFooter()      
         }
         .drawAsPDFPage(in: context, size: box.size)
-        for coords in canvas.plateCoordinates {
-            PDFPlate(source: source, canvas: canvas, palette: palette, coords: coords).frameStretch(Alignment.topLeading).drawAsPDFPage(in: context, size: box.size)
-        }  
+        for i in stride(from: 0, to: canvas.plateCoordinates.count, by: 2) {
+            let coords = canvas.plateCoordinates[i];
+            if ((i+1) < canvas.plateCoordinates.count) {
+                let coords2 = canvas.plateCoordinates[i+1];
+                VStack {
+                    PDFPlate(source: source, canvas: canvas, palette: palette, coords: coords).frameStretch(Alignment.topLeading)
+                    PDFPlate(source: source, canvas: canvas, palette: palette, coords: coords2).frameStretch(Alignment.topLeading)
+                }
+                .drawAsPDFPage(in: context, size: box.size)
+            } else {
+                PDFPlate(source: source, canvas: canvas, palette: palette, coords: coords).frameStretch(Alignment.topLeading)
+                    .drawAsPDFPage(in: context, size: box.size)
+            }
+        }
         
         context.closePDF()
         return url
     }
-        
+    
 }
