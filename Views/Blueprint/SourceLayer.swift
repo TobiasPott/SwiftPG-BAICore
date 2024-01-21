@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 
 struct SourceLayer<Content: View>: View {
     @EnvironmentObject var state: GlobalState
+    @EnvironmentObject var gestures: GestureState
     
     @ObservedObject var load: LoadState;
     @ObservedObject var source: ArtSource;
@@ -33,16 +34,16 @@ struct SourceLayer<Content: View>: View {
                         }.scaleEffect(4.0)
                     }
                 }       
-                .scaleEffect(state.zoom.scale / 100.0)
-                .gesture(GetDragGesture(), enabled: source.isImageSet && state.drag.enabled)
-                .gesture(GetZoomGesture(), enabled: source.isImageSet && state.zoom.enabled)
+                .scaleEffect(gestures.srcZoom.scale / 100.0)
+                .gesture(GetDragGesture(), enabled: source.isImageSet && gestures.srcDrag.enabled)
+                .gesture(GetZoomGesture(), enabled: source.isImageSet && gestures.srcZoom.enabled)
             }
-            .offset(x: state.drag.fixedLocation.x, y: state.drag.fixedLocation.y)
+            .offset(x: gestures.srcDrag.fixedLocation.x, y: gestures.srcDrag.fixedLocation.y)
             
-            if (state.drag.active) {
+            if (gestures.srcDrag.active) {
                 source.image.swuiImage
-                    .scaleEffect(state.zoom.scale / 100.0)
-                    .offset(x: state.drag.location.x, y: state.drag.location.y)
+                    .scaleEffect(gestures.srcZoom.scale / 100.0)
+                    .offset(x: gestures.srcDrag.location.x, y: gestures.srcDrag.location.y)
                     .opacity(0.75)
             }
         }
@@ -51,19 +52,19 @@ struct SourceLayer<Content: View>: View {
     func GetZoomGesture() -> _EndedGesture<_ChangedGesture<MagnificationGesture>> {
         return MagnificationGesture()
             .onChanged { magValue in
-                state.zoom.update(magValue)
+                gestures.srcZoom.update(magValue)
             }.onEnded { magValue in
-                state.zoom.update(magValue, true)
-                state.zoom.clamp(10.0, 199.0)
+                gestures.srcZoom.update(magValue, true)
+                gestures.srcZoom.clamp(10.0, 199.0)
             }
     }
     
     func GetDragGesture() -> _EndedGesture<_ChangedGesture<DragGesture>> {
         return DragGesture().onChanged { gesture in
-            state.drag.update(gesture, false);
+            gestures.srcDrag.update(gesture, false);
         }
         .onEnded { gesture in          
-            state.drag.update(gesture, true);
+            gestures.srcDrag.update(gesture, true);
         }
     }
     

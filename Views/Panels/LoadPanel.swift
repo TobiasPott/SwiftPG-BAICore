@@ -28,7 +28,7 @@ struct LoadPanel: View {
             GroupView(label: { Text("Make your Brick Art").font(Styling.title2Font) }, content: {
                 UserModePicker(userMode: $state.userMode)
                     .pickerStyle(SegmentedPickerStyle())    
-                GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.\n'Advanced' enables additional options like image filters and multiple canvases.")
+                GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.")
             })
         }
         if (state.userMode != UserMode.advanced) {

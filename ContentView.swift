@@ -3,6 +3,7 @@ import UniformTypeIdentifiers
 
 struct ContentView: View {
     @EnvironmentObject var state: GlobalState
+    @EnvironmentObject var gestures: GestureState
     @EnvironmentObject var sheets: SheetsState;
     
     @ObservedObject var load: LoadState;
@@ -89,6 +90,7 @@ struct ContentView: View {
         source.reset()
         load.reset()
         state.reset()
+        gestures.reset()
     }
     
     

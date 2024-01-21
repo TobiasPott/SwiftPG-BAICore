@@ -6,6 +6,7 @@ struct RootView: View {
     public static let spacerZeroLength: Spacer = Spacer(minLength: 0)
     
     @StateObject var state: GlobalState = GlobalState();
+    @StateObject var gestures: GestureState = GestureState();
     @StateObject var sheets: SheetsState = SheetsState();
     @StateObject var load: LoadState = LoadState(3, 3);
     
@@ -19,6 +20,7 @@ struct RootView: View {
                 .frame(alignment: Alignment.topLeading)     
                 .ignoresSafeArea(SafeAreaRegions.keyboard)
                 .environmentObject(state)   
+                .environmentObject(gestures)   
                 .environmentObject(sheets)   
         }
     }    

@@ -2,13 +2,11 @@ import SwiftUI
 
 struct BlueprintPanel: View {
     @EnvironmentObject var state: GlobalState
+    @EnvironmentObject var gestures: GestureState
     @EnvironmentObject var load: LoadState;
     
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
-    
-    @State var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
-    @State var brickDrag: DragInfo = DragInfo();
     
     var body: some View {
         GeometryReader { geometry in
@@ -26,7 +24,7 @@ struct BlueprintPanel: View {
                 .padding(Edge.Set.all, 6.0)
                 
                 VStack(spacing: 6.0) {
-                    if (state.isNavState(NavState.analysis)) { BrickArtToolbar(brickOutline: $state.brickOutline, drag: $brickDrag, zoom: $brickZoom); }
+                    if (state.isNavState(NavState.analysis)) { BrickArtToolbar(brickOutline: $state.brickOutline, drag: $gestures.brickDrag, zoom: $gestures.brickZoom); }
                 }
                 .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)
                 .padding(Edge.Set.all, 6.0)
@@ -40,7 +38,7 @@ struct BlueprintPanel: View {
             guard let canvas: ArtCanvas = state.canvas else { return RootView.anyEmpty }
             guard let analysis: ArtAnalysis = canvas.analysis else { return RootView.anyEmpty }
             return AnyView(
-                BrickArtLayer(analysis: analysis, drag: $brickDrag, zoom: $brickZoom)
+                BrickArtLayer(analysis: analysis, drag: $gestures.brickDrag, zoom: $gestures.brickZoom)
             )
         } else {            
             return AnyView(

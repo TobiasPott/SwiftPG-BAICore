@@ -21,16 +21,9 @@ class GlobalState : ObservableObject
     @Published var inventory: ArtInventory = UserData.inventory
     @Published var canvas: ArtCanvas? = nil;
     
-    
-    @Published var drag: DragInfo = DragInfo();
-    @Published var zoom: ZoomInfo = ZoomInfo(scale: Defaults.zoomScaleArt, lastScale: Defaults.zoomScaleArt);
-    
     @Published var brickOutline: BrickOutlineMode = BrickOutlineMode.outlined;
-    @Published var brickZoom: ZoomInfo = ZoomInfo(scale: 0.75, lastScale: 0.75);
-    @Published var brickDrag: DragInfo = DragInfo();
     
-    init() {
-        
+    init() { 
     }
     
     func setNavState(_ newNavState: NavState, _ keepCanvas: Bool = true) -> Void {
@@ -51,11 +44,6 @@ class GlobalState : ObservableObject
     }
     
     func reset() {
-        drag = DragInfo()
-        zoom = ZoomInfo()
-        drag.enabled = true;
-        zoom.enabled = true;
-        
         canvas = nil;
         navState = NavState.load
     }
