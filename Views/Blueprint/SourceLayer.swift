@@ -14,8 +14,6 @@ struct SourceLayer<Content: View>: View {
     @State var openFile: Bool = false
     
     var body: some View {
-        // ToDo: Fix source view to prioritize load.image when it is set over source
-        //       ponder if this is correct and works out
         ZStack {
             ZStack {
                 ZStack() {
@@ -36,8 +34,8 @@ struct SourceLayer<Content: View>: View {
                     }
                 }       
                 .scaleEffect(state.zoom.scale / 100.0)
-                .gesture(GetDragGesture(), enabled: source.isImageSet && !state.srcDragLocked)
-                .gesture(GetZoomGesture(), enabled: source.isImageSet && !state.srcZoomLocked)
+                .gesture(GetDragGesture(), enabled: source.isImageSet && !state.drag.enabled)
+                .gesture(GetZoomGesture(), enabled: source.isImageSet && !state.zoom.enabled)
             }
             .offset(x: state.drag.fixedLocation.x, y: state.drag.fixedLocation.y)
             

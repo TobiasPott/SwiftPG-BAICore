@@ -20,8 +20,13 @@ struct MenuToolbar: View {
             
             Menu(content: {
                 Button("Clear", systemImage: "trash", action: onClear)
-                Button("Load last state", systemImage: "square.and.arrow.down", action: onLoad)
-                Button("Save current state", systemImage: "square.and.arrow.up", action: onSave)
+//                Image(systemName: "arrow.up.square")
+//                Image(systemName: "arrow.down.to.line.square")
+                Button("Load last state", systemImage: "arrow.up.square", action: onLoad)
+                Button("Save current state", systemImage: "arrow.down.to.line.square", action: onSave)
+                Divider()
+                Button("Import Project", systemImage: "square.and.arrow.down", action: {})
+                Button("Export Project", systemImage: "square.and.arrow.up", action: {})
                 Divider()
                 Button("Preferences...", systemImage: "gearshape.2", action: { sheets.preferences = sheets.preferences.not })
                 Divider()

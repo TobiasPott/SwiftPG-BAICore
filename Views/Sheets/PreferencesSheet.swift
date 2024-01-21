@@ -79,9 +79,6 @@ struct PreferencesSheet: View {
                     Text("Uses Palette").font(Styling.captionFont)
                 }
                 
-                // ToDo: check how to reset focus to textfield on successfull submit
-                // ToDo: Add deletion from active inventory
-                
                 DisclosureGroup("Active inventory") {
                     Divider()
                     ScrollView(content: {

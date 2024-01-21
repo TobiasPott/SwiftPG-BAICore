@@ -9,7 +9,6 @@ struct ContentView: View {
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
     
-    @State private var image: PImage?
     var isWide: Bool = false
     
     var body: some View {
@@ -25,7 +24,6 @@ struct ContentView: View {
                             .padding(Edge.Set.top, 6.0)
                         contentPanel
                     }
-                    // ToDo: Add different maxWidth for maxOS high res
                     .frameRow(800.0, Alignment.center)
                     
                 }
@@ -51,8 +49,8 @@ struct ContentView: View {
                 
             }, orientation: isWide ? PanelOrientation.horizonal : PanelOrientation.vertical, padding: 0.0, background: Styling.clear)
             
-            if (state.showSplashScreen) {
-                SplashScreenPanel(isOpen: $state.showSplashScreen, isWide: isWide)
+            if (sheets.splashScreen) {
+                SplashScreenPanel(isOpen: $sheets.splashScreen, isWide: isWide)
             }
         }
         

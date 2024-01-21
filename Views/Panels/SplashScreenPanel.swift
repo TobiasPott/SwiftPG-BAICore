@@ -45,7 +45,7 @@ struct SplashScreenPanel: View {
                         }                            
                         .frameSquare(256.0)
                         .mask(Styling.roundedRect)
-                        .scaleEffect(GlobalState.defaultZoomScale / 100.0 * 4.0)
+                        .scaleEffect(Defaults.zoomScaleArt / 100.0 * 4.0)
                         
                     })
                     .onAppear {

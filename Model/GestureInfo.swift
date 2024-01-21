@@ -1,12 +1,14 @@
 import SwiftUI
 
 public struct DragInfo: Codable {
+    var enabled: Bool = true;
     var active: Bool = false;
     var location: CGPoint = CGPoint();
     var fixedLocation: CGPoint = CGPoint();
     var offset: CGPoint = CGPoint();
     
     mutating func update(_ gesture: DragGesture.Value, _ apply: Bool = false) {
+        if (!enabled) { return; }
         if(!active) {
             offset = fixedLocation.sub(gesture.startLocation);
             active = true
@@ -23,6 +25,7 @@ public struct DragInfo: Codable {
     }
     
     mutating func reset(location: CGPoint? = nil) {
+        self.active = false;
         self.location = location ?? CGPoint();
         self.fixedLocation = location ?? CGPoint();
         self.offset = CGPoint();
@@ -33,12 +36,14 @@ public struct DragInfo: Codable {
 
 public struct ZoomInfo: Codable {
     static let defaultScale: CGFloat = 30.0;
+    var enabled: Bool = true;
     var active: Bool = false;
     
     var scale: CGFloat = ZoomInfo.defaultScale;    
     var lastScale: CGFloat = ZoomInfo.defaultScale;
     
     mutating func update(_ value: CGFloat, _ apply: Bool = false) {
+        if (!enabled) { return; }
         self.scale = (self.lastScale * value).clamped(lowerBound: 0.001, upperBound: CGFloat.infinity)
         if (apply) {
             self.lastScale = self.scale;
@@ -51,6 +56,7 @@ public struct ZoomInfo: Codable {
     }
     
     mutating func reset(scale: CGFloat? = nil) {
+        self.active = false;
         self.scale = scale ?? ZoomInfo.defaultScale;
         self.lastScale = scale ?? ZoomInfo.defaultScale;
     }

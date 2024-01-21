@@ -2,6 +2,7 @@ import SwiftUI
 
 class SheetsState : ObservableObject {
     
+    @Published public var splashScreen: Bool = true;
     @Published public var preferences: Bool = false;
     @Published public var samples: Bool = false;
     @Published public var about: Bool = false;

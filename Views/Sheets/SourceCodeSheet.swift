@@ -77,12 +77,14 @@ struct SourceCodeSheet: View {
                                 Spacer(); Link("Visit Website", destination: URL(string: "https://www.hackingwithswift.com")!)
                             }
                         }
+                        DisclosureGroup("Rebrickable") {
+                            Text("Rebrickable is a great source for all info about parts, items, colors, sets. The color palettes are based on the inventories of sets listed on rebrickable.")
+                                .frameRow()
+                            HStack {
+                                Spacer(); Link("Visit Website", destination: URL(string: "https://rebrickable.com")!)
+                            }
+                        }
                     }
-                    
-                    // ToDo: Add rebrickable for color lists & references 
-                    // http://www.peeron.com/inv/colors
-                    // http://www.peeron.com/cgi-bin/invcgis/colorguide.cgi
-                    
                     
                 }
                 

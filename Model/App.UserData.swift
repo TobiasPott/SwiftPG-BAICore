@@ -43,22 +43,4 @@ public struct UserData {
         return UserDefaults.standard.bool(forKey: forKey)
     }
     
-    //    static func saveAppState() -> Void {
-    //        UserData.lastCanvases = canvases.asJSONString();
-    //        UserData.lastSource = source.asJSONString();
-    //    }
-    //    static func loadAppState() -> Void {
-    //        do {
-    //            let canvases = try UserData.lastCanvases.decode(model: Canvases.self) as! Canvases
-    //            self.canvases.reset(canvases)
-    //            print("Decoded Canvases: \(canvases.asJSONString())")
-    //            
-    //            let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
-    //            self.source.reset(source)
-    //            print("Decoded Source: \(source.asJSONString())")
-    //        } catch { print(error.localizedDescription) }
-    //        
-    //    }
-    //    
-    
 }
