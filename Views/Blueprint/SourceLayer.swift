@@ -34,8 +34,8 @@ struct SourceLayer<Content: View>: View {
                     }
                 }       
                 .scaleEffect(state.zoom.scale / 100.0)
-                .gesture(GetDragGesture(), enabled: source.isImageSet && !state.drag.enabled)
-                .gesture(GetZoomGesture(), enabled: source.isImageSet && !state.zoom.enabled)
+                .gesture(GetDragGesture(), enabled: source.isImageSet && state.drag.enabled)
+                .gesture(GetZoomGesture(), enabled: source.isImageSet && state.zoom.enabled)
             }
             .offset(x: state.drag.fixedLocation.x, y: state.drag.fixedLocation.y)
             

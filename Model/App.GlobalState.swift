@@ -53,8 +53,8 @@ class GlobalState : ObservableObject
     func reset() {
         drag = DragInfo()
         zoom = ZoomInfo()
-        drag.enabled = false;
-        zoom.enabled = false;
+        drag.enabled = true;
+        zoom.enabled = true;
         
         canvas = nil;
         navState = NavState.load

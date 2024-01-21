@@ -25,6 +25,7 @@ public struct DragInfo: Codable {
     }
     
     mutating func reset(location: CGPoint? = nil) {
+        self.enabled = true;
         self.active = false;
         self.location = location ?? CGPoint();
         self.fixedLocation = location ?? CGPoint();
@@ -56,6 +57,7 @@ public struct ZoomInfo: Codable {
     }
     
     mutating func reset(scale: CGFloat? = nil) {
+        self.enabled = true;
         self.active = false;
         self.scale = scale ?? ZoomInfo.defaultScale;
         self.lastScale = scale ?? ZoomInfo.defaultScale;
