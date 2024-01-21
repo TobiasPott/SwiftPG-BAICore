@@ -5,6 +5,7 @@ struct LoadPanel: View {
     @EnvironmentObject var state: GlobalState;
     
     @ObservedObject var load: LoadState;
+    @ObservedObject var project: ArtProject
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
     
@@ -159,15 +160,15 @@ struct LoadPanel: View {
     }
     
     func startProject() {
-        LoadPanel.StartProject(state, load, source, $canvases)
+        LoadPanel.StartProject(state, load, project, source, $canvases)
     }
     
-    static func StartProject(_ state: GlobalState, _ load: LoadState, _ source: ArtSource, _ canvases : Binding<Canvases> ) {
+    static func StartProject(_ state: GlobalState, _ load: LoadState, _ project: ArtProject, _ source: ArtSource, _ canvases : Binding<Canvases> ) {
         state.reset()
         source.reset()
         canvases.wrappedValue.reset()
         // set palette from load info
-        state.builtInPalette = load.builtInPalette;
+        project.builtInPalette = load.builtInPalette;
         state.palette = load.palette
         if (load.isImageSet) {
             source.setImage(image: load.image)

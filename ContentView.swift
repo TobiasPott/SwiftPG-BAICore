@@ -22,7 +22,7 @@ struct ContentView: View {
                     .frame(maxHeight: isWide ? CGFloat.infinity : 380.0)
                 ZStack {
                     VStack {
-                        MenuToolbar(isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
+                        MenuToolbar(project: project, isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
                             .padding(Edge.Set.horizontal)
                             .padding(Edge.Set.top, 6.0)
                         contentPanel
@@ -41,7 +41,7 @@ struct ContentView: View {
                     FeedbackSheet(isOpen: $sheets.feedback) 
                 })
                 .sheet(isPresented: $sheets.preferences, content: {
-                    PreferencesSheet(isOpen: $sheets.preferences)
+                    PreferencesSheet(isOpen: $sheets.preferences, project: project)
                         .environmentObject(state)
                         .onDisappear(perform: {
                             if (state.canvas != nil) {
@@ -62,7 +62,7 @@ struct ContentView: View {
     
     var loadPanel: some View {
         VStack() { 
-            VStack { LoadPanel(load: load, canvases: $canvases, source: source) }.padding(Edge.Set.bottom)
+            VStack { LoadPanel(load: load, project: project, canvases: $canvases, source: source) }.padding(Edge.Set.bottom)
             Spacer()
         }
     }

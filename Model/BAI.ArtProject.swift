@@ -1,4 +1,5 @@
 import SwiftUI
+import UniformTypeIdentifiers
 
 class ArtProject : ObservableObject, Codable {
     
@@ -21,6 +22,9 @@ class ArtProject : ObservableObject, Codable {
         source = ArtSource()
         canvases = Canvases()
         sheets = SheetsState()
+        
+        builtInPalette = BuiltInPalette.legoReduced
+        outline = BrickOutlineMode.outlined
     }
     
     required init(from decoder: Decoder) throws {
@@ -43,4 +47,44 @@ class ArtProject : ObservableObject, Codable {
         try container.encode(sheets, forKey: CodingKeys.sheets)        
     }
     
+    func load(from: ArtProject) {
+        self.outline = from.outline;
+        
+        self.builtInPalette = from.builtInPalette;
+        self.source.reset(from.source)
+        self.canvases.reset(from.canvases)
+        self.sheets = from.sheets
+        
+    }
+    
+}
+
+struct ProjectFile: FileDocument {
+    static let baiprojType = UTType(exportedAs: "de.tobiaspott.brickartinstructor.baiproj", conformingTo: UTType.json)
+    
+    // tell the system we support only plain text
+    static var readableContentTypes = [UTType.json, ProjectFile.baiprojType]
+    
+    // by default our document is empty
+    var jsonString: String
+    
+    // a simple initializer that creates new, empty documents
+    init(project: ArtProject) {
+        jsonString = project.asJSONString()
+    }
+    
+    // this initializer loads data that has been saved previously
+    init(configuration: ReadConfiguration) throws {
+        if let data = configuration.file.regularFileContents {
+            jsonString = String(data: data, encoding: .utf8) ?? ""
+        } else {
+            throw CocoaError(.fileReadCorruptFile)
+        }
+    }
+    
+    // this will be called when the system wants to write our data to disk
+    func fileWrapper(configuration: WriteConfiguration) throws -> FileWrapper {
+        let data = jsonString.data(using: .utf8) ?? Data()
+        return FileWrapper(regularFileWithContents: data)
+    }
 }

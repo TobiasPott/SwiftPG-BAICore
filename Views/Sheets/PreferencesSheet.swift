@@ -17,6 +17,7 @@ struct PreferencesSheet: View {
     @EnvironmentObject var state: GlobalState;
     
     @Binding var isOpen: Bool
+    @ObservedObject var project: ArtProject
     
     
     var body: some View {
@@ -60,12 +61,12 @@ struct PreferencesSheet: View {
             Text("Palette").frame(width: Styling.labelWidth, alignment: Alignment.leading)
             Spacer()
             VStack(alignment: HorizontalAlignment.trailing) {
-                PalettePicker(selection: $state.builtInPalette)
+                PalettePicker(selection: $project.builtInPalette)
                     .padding(Edge.Set.top, -6.0)
                 PalettePreview(palette: state.palette, size: 14.0)
             }
-        }.onChange(of: state.builtInPalette, perform: { value in
-            state.palette = Palette.getPalette(state.builtInPalette)
+        }.onChange(of: project.builtInPalette, perform: { value in
+            state.palette = Palette.getPalette(project.builtInPalette)
         })
     }
     

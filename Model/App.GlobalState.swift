@@ -15,7 +15,7 @@ class GlobalState : ObservableObject
     @Published var userMode: UserMode = UserMode.simple;   
     @Published var navState: NavState = NavState.load;
     
-    @Published var builtInPalette: BuiltInPalette = BuiltInPalette.legoReduced
+//    @Published var builtInPalette: BuiltInPalette = BuiltInPalette.legoReduced
     @Published var palette: Palette = ArtPalette.reduced
     @Published var inventory: ArtInventory = UserData.inventory
     @Published var canvas: ArtCanvas? = nil;

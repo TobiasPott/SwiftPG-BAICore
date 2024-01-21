@@ -34,7 +34,7 @@ class ArtSource : ObservableObject, Codable {
         try container.encode(filters, forKey: CodingKeys.filters)
         
         //Now use image to create into NSData format
-        guard let imageData: Data = (workImage ?? originalImage).pngData() else { return }
+        guard let imageData: Data = (workImage ?? originalImage).jpegData(compressionQuality: 0.75) else { return }
         let imageAsBase64: String = imageData.base64EncodedString(options: Data.Base64EncodingOptions.lineLength64Characters)
         try container.encode(imageAsBase64, forKey: CodingKeys.imageBase64)
     }
