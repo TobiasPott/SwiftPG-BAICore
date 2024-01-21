@@ -7,6 +7,8 @@ struct ContentView: View {
     @EnvironmentObject var sheets: SheetsState;
     
     @ObservedObject var load: LoadState;
+
+    @ObservedObject var project: ArtProject;
     @Binding var canvases: Canvases;
     @ObservedObject var source: ArtSource;
     
@@ -15,7 +17,7 @@ struct ContentView: View {
     var body: some View {
         ZStack {
             RoundedPanel(content: {
-                BlueprintPanel(canvases: $canvases, source: source)
+                BlueprintPanel(project: project, canvases: $canvases, source: source)
                     .environmentObject(load)
                     .frame(maxHeight: isWide ? CGFloat.infinity : 380.0)
                 ZStack {

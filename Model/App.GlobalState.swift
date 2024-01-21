@@ -6,13 +6,12 @@ public enum NavState: Int, Equatable, Codable {
 public enum UserMode: Int, Equatable, Codable {
     case guided, simple, advanced
 }
-public enum BrickOutlineMode: Int {
+public enum BrickOutlineMode: Int, Codable {
     case none, outlined
 }
 
 class GlobalState : ObservableObject
 {
-    
     @Published var userMode: UserMode = UserMode.simple;   
     @Published var navState: NavState = NavState.load;
     
@@ -20,8 +19,6 @@ class GlobalState : ObservableObject
     @Published var palette: Palette = ArtPalette.reduced
     @Published var inventory: ArtInventory = UserData.inventory
     @Published var canvas: ArtCanvas? = nil;
-    
-    @Published var brickOutline: BrickOutlineMode = BrickOutlineMode.outlined;
     
     init() { 
     }

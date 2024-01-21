@@ -1,7 +1,7 @@
 import SwiftUI
 import simd
 
-public enum BuiltInPalette {
+public enum BuiltInPalette: Int, Codable {
     case lego, legoReduced, legoMosaicMaker, legoDCBatman, legoFloralArt, legoWorlMap, legoDOTS, retroRGB3Bit
 }
 

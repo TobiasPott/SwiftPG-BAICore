@@ -7,21 +7,19 @@ struct RootView: View {
     
     @StateObject var state: GlobalState = GlobalState();
     @StateObject var gestures: GestureState = GestureState();
-    @StateObject var sheets: SheetsState = SheetsState();
     @StateObject var load: LoadState = LoadState(3, 3);
     
-    @StateObject var source: ArtSource = ArtSource();
-    @State var canvases: Canvases = Canvases();
+    @StateObject var project: ArtProject = ArtProject()
     
     var body: some View {
         GeometryReader { geometry in
             let isLandscape: Bool = (geometry.size.width / geometry.size.height) > 1.0       
-            ContentView(load: load, canvases: $canvases, source: source, isWide: isLandscape)
+            ContentView(load: load, project: project, canvases: $project.canvases, source: project.source, isWide: isLandscape)
                 .frame(alignment: Alignment.topLeading)     
                 .ignoresSafeArea(SafeAreaRegions.keyboard)
                 .environmentObject(state)   
                 .environmentObject(gestures)   
-                .environmentObject(sheets)   
+                .environmentObject(project.sheets)   
         }
     }    
 }

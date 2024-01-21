@@ -4,7 +4,7 @@ struct BrickArtLayer: View {
     @EnvironmentObject var state: GlobalState
     
     let analysis: ArtAnalysis;
-    
+    let outline: BrickOutlineMode
     @Binding var drag: DragInfo
     @Binding var zoom: ZoomInfo
     
@@ -13,7 +13,7 @@ struct BrickArtLayer: View {
             ZStack {
                 ZStack{
                     BlueprintGrid(baseSpacing: 128.0, lineWidth: 0.25).scaleEffect(12.0)
-                    BrickCanvasView(analysis: analysis, display: state.brickOutline)
+                    BrickCanvasView(analysis: analysis, display: outline)
                         .overlay(content: {
                             Grid(cols: floor(analysis.size.width / 16.0), rows: floor(analysis.size.height / 16.0), gridColor: Styling.white)
                         })
