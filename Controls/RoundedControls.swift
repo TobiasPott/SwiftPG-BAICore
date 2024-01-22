@@ -2,6 +2,9 @@ import SwiftUI
 
 struct RoundedLockButton: View {
     let sName: String;
+    var leadingLabel: String? = nil
+    var trailingLabel: String? = nil
+    
     var size: CGFloat = Styling.buttonSize;
     let action: () -> Void;
     
@@ -12,10 +15,10 @@ struct RoundedLockButton: View {
     var padding: CGFloat = Styling.buttonPadding;
     
     var body: some View {
-        RoundedButton(sName: sName, size: size, action: action, foreground: foreground, background: background, padding: padding)
+        RoundedButton(sName: sName, leadingLabel: leadingLabel, trailingLabel: trailingLabel, size: size, action: action, foreground: foreground, background: background, padding: padding)
             .overlay(content: {
                 Styling.roundedRectHalfTRBL.foregroundColor(isLocked ? Styling.red : Styling.green)
-                    .frameSquare(size / 3.5)
+                    .frameSquare(size / 3.0)
                     .frameMax(size, Alignment.topTrailing)
             })
         
@@ -136,6 +139,6 @@ struct RoundedButton: View {
             RoundedImage(sName: sName, size: size, foreground: foreground, background: background, padding: padding)
             if (trailingLabel != nil) { Text(trailingLabel!) }
         }
-            .onTapGesture(perform: { withAnimation { action() } })
+        .onTapGesture(perform: { withAnimation { action() } })
     }
 }

@@ -8,14 +8,15 @@ struct BrickArtToolbar: View {
     var forLargeScreen: Bool = false
     
     var body: some View {
-        let size = forLargeScreen ? Styling.buttonSize * 1.5 : Styling.buttonSize;
+        let size = forLargeScreen ? Styling.buttonSize * 1.3 : Styling.buttonSize;
+        let padding = forLargeScreen ? Styling.buttonPadding * 1.3 : Styling.buttonPadding;
         
         ToolbarPanel(content: {
-            RoundedButton(sName: "viewfinder.circle", size: size, action: { drag.location = CGPoint.zero; drag.fixedLocation = CGPoint.zero })
+            RoundedButton(sName: "viewfinder.circle", size: size, action: { drag.location = CGPoint.zero; drag.fixedLocation = CGPoint.zero }, padding: padding)
             
             RoundedLockButton(sName: "circle.square", size: size, action: { 
                 outline = outline == BrickOutlineMode.outlined ? BrickOutlineMode.none : BrickOutlineMode.outlined
-            }, isLocked: outline == BrickOutlineMode.none)
+            }, isLocked: outline == BrickOutlineMode.none, padding: padding)
             
         }, orientation: PanelOrientation.vertical)
     }
