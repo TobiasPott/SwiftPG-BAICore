@@ -15,12 +15,15 @@ class GlobalState : ObservableObject
     @Published var userMode: UserMode = UserMode.simple;   
     @Published var navState: NavState = NavState.load;
     
-//    @Published var builtInPalette: BuiltInPalette = BuiltInPalette.legoReduced
     @Published var palette: Palette = ArtPalette.reduced
-    @Published var inventory: ArtInventory = UserData.inventory
+    @Published var inventory: ArtInventory = ArtInventory.inventory("Default")
     @Published var canvas: ArtCanvas? = nil;
     
     init() { 
+        let inventoryString: String = "\(ArtPalette.dcBatmanInv.id)"
+        + "\(ArtPalette.mosaicMakerInv.id)"
+        + "\(ArtPalette.floralArtInv.id)"
+        + "\(ArtPalette.worldMapInv.id)"
     }
     
     func setNavState(_ newNavState: NavState, _ keepCanvas: Bool = true) -> Void {

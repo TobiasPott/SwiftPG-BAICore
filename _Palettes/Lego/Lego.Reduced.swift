@@ -1,7 +1,8 @@
 import SwiftUI
 
 public extension ArtPalette {
-    static let reduced: Palette = Palette(name: "Lego Simple", colors: reducedColors)
+    static let reducedName: String = "Lego Reduced"
+    static let reduced: Palette = Palette(name: reducedName, colors: reducedColors)
     
     // Simple color palette
     private static let reducedColors: [ArtColor] = [

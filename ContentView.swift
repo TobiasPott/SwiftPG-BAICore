@@ -22,7 +22,7 @@ struct ContentView: View {
                     .frame(maxHeight: isWide ? CGFloat.infinity : 380.0)
                 ZStack {
                     VStack {
-                        MenuToolbar(project: project, isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
+                        MenuToolbar(project: project, isImageSet: source.isImageSet, onLoad: { }, onSave: { }, onClear: { reset(); })
                             .environmentObject(load)
                             .padding(Edge.Set.horizontal)
                             .padding(Edge.Set.top, 6.0)
@@ -109,30 +109,4 @@ struct ContentView: View {
             }
         })
     }
-    
-    func saveAppState() -> Void {
-        UserData.lastCanvases = canvases.asJSONString();
-        UserData.lastSource = source.asJSONString();
-    }
-    func loadAppState() -> Void {
-        do {
-            let source = try UserData.lastSource.decode(model: ArtSource.self) as! ArtSource
-            self.source.reset(source)
-            //            print("Decoded Source: \(source.asJSONString())")
-            // ToDo: add correct set of scale and scale limits and positions
-            let canvases = try UserData.lastCanvases.decode(model: Canvases.self) as! Canvases
-            self.canvases.reset(canvases)
-            print("Decoded Canvases: \(canvases.asJSONString())")
-            if (self.canvases.items.count > 0) {
-                state.canvas = self.canvases.items[0]
-                _ = state.canvas?.Analyse(self.source, state.palette)
-            }
-            // change to setup state and keep canvas if user is still in load state
-            if (state.canvas != nil) {
-                state.setNavState(NavState.setup, true)
-            }
-        } catch { print(error.localizedDescription) }
-        
-    }
-    
 }

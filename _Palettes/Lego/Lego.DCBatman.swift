@@ -1,8 +1,9 @@
 import SwiftUI
 
 public extension ArtPalette {
-    static let dcBatman: Palette = Palette(name: "Lego DC Batman", colors: dcBatmanColors)
-    static let dcBatmanInv: ArtInventory = ArtInventory(name: "Lego DC Batman", items: dcBatmanItems)
+    static let dcBatmanName: String = "Lego DC Batman"
+    static let dcBatman: Palette = Palette(name: dcBatmanName, colors: dcBatmanColors)
+    static let dcBatmanInv: ArtInventory = ArtInventory.inventory(dcBatmanName, inventory: ArtInventory(name: dcBatmanName, items: dcBatmanItems))
     
     // DC Batman color palette
     private static let dcBatmanColors: [ArtColor] = [

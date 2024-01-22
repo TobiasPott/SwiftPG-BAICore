@@ -23,9 +23,6 @@ struct PreferencesSheet: View {
     var body: some View {
         ZStack {
             GroupView(label: { Text("Preferences") }, content: {
-//                Text(" ")
-//                GuideText(text: "'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.")
-//                userModeMenu
                 Divider().padding(Edge.Set.bottom)
                 GuideText(text: "Select the color palette you want to use. The first set of palettes is derived from Lego construction sets and the colors available in them, others origin from other color palettes like retro pcs, consoles or other media.\nThe preview will show you the colors included in each palette and your brick art will be limited to those colors.")
                 paletteMenu
@@ -72,12 +69,28 @@ struct PreferencesSheet: View {
     
     @State var filter: ListFilter = ListFilter(filterBy: "", sortBy: ListSortBy.name, sortMode: ListSortMode.asc)
     var inventoryMenu: some View {
-        Group {
+        ScrollView(content: {
             VStack(alignment: HorizontalAlignment.leading) {
                 HStack {
                     Text("Inventory").frame(width: Styling.labelWidth, alignment: Alignment.leading)
                     Spacer()
                     Text("Uses Palette").font(Styling.captionFont)
+                }
+                
+                let inventoryNames: [String] = [/*"Default",*/ ArtPalette.dcBatmanName, ArtPalette.mosaicMakerName, ArtPalette.worldMapName, ArtPalette.floarlArtName]
+                
+                ForEach(0..<inventoryNames.count, id: \.self) { i in
+                    let inv: ArtInventory = ArtInventory.inventory(inventoryNames[i])
+                    DisclosureGroup(inventoryNames[i], content: {
+                        Divider()
+                        LazyVGrid(columns: [GridItem(.flexible())], content: {
+                            ForEach(0..<inv.items.count, id: \.self) { j in
+                                InventoryItemEntry(item: inv.items[j])
+                            }
+                            .font(Styling.captionFont)
+                        })
+                        Divider()
+                    })
                 }
                 
                 DisclosureGroup("Active inventory") {
@@ -122,7 +135,7 @@ struct PreferencesSheet: View {
                     .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
                 }.disabled(true)
             }
-        }
+        })
     }
     
     func inventoryItemEntry(_ item: Binding<ArtInventory.Item>) -> some View {
@@ -141,6 +154,22 @@ struct PreferencesSheet: View {
         }
     }
     
+}
+
+struct InventoryItemEntry: View {
+    let item: ArtInventory.Item
+    
+    var body: some View {
+        HStack {
+            Text("\(item.quantity)x").frame(width: 50.0, alignment: Alignment.trailing)
+            
+            let artClr = ArtPalette.all.artColors.first { $0.name == item.name }!
+            artClr.swuiColor.aspectRatio(2.0, contentMode: ContentMode.fill)
+                .frameMax(32).mask(Styling.roundedRect)
+            Text(item.name)
+            Spacer()
+        }
+    }
 }
 
 struct ListFilterHeader: View {

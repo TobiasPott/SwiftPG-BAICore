@@ -34,6 +34,21 @@ public struct ArtInventory: Codable, Identifiable, Hashable {
             hasher.combine(quantity)
         }
     }
+    
+    
+    public static func inventory(_ name: String) -> ArtInventory {
+        let jsonData = Data(UserData.string(forKey: IO.keyInventoryBase + name, "{}").utf8)
+        do {
+            return try ArtInventory.fromJson(jsonData: jsonData) as! ArtInventory
+        } catch {
+            return inventory(IO.keyInventoryBase + name, inventory: ArtInventory(name: name))
+        }
+    }
+    public static func inventory(_ name: String, inventory: ArtInventory) -> ArtInventory {
+        UserData.set(inventory.asJSONString(), forKey: IO.keyInventoryBase + name)
+        return inventory
+    }
+    
 }
 
 public extension ArtInventory.Item {

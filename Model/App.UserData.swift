@@ -7,28 +7,12 @@ public struct IO {
     public static let keyShowSplash: String = "lastShowSplash";
     
     public static let keyInventory: String = "userInventory";
+    
+    public static let keyInventoryBase: String = "userInventory_";
 }
 
 public struct UserData {
-    public static var lastCanvases: String {
-        get { return UserData.string(forKey: IO.keyLastCanvases, "{}") }
-        set { UserData.set(newValue, forKey: IO.keyLastCanvases) }
-    }
-    public static var lastSource: String {
-        get { return UserData.string(forKey: IO.keyLastSource, "{}") }
-        set { UserData.set(newValue, forKey: IO.keyLastSource) }
-    }
-    public static var inventory: ArtInventory {
-        get { 
-            let jsonData = Data(UserData.string(forKey: IO.keyInventory, "{}").utf8)
-            do {
-                return try ArtInventory.fromJson(jsonData: jsonData) as! ArtInventory
-            } catch {
-                return ArtInventory(name: "My Inventory")
-            }
-        }
-        set { UserData.set(newValue.asJSONString(), forKey: IO.keyInventory) }
-    }
+    
     
     public static func set(_ value: String, forKey: String) {
         UserDefaults.standard.set(value, forKey: forKey)
