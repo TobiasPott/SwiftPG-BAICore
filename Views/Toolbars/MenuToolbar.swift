@@ -20,18 +20,8 @@ struct MenuToolbar: View {
     
     var body: some View {
         HStack {
-            RoundedImage(sName: state.isNavState(NavState.load) ? "plus.square.fill" : "plus.square", background: Styling.clear)
-            RoundedImage(sName: state.isNavState(NavState.setup) ? "photo.stack.fill" : "photo.stack", background: Styling.clear)
-            RoundedImage(sName: state.isNavState(NavState.analysis) ? "square.grid.3x3.fill" : "square.grid.3x3", background: Styling.clear)
-            Divider()
-            //            }
-            Spacer()                
             
             Menu(content: {
-                Button("Clear", systemImage: "trash", action: onClear)
-                Button("Load last state", systemImage: "arrow.up.square", action: onLoad)
-                Button("Save current state", systemImage: "arrow.down.to.line.square", action: onSave)
-                Divider()
                 Button("Import Project", systemImage: "square.and.arrow.down", action: {
                     preImportProject = preImportProject.not })
                 Button("Export Project", systemImage: "square.and.arrow.up", action: {
@@ -39,16 +29,33 @@ struct MenuToolbar: View {
                     preExportProject = preExportProject.not
                 })
                 Divider()
+                Button("Clear Project", systemImage: "trash", role: .destructive, action: onClear)
+                Divider()
                 Button("Preferences...", systemImage: "gearshape.2", action: { sheets.preferences = sheets.preferences.not })
                 Divider()
-                Menu(content: {
-                    UserModePicker(userMode: $state.userMode)
-                }, label: {
-                    Button("Mode", systemImage: "ellipsis", action: { })
-                })
+                //                Menu(content: {
+                //                    UserModePicker(userMode: $state.userMode)
+                //                }, label: {
+                //                    Button("Mode", systemImage: "ellipsis", action: { })
+                //                })
             }, label: {
                 RoundedButton(sName: "ellipsis.circle", action: { })
             })
+            Spacer()
+            Divider()
+            
+            let isStateLoad = state.isNavState(NavState.load)
+            RoundedImage(sName: "plus.square.fill" , foreground: isStateLoad ? Styling.white : Styling.gray, background: Styling.clear)
+            
+            let isStateSetup = state.isNavState(NavState.setup)
+            RoundedImage(sName:  "photo.stack.fill", foreground: isStateSetup ? Styling.white : Styling.gray, background: Styling.clear)
+            
+            let isStateAnalysis = state.isNavState(NavState.analysis)
+            RoundedImage(sName: "square.grid.3x3.fill" , foreground: isStateAnalysis ? Styling.white : Styling.gray, background: Styling.clear)
+            Divider()
+            //            }
+            Spacer()                
+            
             
             Menu(content: {
                 Button("About", systemImage: "info.square.fill", action: {
