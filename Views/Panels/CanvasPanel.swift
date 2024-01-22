@@ -15,15 +15,16 @@ struct CanvasPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(sName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.load, true) })
-                Text("Back")
+                RoundedButton(sName: "arrowshape.turn.up.left.circle.fill", trailingLabel: "Back", action: { state.setNavState(NavState.load, true) })
                 Spacer()
-                Text("Analyze")
-                RoundedButton(sName: "arrowshape.right.circle.fill", size: 42.0, action: { 
+                RoundedButton(sName: "arrowshape.turn.up.right.circle.fill", leadingLabel: "Analyze", action: { 
                     _ = canvas.AnalyseAsync(source, state.palette);
                     state.setNavState(NavState.analysis, true)
                 })
-            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8.0)
+            }
+            .font(Styling.headlineFont)
+            .padding(Edge.Set.horizontal)
+            .padding(Edge.Set.vertical, 8.0)
         }, orientation: PanelOrientation.vertical)
         
         GroupView(label: { EmptyView() }, content: {
@@ -41,7 +42,7 @@ struct CanvasPanel: View {
         GuideText(text: "A small preview of the estimated colors and resolution and the used setup of the canvas.")
         HStack(alignment: VerticalAlignment.center) {
             detailPanel
-//                .frame(maxHeight: CGFloat.infinity)
+            //                .frame(maxHeight: CGFloat.infinity)
             VStack {
                 if(canvas.analysis != nil) {
                     let img = canvas.analysis?.image;
@@ -79,18 +80,18 @@ struct CanvasPanel: View {
                 
                 LabelledText(label: "Colors", text: "\(Int(canvas.analysis?.colorInfo.uniqueColors ?? 0))", alignment: VerticalAlignment.top)
                     .padding(Edge.Set.top, 6.0)
-//                
-//                let colors: Dictionary<MultiColor, Int> = canvas.analysis?.colorInfo.mappedColorCounts ?? [:]
-//                
-//                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2.0)]) {
-//                    
-//                    ForEach(colors) { kv in
-//                        
-//                        palette.artColors[i].swuiColor.frameSquare(size)
-//                            .mask(Styling.roundedRectHalf)
-//                    }
-//                }
-//                
+                //                
+                //                let colors: Dictionary<MultiColor, Int> = canvas.analysis?.colorInfo.mappedColorCounts ?? [:]
+                //                
+                //                LazyVGrid(columns: [GridItem(GridItem.Size.adaptive(minimum: size, maximum: size), spacing: 2.0)]) {
+                //                    
+                //                    ForEach(colors) { kv in
+                //                        
+                //                        palette.artColors[i].swuiColor.frameSquare(size)
+                //                            .mask(Styling.roundedRectHalf)
+                //                    }
+                //                }
+                //                
                 Spacer()
             }
         })

@@ -121,6 +121,8 @@ struct RoundedButton: View {
     public static let defaultSize: CGFloat = Styling.buttonSize;
     
     let sName: String;
+    var leadingLabel: String? = nil
+    var trailingLabel: String? = nil
     var size: CGFloat = defaultSize;
     let action: () -> Void;
     
@@ -129,7 +131,11 @@ struct RoundedButton: View {
     var padding: CGFloat = Styling.buttonPadding;
     
     var body: some View {
-        RoundedImage(sName: sName, size: size, foreground: foreground, background: background, padding: padding)
+        HStack {
+            if (leadingLabel != nil) { Text(leadingLabel!) }
+            RoundedImage(sName: sName, size: size, foreground: foreground, background: background, padding: padding)
+            if (trailingLabel != nil) { Text(trailingLabel!) }
+        }
             .onTapGesture(perform: { withAnimation { action() } })
     }
 }

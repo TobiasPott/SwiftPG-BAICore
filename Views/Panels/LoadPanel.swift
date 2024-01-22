@@ -15,14 +15,15 @@ struct LoadPanel: View {
     @State private var importProject: Bool = false
     
     var body: some View {
-        if (load.isImageSet) {
+        let hasCanvas = project.canvases.items.count > 0
+        if (hasCanvas) {
             RoundedPanel(content: {
-                GuideText(text: "Continue to setup your canvas.").padding([Edge.Set.horizontal, Edge.Set.top])
+                GuideText(text: "Continue with your existing canvas.").padding([Edge.Set.horizontal, Edge.Set.top])
                 HStack {
                     Spacer()
-                    Text("Create")
-                    RoundedButton(sName: "arrowshape.right.circle.fill", size: 42.0, action: { startProject() })
+                    RoundedButton(sName: "arrowshape.turn.up.right.circle.fill", leadingLabel: "Continue", action: { state.setNavState(NavState.setup, true) })
                 }
+                .font(Styling.headlineFont)
                 .padding(Edge.Set.horizontal)
                 .padding(Edge.Set.vertical, 8.0)
             }, orientation: PanelOrientation.vertical)
@@ -73,6 +74,16 @@ struct LoadPanel: View {
                 
                 GuideText(text: "Select the color palette you want to use. The preview will show you the colors included in each palette and your brick art will be limited to those colors.")
                 HStack() { paletteMenu }
+                
+                if (load.isImageSet) {
+                    Divider()
+                    HStack {
+                        Spacer()
+                        RoundedButton(sName: "arrowshape.right.circle.fill", leadingLabel: "Create", action: { startProject() })
+                    }
+                    .font(Styling.headlineFont)
+                    .padding(Edge.Set.vertical, 8.0)
+                }
             })
         } else {
             GroupView(label: { Text("Advanced") }, content: {

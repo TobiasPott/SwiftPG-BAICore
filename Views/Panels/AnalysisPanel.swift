@@ -16,10 +16,12 @@ struct AnalysisPanel: View {
         
         RoundedPanel(content: {
             HStack {
-                RoundedButton(sName: "arrowshape.left.circle.fill", size: 42.0, action: { state.setNavState(NavState.setup, true) })
-                Text("Back")
+                RoundedButton(sName: "arrowshape.turn.up.left.circle.fill", trailingLabel: "Back", action: { state.setNavState(NavState.setup, true) })
                 Spacer()
-            }.padding(Edge.Set.horizontal).padding(Edge.Set.vertical, 8.0)
+            }
+            .font(Styling.headlineFont)
+            .padding(Edge.Set.horizontal)
+            .padding(Edge.Set.vertical, 8.0)
         }, orientation: PanelOrientation.vertical)
         
         

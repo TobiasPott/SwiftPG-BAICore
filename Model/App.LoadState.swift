@@ -18,7 +18,6 @@ class LoadState : ObservableObject {
     @Published public var layout: LoadLayout = LoadLayout.square
     @Published public var details: LoadDetails = LoadDetails.medium
     
-    
     @Published public var isImageSet: Bool = false
     @Published var image: PImage = Defaults.image;
     public var sizePx: CGSize { get { return CGSize(width: CGFloat(width) * 16.0, height: CGFloat(height) * 16.0); } }
