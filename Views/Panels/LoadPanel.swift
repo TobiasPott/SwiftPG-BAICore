@@ -12,6 +12,7 @@ struct LoadPanel: View {
     @State private var openFile: Bool = false;
     @State private var openSamples: Bool = false;
     
+    @State private var importProject: Bool = false
     
     var body: some View {
         if (load.isImageSet) {
@@ -26,14 +27,41 @@ struct LoadPanel: View {
                 .padding(Edge.Set.vertical, 8.0)
             }, orientation: PanelOrientation.vertical)
         } else {
-            GroupView(label: { Text("Make your Brick Art").font(Styling.title2Font) }, content: {
-                UserModePicker(userMode: $state.userMode)
-                    .pickerStyle(SegmentedPickerStyle())    
-                GuideText(text: "Choose your app mode, 'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.")
+            GroupView(label: {
+                HStack {
+                    Text("Make your Brick Art").font(Styling.title2Font)
+                    Spacer()
+                    
+                    RoundedButton(sName: state.userMode == UserMode.guided ? "questionmark.square.fill" :  "questionmark.square", size: 24, action: {
+                        state.userMode = state.userMode == UserMode.guided ? UserMode.simple : UserMode.guided;
+                    }, padding: 7.0)
+                    .fontWeight(Font.Weight.regular)
+                }
+            }, content: {
+                GuideText(text: "Import a project you saved to disk in a previous session.")
+                Button(action: {
+                    importProject = importProject.not
+                }, label: {
+                    HStack {
+                        Text("Import Project")
+                        Spacer()
+                        Image(systemName: "square.and.arrow.down")
+                    }
+                })
+                .padding(Edge.Set.top, 6)
+                .fileImporter(isPresented: $importProject, allowedContentTypes: [UTType.json], onCompletion: { result in
+                    switch result {
+                    case .success(let file):
+                        ArtProject.importFrom(file: file, outProject: project, outState: state, outLoad: load)
+                    case .failure(let error):
+                        print("Error file import ...")
+                        print(error.localizedDescription)
+                    }
+                })
             })
         }
         if (state.userMode != UserMode.advanced) {
-            GroupView(label: { Text("Quick Setup") }, content: {
+            GroupView(label: { Text("Start from Scratch") }, content: {
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")
                 HStack(alignment: VerticalAlignment.top) { selectFileMenu }
                 

@@ -23,6 +23,7 @@ struct ContentView: View {
                 ZStack {
                     VStack {
                         MenuToolbar(project: project, isImageSet: source.isImageSet, onLoad: { loadAppState() }, onSave: { saveAppState() }, onClear: { reset(); })
+                            .environmentObject(load)
                             .padding(Edge.Set.horizontal)
                             .padding(Edge.Set.top, 6.0)
                         contentPanel

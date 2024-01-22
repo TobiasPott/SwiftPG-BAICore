@@ -57,6 +57,36 @@ class ArtProject : ObservableObject, Codable {
         
     }
     
+    
+    static func importFrom(file: URL, outProject: ArtProject, outState: GlobalState, outLoad: LoadState) {
+        guard file.startAccessingSecurityScopedResource() else { return }
+        do {
+            let contents = try String(contentsOf: file)  
+            do {
+                let impProj = try ArtProject.fromJson(jsonData: Data(contents.utf8)) as! ArtProject
+                outProject.load(from: impProj);
+                // set project image into load state (allows user to return to setup page and change canvas properties)
+                outLoad.set(outProject.source.originalImage)
+                outLoad.builtInPalette = outProject.builtInPalette
+                outLoad.palette = Palette.getPalette(outProject.builtInPalette)
+                
+                if (outProject.canvases.items.count > 0) {
+                    outState.canvas = outProject.canvases.items[0]
+                    _ = outState.canvas?.Analyse(outProject.source, outState.palette)
+                }
+                if (outState.canvas != nil) { outState.setNavState(NavState.setup, true) }
+            } catch {
+                print("Error converting json...")
+                print(error.localizedDescription)
+            }   
+        } catch {
+            print("Error reading file...")
+            print(error.localizedDescription)
+        }
+        
+        file.stopAccessingSecurityScopedResource()
+    }
+    
 }
 
 struct ProjectFile: FileDocument {

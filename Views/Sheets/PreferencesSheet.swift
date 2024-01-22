@@ -23,10 +23,10 @@ struct PreferencesSheet: View {
     var body: some View {
         ZStack {
             GroupView(label: { Text("Preferences") }, content: {
-                Text(" ")
-                GuideText(text: "'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.")
-                userModeMenu
-                Divider()
+//                Text(" ")
+//                GuideText(text: "'Guided' shows help info about your options and interaction with the app.\n'Simple' is meant to create a single instruction from your picture.")
+//                userModeMenu
+                Divider().padding(Edge.Set.bottom)
                 GuideText(text: "Select the color palette you want to use. The first set of palettes is derived from Lego construction sets and the colors available in them, others origin from other color palettes like retro pcs, consoles or other media.\nThe preview will show you the colors included in each palette and your brick art will be limited to those colors.")
                 paletteMenu
                 

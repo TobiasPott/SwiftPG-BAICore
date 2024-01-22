@@ -6,7 +6,7 @@ class SheetsState : ObservableObject, Codable {
         case splashScreen, preferences, samples, about, sourceCode, feedback
     }
     
-    @Published public var splashScreen: Bool = true;
+    @Published public var splashScreen: Bool = false;
     @Published public var preferences: Bool = false;
     @Published public var samples: Bool = false;
     @Published public var about: Bool = false;

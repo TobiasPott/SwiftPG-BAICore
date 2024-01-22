@@ -95,8 +95,8 @@ struct SourceLayer<Content: View>: View {
                                 withAnimation { load.set(Defaults.image) }
                             })
                             .modifier(ShadowOutline())
-                            .frameStretch(Alignment.bottom)
-                            .padding(Edge.Set.bottom)
+                            .frameStretch(Alignment.topTrailing)
+                            .padding(Edge.Set.trailing)
                             .padding(Edge.Set.top)
                             
                             Text("Tap to pick another")
