@@ -32,11 +32,6 @@ struct LoadPanel: View {
                 HStack {
                     Text("Make your Brick Art").font(Styling.title2Font)
                     Spacer()
-                    
-                    RoundedButton(sName: state.userMode == UserMode.guided ? "questionmark.square.fill" :  "questionmark.square", size: 24, action: {
-                        state.userMode = state.userMode == UserMode.guided ? UserMode.simple : UserMode.guided;
-                    }, padding: 7.0)
-                    .fontWeight(Font.Weight.regular)
                 }
             }, content: {
                 GuideText(text: "Import a project you saved to disk in a previous session.")

@@ -85,7 +85,7 @@ struct ContentView: View {
     }
     var analysisPanel: some View {
         guard let canvas = state.canvas else { return RootView.anyEmpty  }
-        return AnyView(AnalysisPanel(source: source, canvas: canvas, isWide: isWide))
+        return AnyView(AnalysisPanel(project: project, source: source, canvas: canvas, isWide: isWide))
     }
     
     func reset() {

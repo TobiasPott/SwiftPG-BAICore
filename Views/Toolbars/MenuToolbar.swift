@@ -41,16 +41,17 @@ struct MenuToolbar: View {
             Spacer()
             Divider()
             let isStateLoad = state.isNavState(NavState.load)
-            RoundedImage(sName: "plus.square.fill" , foreground: isStateLoad ? Styling.white : Styling.gray, background: Styling.clear)
+            RoundedImage(sName: "photo.badge.plus.fill" , foreground: isStateLoad ? Styling.white : Styling.gray, background: Styling.clear)
             
             let isStateSetup = state.isNavState(NavState.setup)
-            RoundedImage(sName:  "photo.stack.fill", foreground: isStateSetup ? Styling.white : Styling.gray, background: Styling.clear)
+            RoundedImage(sName:  "rectangle.3.offgrid.fill", foreground: isStateSetup ? Styling.white : Styling.gray, background: Styling.clear)
             
             let isStateAnalysis = state.isNavState(NavState.analysis)
-            RoundedImage(sName: "square.grid.3x3.fill" , foreground: isStateAnalysis ? Styling.white : Styling.gray, background: Styling.clear)
+            RoundedImage(sName: "list.bullet.rectangle.fill" , foreground: isStateAnalysis ? Styling.white : Styling.gray, background: Styling.clear)
             Divider()
             Spacer()                
             
+            // about menu
             Menu(content: {
                 Button("About", systemImage: "info.square", action: {
                     sheets.about = sheets.about.not })
@@ -58,6 +59,10 @@ struct MenuToolbar: View {
                     sheets.sourceCode = sheets.sourceCode.not })
                 Button("Feedback", systemImage: "bubble.left.and.exclamationmark.bubble.right", action: {
                     sheets.feedback = sheets.feedback.not })
+                // guide 'toggle'
+                Button("Guide", systemImage: state.userMode == UserMode.guided ? "questionmark.square.fill" :  "questionmark.square", action: {
+                    state.userMode = state.userMode == UserMode.guided ? UserMode.simple : UserMode.guided;
+                })
             }, label: {
                 RoundedButton(sName: "info.square", action: { })
             })
