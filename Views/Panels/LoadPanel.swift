@@ -62,7 +62,19 @@ struct LoadPanel: View {
             })
         }
         if (state.userMode != UserMode.advanced) {
-            GroupView(label: { Text("Start from Scratch") }, content: {
+            GroupView(label: {
+                HStack {
+                    Text("New Canvas")
+                    if (load.isImageSet) {
+                        Spacer()
+                        RoundedButton(sName: "arrowshape.right.circle.fill", leadingLabel: "Create", action: { startProject() })
+                            .font(Styling.headlineFont)
+                            .padding(Edge.Set.vertical, 8.0)
+                    }
+                }
+                
+            }, content: {
+                
                 GuideText(text: "Select a picture or photo. Import it from your files or use a sample picture.")
                 HStack(alignment: VerticalAlignment.top) { selectFileMenu }
                 
@@ -75,15 +87,6 @@ struct LoadPanel: View {
                 GuideText(text: "Select the color palette you want to use. The preview will show you the colors included in each palette and your brick art will be limited to those colors.")
                 HStack() { paletteMenu }
                 
-                if (load.isImageSet) {
-                    Divider()
-                    HStack {
-                        Spacer()
-                        RoundedButton(sName: "arrowshape.right.circle.fill", leadingLabel: "Create", action: { startProject() })
-                    }
-                    .font(Styling.headlineFont)
-                    .padding(Edge.Set.vertical, 8.0)
-                }
             })
         } else {
             GroupView(label: { Text("Advanced") }, content: {

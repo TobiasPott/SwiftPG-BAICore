@@ -1,8 +1,9 @@
 import SwiftUI
 struct ShadowOutline: ViewModifier {
+    var color: Color = Styling.black
     func body(content: Content) -> some View {
         content
-            .shadowOutline(Styling.black.opacity(0.75), 1, 1)
+            .shadowOutline(color.opacity(0.75), 1, 1)
             .foregroundColor(Styling.primary)
 
     }

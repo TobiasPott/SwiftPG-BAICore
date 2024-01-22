@@ -12,20 +12,22 @@ struct BlueprintPanel: View {
     var body: some View {
         GeometryReader { geometry in
             let geoSize = geometry.size;
+            let isLargeScreen = geometry.size.height > 500.0
+            
             ZStack(alignment: Alignment.center) {
                 navStateView
                     .frameMax(geoSize, Alignment.center)
                     .mask(Styling.roundedRect)
                 
                 VStack(spacing: 6.0) {
-                    if (state.isNavState(NavState.setup)) { SourceToolbar(source: source); }
-                    if (state.isNavState(NavState.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source); }
+                    if (state.isNavState(NavState.setup)) { SourceToolbar(forLargeScreen: isLargeScreen) }
+                    if (state.isNavState(NavState.setup) && state.canvas != nil) { CanvasToolbar(canvas: state.canvas!, source: source, forLargeScreen: isLargeScreen); }
                 }
                 .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.leading)
                 .padding(Edge.Set.all, 6.0)
                 
                 VStack(spacing: 6.0) {
-                    if (state.isNavState(NavState.analysis)) { BrickArtToolbar(outline: $project.outline, drag: $gestures.brickDrag, zoom: $gestures.brickZoom); }
+                    if (state.isNavState(NavState.analysis)) { BrickArtToolbar(outline: $project.outline, drag: $gestures.brickDrag, zoom: $gestures.brickZoom, forLargeScreen: isLargeScreen); }
                 }
                 .frame(maxWidth: CGFloat.infinity, maxHeight: Styling.blueprintToolbarMaxHeight, alignment: Alignment.trailing)
                 .padding(Edge.Set.all, 6.0)
