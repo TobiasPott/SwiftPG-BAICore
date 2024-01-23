@@ -3,7 +3,7 @@ import SwiftUI
 public extension ArtPalette {
     static let mosaicMakerName: String = "Lego Mosaic Maker"
     static let mosaicMaker: Palette = Palette(name: mosaicMakerName, colors: mosaicMakerColors)
-    static let mosaicMakerInv: ArtInventory = ArtInventory.inventory(mosaicMakerName, inventory: ArtInventory(name: mosaicMakerName, items: mosaicMakerItems))
+    static let mosaicMakerInv: ArtInventory = ArtInventory.inventory(mosaicMakerName, inventory: ArtInventory(name: mosaicMakerName, items: mosaicMakerItems, isEditable: false))
     
     // Mosaic Maker color palette
     private static let mosaicMakerColors: [ArtColor] = [

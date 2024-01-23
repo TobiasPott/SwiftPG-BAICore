@@ -3,7 +3,7 @@ import SwiftUI
 public extension ArtPalette {
     static let worldMapName: String = "Lego World Map"
     static let worldMap: Palette = Palette(name: worldMapName, colors: worldMapColors)
-    static let worldMapInv: ArtInventory = ArtInventory.inventory(worldMapName, inventory: ArtInventory(name: worldMapName, items: worldMapItems))
+    static let worldMapInv: ArtInventory = ArtInventory.inventory(worldMapName, inventory: ArtInventory(name: worldMapName, items: worldMapItems, isEditable: false))
     
     // World Map color palette
     private static let worldMapColors: [ArtColor] = [

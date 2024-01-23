@@ -74,24 +74,41 @@ struct PreferencesSheet: View {
                 HStack {
                     Text("Inventory").frame(width: Styling.labelWidth, alignment: Alignment.leading)
                     Spacer()
-                    Text("Uses Palette").font(Styling.captionFont)
+                    Text("All Colors").font(Styling.captionFont)
+                    Image(systemName: "infinity")
                 }
                 
-                let inventoryNames: [String] = [/*"Default",*/ ArtPalette.dcBatmanName, ArtPalette.mosaicMakerName, ArtPalette.worldMapName, ArtPalette.floarlArtName, ArtPalette.dotsName, ArtPalette.reducedName]
+                let inventoryNames: [String] = ["Default", ArtPalette.dcBatmanName, ArtPalette.mosaicMakerName, ArtPalette.worldMapName, ArtPalette.floarlArtName, ArtPalette.dotsName, ArtPalette.reducedName]
                 
                 ForEach(0..<inventoryNames.count, id: \.self) { i in
                     let inv: ArtInventory = ArtInventory.inventory(inventoryNames[i])
-                    DisclosureGroup(inventoryNames[i], content: {
-                        Divider()
-                        LazyVGrid(columns: [GridItem(.flexible())], content: {
-                            ForEach(0..<inv.items.count, id: \.self) { j in
-                                InventoryItemEntry(item: inv.items[j])
-                            }
+                    DisclosureGroup(
+                        content: {
+                            Divider()
+                            LazyVGrid(columns: [GridItem(.flexible())], content: {
+                                ForEach(0..<inv.items.count, id: \.self) { j in
+                                    InventoryItemEntry(item: inv.items[j])
+                                }
+                            })
                             .font(Styling.captionFont)
-                        })
-                        Divider()
-                    })
+                            Divider()
+                        },
+                        label: { 
+                            HStack { 
+                                Text(inventoryNames[i])
+                                if (inv.isEditable) {
+                                    Spacer()
+                                    Button("Edit", action: { })
+                                }
+                            }
+                        }
+                    )
+                    .font(Styling.subheadlineFont)
+                    .padding(Edge.Set.bottom, -6)
                 }
+                
+                
+                
                 
                 DisclosureGroup("Active inventory") {
                     Divider()
@@ -109,6 +126,8 @@ struct PreferencesSheet: View {
                     .frame(maxHeight: state.inventory.items.count > 0 ? 115.0 : 0.0, alignment: Alignment.topLeading)
                     Divider()
                 }.disabled(true)
+                
+                
                 DisclosureGroup("Add from Palette") {
                     Divider()
                     ListFilterHeader(filter: $filter, onFilterSubmit: {
@@ -139,7 +158,6 @@ struct PreferencesSheet: View {
     }
     
     func inventoryItemEntry(_ item: Binding<ArtInventory.Item>) -> some View {
-        //        let item = state.inventory.items[i]
         return HStack(spacing: 0.0) {
             TextField("", value: item.quantity, format: .number)
                 .multilineTextAlignment(TextAlignment.trailing)
@@ -161,8 +179,12 @@ struct InventoryItemEntry: View {
     
     var body: some View {
         HStack {
-            Text("\(item.quantity)x").frame(width: 50.0, alignment: Alignment.trailing)
             
+            if (item.quantity <= -1) {
+                Image(systemName: "infinity").frame(width: 50.0, alignment: Alignment.trailing)
+            } else {
+                Text("\(item.quantity)x").frame(width: 50.0, alignment: Alignment.trailing)
+            }
             let artClr = ArtPalette.all.artColors.first { $0.name == item.name }!
             artClr.swuiColor.aspectRatio(2.0, contentMode: ContentMode.fill)
                 .frameMax(32).mask(Styling.roundedRect)

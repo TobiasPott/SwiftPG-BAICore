@@ -5,6 +5,7 @@ public struct ArtInventory: Codable, Identifiable, Hashable {
     public var id: String { name }
     public var name: String    
     public var items: [Item] = []
+    public var isEditable: Bool = true
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(name)

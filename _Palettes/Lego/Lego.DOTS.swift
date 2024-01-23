@@ -3,7 +3,7 @@ import SwiftUI
 public extension ArtPalette {    
     static let dotsName: String = "Lego DOTS"
     static let dots: Palette = Palette(name: dotsName, colors: dotsColors)
-    static let dotsInv: ArtInventory = ArtInventory.inventory(dotsName, inventory: ArtInventory(name: dotsName, items: dotsItems))
+    static let dotsInv: ArtInventory = ArtInventory.inventory(dotsName, inventory: ArtInventory(name: dotsName, items: dotsItems, isEditable: false))
     
     // DOTS color palette
     private static let dotsColors: [ArtColor] = [

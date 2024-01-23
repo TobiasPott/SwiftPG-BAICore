@@ -3,7 +3,7 @@ import simd;
 
 public struct ArtPalette {
     public typealias ColorType = MultiColor
-    public static let defaultQuantity: Int = 1
+    public static let defaultQuantity: Int = -1
     
     static func rgb(_ r: Int16, _ g: Int16, _ b: Int16) -> ColorType { return MultiColor.rgb(r, g, b) }
 }
