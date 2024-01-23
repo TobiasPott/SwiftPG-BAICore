@@ -89,15 +89,16 @@ struct PreferencesSheet: View {
                     DisclosureGroup(
                         content: {
                             Divider()
-                            LazyVGrid(columns: [GridItem(.flexible())], content: {
-                                ForEach(0..<invByName.items.count, id: \.self) { j in
-                                    InventoryItemEntry(item: invByName.items[j])
-                                    //                                        .onTapGesture(perform: {
-                                    //                                            inventory.items.remove(at: j)
-                                    //                                        })
-                                }
-                            })
-                            .font(Styling.captionFont)
+                            if (invByName.isEditable && invByName.name == inventory.name) {
+                                Text("Editing...")
+                            } else {
+                                LazyVGrid(columns: [GridItem(.flexible())], content: {
+                                    ForEach(0..<invByName.items.count, id: \.self) { j in
+                                        InventoryItemEntry(item: invByName.items[j])
+                                    }
+                                })
+                                .font(Styling.captionFont)   
+                            }
                             Divider()
                         },
                         label: { 
@@ -105,67 +106,74 @@ struct PreferencesSheet: View {
                                 Text(inventoryNames[i])
                                 if (invByName.isEditable) {
                                     Spacer()
-                                    Button(invByName.name == inventory.name ? "End Edit" : "Edit", action: {
+                                    Button(invByName.name == inventory.name ? "Save" : "Edit", action: {
+                                        // ToDo: store back inventory before unloading
                                         if (invByName.name == inventory.name) {
+                                            // load into edited inventory
+                                            invByName.load(inventory)
+                                            // store to user data (global inventory store)
+                                            _ = ArtInventory.inventory(invByName.name, inventory: invByName)
+                                            // unload working inventory
                                             inventory.unload()
-                                        } else {
-                                            inventory.load(invByName)
-                                        }
-                                        //                                        inventory.load(invByName.name != inventory.name ? invByName : ArtInventory.empty)
-                                        //                                        print("\(inventory.name) => \((invByName.name != inventory.name ? invByName : ArtInventory.empty).name)")
+                                        } else { inventory.load(invByName) }
                                     })
                                 }
                             }
                         }
                     )
                     .font(Styling.subheadlineFont)
-                    .padding(Edge.Set.bottom, -6)
-                }
-                
-                Divider()
-                DisclosureGroup("Add from Palette") {
-                    if (inventory.isEditable) {
+                    .padding(Edge.Set.top, -6)
+                    
+                    if (inventory.isEditable && invByName == inventory) {
+                        Divider()
+                            .padding(Edge.Set.bottom, 6)
+                        HStack {
+                            Text("Add from Palette")
+                            Spacer()
+                            Button("Delete All", systemImage: "trash", role: ButtonRole.destructive, action: { inventory.items.removeAll(); })
+                        }
+                        ListFilterHeader(filter: $filter, onFilterSubmit: {
+                            let newName = filter.filterBy
+                            if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && inventory.isEditable && !inventory.contains(newName)) {
+                                inventory.items.insert(ArtInventory.Item(newName, 0), at: 0)
+                                filter.filterBy = ""
+                            }
+                        })
+                        
+                        ScrollView(content: {
+                            let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
+                            LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
+                                
+                                ForEach(filteredColors) { item in
+                                    if (inventory.isEditable && !inventory.contains(item.name)) {
+                                        Button("\(item.name)", action: {
+                                            inventory.items.append(ArtInventory.Item(item.name, 0)) 
+                                            //                                        _ = ArtInventory.inventory(inventory.name, inventory: inventory)
+                                            print("added: \(item.name) to \(inventory.items)")
+                                        }).frame(maxWidth: CGFloat.infinity)
+                                    }
+                                }
+                            })
+                        })
+                        .font(Styling.captionMono)
+                        .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
+                        
                         Divider()
                         LazyVGrid(columns: [GridItem(.flexible())], content: {
                             ForEach(0..<inventory.items.count, id: \.self) { j in
                                 let item: ArtInventory.Item = inventory.items[j]
                                 InventoryItemEntry(item: item)
-                                //                                        .onTapGesture(perform: {
-                                //                                            inv.items.remove(at: j)
-                                //                                            ArtInventory.inventory(inv.name, inventory: inv)
-                                //                                        })
                             }
                         })
                         .font(Styling.captionFont)
-                    }
-                    Divider()
-                    ListFilterHeader(filter: $filter, onFilterSubmit: {
-                        let newName = filter.filterBy
-                        if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && inventory.isEditable && !inventory.contains(newName)) {
-                            inventory.items.append(ArtInventory.Item(newName, 0))
-                            filter.filterBy = ""
-                        }
-                    })
-                    
-                    ScrollView(content: {
                         
-                        let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
-                        LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
-                            
-                            ForEach(filteredColors) { item in
-                                if (inventory.isEditable && !inventory.contains(item.name)) {
-                                    Button("\(item.name)", action: {
-                                        inventory.items.append(ArtInventory.Item(item.name, 0)) 
-//                                        _ = ArtInventory.inventory(inventory.name, inventory: inventory)
-                                        print("added: \(item.name) to \(inventory.items)")
-                                    }).frame(maxWidth: CGFloat.infinity)
-                                }
-                            }
-                        })
-                    })
-                    .font(Styling.captionMono)
-                    .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
+                        
+                        Divider()
+                    }
                 }
+                
+                
+                
             }
         })
     }
@@ -191,18 +199,23 @@ struct InventoryItemEntry: View {
     let item: ArtInventory.Item
     
     var body: some View {
-        HStack {
-            
+        HStack(spacing: 4) {
             if (item.quantity <= -1) {
                 Image(systemName: "infinity").frame(width: 50.0, alignment: Alignment.trailing)
             } else {
                 Text("\(item.quantity)x").frame(width: 50.0, alignment: Alignment.trailing)
             }
             let artClr = ArtPalette.all.artColors.first { $0.name == item.name }!
-            artClr.swuiColor.aspectRatio(2.0, contentMode: ContentMode.fill)
+            artClr.swuiColor.aspectRatio(1.5, contentMode: ContentMode.fill)
                 .frameMax(32).mask(Styling.roundedRect)
             Text(item.name)
             Spacer()
+            
+            Button(role: .destructive, action: {
+                // ToDo: Hookup delete item code here (passed in from outside)
+            }, label: {
+                Image(systemName: "trash")
+            }).padding(Edge.Set.trailing)
         }
     }
 }
