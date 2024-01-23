@@ -3,38 +3,63 @@ import SwiftUI
 public extension ArtPalette {
     static let reducedName: String = "Lego Reduced"
     static let reduced: Palette = Palette(name: reducedName, colors: reducedColors)
+    static let reducedInv: ArtInventory = ArtInventory.inventory(reducedName, inventory: ArtInventory(name: reducedName, items: reducedItems))
     
     // Simple color palette
     private static let reducedColors: [ArtColor] = [
-        ArtColor(White, white),
-        ArtColor(LightBluishGray, lightBluishGray),
-        ArtColor(DarkBluishGray, darkBluishGray),
-        ArtColor(PearlDarkGray, pearlDarkGray),
-        ArtColor(Black, black),
-        ArtColor(Red, red),
-        ArtColor(Green, green),
-        ArtColor(Blue, blue),
-        ArtColor(BrightGreen, brightGreen),
-        ArtColor(BrightLightBlue, brightLightBlue),
-        ArtColor(Aqua, aqua),
-        ArtColor(MediumAzure, mediumAzure),
-        ArtColor(DarkBlue, darkBlue),
-        ArtColor(Violet, violet),
-        ArtColor(Magenta, magenta),
-        ArtColor(DarkPink, darkPink),
-        ArtColor(MediumLavender, mediumLavender),
-        ArtColor(Rust, rust),
-        ArtColor(Salmon, salmon),
-        ArtColor(Orange, orange),
-        ArtColor(SandRed, sandRed),
-        ArtColor(Orange, darkOrange),
-        ArtColor(ReddishBrown, reddishBrown),
-        ArtColor(Tan, tan),
-        ArtColor(Flesh, flesh),
+        .init(White, white),
+        .init(LightBluishGray, lightBluishGray),
+        .init(DarkBluishGray, darkBluishGray),
+        .init(PearlDarkGray, pearlDarkGray),
+        .init(Black, black),
+        .init(Red, red),
+        .init(Green, green),
+        .init(Blue, blue),
+        .init(BrightGreen, brightGreen),
+        .init(BrightLightBlue, brightLightBlue),
+        .init(Aqua, aqua),
+        .init(MediumAzure, mediumAzure),
+        .init(DarkBlue, darkBlue),
+        .init(Violet, violet),
+        .init(Magenta, magenta),
+        .init(DarkPink, darkPink),
+        .init(MediumLavender, mediumLavender),
+        .init(Rust, rust),
+        .init(Salmon, salmon),
+        .init(Orange, orange),
+        .init(SandRed, sandRed),
+        .init(Orange, darkOrange),
+        .init(ReddishBrown, reddishBrown),
+        .init(Tan, tan),
+        .init(Flesh, flesh),
         // extended simple color set
     ]
-    private static let simpleColorNames: [String] = [ "black", "blue", "green", "darkTurquoise", "red", "darkPink", "brown", "lightGray", "darkGray", "lightBlue", "brightGreen", "lightTurquoise", "salmon", "pink", "yellow", "white", "lightGreen", "lightYellow", "tan", "lightViolet", "purple", "darkBlueViolet", "orange", "magenta", "lime", "darkTan", "brightPink", "mediumLavender", "lavender", "veryLightOrange", "lightPurple", "reddishBrown", "lightBluishGray", "darkBluishGray", "mediumBlue", "mediumGreen", "lightPink", "lightFlesh", "metallicSilver", "metallicGreen", "metallicGold", "mediumDarkFlesh", "darkPurple", "darkFlesh", "royalBlue", "flesh", "lightSalmon", "violet", "blueViolet", "mediumLime", "aqua", "lightLime", "lightOrange", "copper", "metalBlue", "veryLightBluishGray", "yellowishGreen", "flatDarkGold", "flatSilver", "pearlLightGray", "pearlLightGold", "pearlDarkGray", "pearlVeryLightGray", "pearlWhite", "brightLightOrange", "brightLightBlue", "rust", "brightLightYellow", "skyBlue", "darkBlue", "darkGreen", "pearlGold", "darkBrown", "darkRed", "darkAzure", "mediumAzure", "lightAque", "oliveGreen", "sandRed", "mediumDarkPink", "earthOrange", "sandPurple", "sandGreen", "sandBlue", "fabulandBrown", "mediumOrange", "darkOrange", "veryLightGray", "mediumViolet", "reddishLilac", "coral", "vibrantYellow" ];
-    /*
-     private static let simpleColors: [ColorType] = [black, blue, green, darkTurquoise, red, darkPink, brown, lightGray, darkGray, lightBlue, brightGreen, lightTurquoise, salmon, pink, yellow, white, lightGreen, lightYellow, tan, lightViolet, purple, darkBlueViolet, orange, magenta, lime, darkTan, brightPink, mediumLavender, lavender, veryLightOrange, lightPurple, reddishBrown, lightBluishGray, darkBluishGray, mediumBlue, mediumGreen, lightPink, lightFlesh, metallicSilver, metallicGreen, metallicGold, mediumDarkFlesh, darkPurple, darkFlesh, royalBlue, flesh, lightSalmon, violet, blueViolet, mediumLime, aqua, lightLime, lightOrange, copper, metalBlue, veryLightBluishGray, yellowishGreen, flatDarkGold, flatSilver, pearlLightGray, pearlLightGold, pearlDarkGray, pearlVeryLightGray, pearlWhite, brightLightOrange, brightLightBlue, rust, brightLightYellow, skyBlue, darkBlue, darkGreen, pearlGold, darkBrown, darkRed, darkAzure, mediumAzure, lightAque, oliveGreen, sandRed, mediumDarkPink, earthOrange, sandPurple, sandGreen, sandBlue, fabulandBrown, mediumOrange, darkOrange, veryLightGray, mediumViolet, reddishLilac, coral, vibrantYellow];
-     */
+    private static let reducedItems: [ArtInventory.Item] = [
+        .init(White, defaultQuantity),
+        .init(LightBluishGray, defaultQuantity),
+        .init(DarkBluishGray, defaultQuantity),
+        .init(PearlDarkGray, defaultQuantity),
+        .init(Black, defaultQuantity),
+        .init(Red, defaultQuantity),
+        .init(Green, defaultQuantity),
+        .init(Blue, defaultQuantity),
+        .init(BrightGreen, defaultQuantity),
+        .init(BrightLightBlue, defaultQuantity),
+        .init(Aqua, defaultQuantity),
+        .init(MediumAzure, defaultQuantity),
+        .init(DarkBlue, defaultQuantity),
+        .init(Violet, defaultQuantity),
+        .init(Magenta, defaultQuantity),
+        .init(DarkPink, defaultQuantity),
+        .init(MediumLavender, defaultQuantity),
+        .init(Rust, defaultQuantity),
+        .init(Salmon, defaultQuantity),
+        .init(Orange, defaultQuantity),
+        .init(SandRed, defaultQuantity),
+        .init(Orange, defaultQuantity),
+        .init(ReddishBrown, defaultQuantity),
+        .init(Tan, defaultQuantity),
+        .init(Flesh, defaultQuantity),
+        // extended simple color set
+    ]
 }

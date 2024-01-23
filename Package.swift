@@ -18,7 +18,7 @@ let package = Package(
             targets: ["AppModule"],
             bundleIdentifier: "de.tobiaspott.playground.brickartinstructor",
             teamIdentifier: "LR2W97LX43",
-            displayVersion: "0.13.3",
+            displayVersion: "0.14",
             bundleVersion: "92",
             appIcon: .asset("AppIcon"),
             accentColor: .presetColor(.blue),

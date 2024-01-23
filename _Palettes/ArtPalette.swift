@@ -3,6 +3,7 @@ import simd;
 
 public struct ArtPalette {
     public typealias ColorType = MultiColor
+    public static let defaultQuantity: Int = 1
     
     static func rgb(_ r: Int16, _ g: Int16, _ b: Int16) -> ColorType { return MultiColor.rgb(r, g, b) }
 }
@@ -165,7 +166,7 @@ public extension ArtPalette {
     //    Medium-Azure #36AEBF rgb(54, 174, 191)
     static let mediumAzure: ColorType = rgb(54, 174, 191)
     //    Light-Aqua #ADC3C0 rgb(173, 195, 192)
-    static let lightAque: ColorType = rgb(173, 195, 192)
+    static let lightAqua: ColorType = rgb(173, 195, 192)
     //    Olive-Green #9B9A5A rgb(155, 154, 90)
     static let oliveGreen: ColorType = rgb(155, 154, 90)
     //    Sand-Red #D67572 rgb(214, 117, 114)
@@ -213,11 +214,11 @@ public extension ArtPalette {
     //    Chrome-Black #1B2A34 rgb(27, 42, 52)
     static let chromeBlack: ColorType = rgb(27, 42, 52)
     //    Speckle-Black-Silver #000000 rgb(0, 0, 0)
-    static let speckleBlackSilver: ColorType = rgb(0, 0, 0)
+//    static let speckleBlackSilver: ColorType = rgb(0, 0, 0)
     //    Speckle-Black-Gold #000000 rgb(0, 0, 0)
-    static let speckleBlackGold: ColorType = rgb(0, 0, 0)
+//    static let speckleBlackGold: ColorType = rgb(0, 0, 0)
     //    Speckle-Black-Copper #000000 rgb(0, 0, 0)
-    static let speckleBlackCopper: ColorType = rgb(0, 0, 0)
+//    static let speckleBlackCopper: ColorType = rgb(0, 0, 0)
     //    Speckle-DBGray-Silver #635F61 rgb(99, 95, 97)
     static let speckleDBGraySilver: ColorType = rgb(99, 95, 97)
     

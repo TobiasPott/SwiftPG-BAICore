@@ -77,7 +77,7 @@ struct PreferencesSheet: View {
                     Text("Uses Palette").font(Styling.captionFont)
                 }
                 
-                let inventoryNames: [String] = [/*"Default",*/ ArtPalette.dcBatmanName, ArtPalette.mosaicMakerName, ArtPalette.worldMapName, ArtPalette.floarlArtName]
+                let inventoryNames: [String] = [/*"Default",*/ ArtPalette.dcBatmanName, ArtPalette.mosaicMakerName, ArtPalette.worldMapName, ArtPalette.floarlArtName, ArtPalette.dotsName, ArtPalette.reducedName]
                 
                 ForEach(0..<inventoryNames.count, id: \.self) { i in
                     let inv: ArtInventory = ArtInventory.inventory(inventoryNames[i])

@@ -24,6 +24,8 @@ class GlobalState : ObservableObject
         + "\(ArtPalette.mosaicMakerInv.id)"
         + "\(ArtPalette.floralArtInv.id)"
         + "\(ArtPalette.worldMapInv.id)"
+        + "\(ArtPalette.dotsInv.id)"
+        + "\(ArtPalette.reducedInv.id)"
     }
     
     func setNavState(_ newNavState: NavState, _ keepCanvas: Bool = true) -> Void {
