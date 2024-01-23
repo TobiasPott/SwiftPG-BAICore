@@ -1,11 +1,40 @@
 import SwiftUI
 
-public struct ArtInventory: Codable, Identifiable, Hashable {
+public class ArtInventory: ObservableObject, Codable, Identifiable, Hashable {
+    private enum CodingKeys: String, CodingKey {
+        case name, items, isEditable
+    }
+    
+    public static let empty: ArtInventory = ArtInventory(name: "Empty", items: [], isEditable: false)
+    
     
     public var id: String { name }
-    public var name: String    
-    public var items: [Item] = []
-    public var isEditable: Bool = true
+    @Published public var name: String    
+    @Published public var items: [Item]
+    @Published public var isEditable: Bool = true
+    
+    init(name: String, items: [Item] = [], isEditable: Bool = true) {
+        self.name = name
+        self.items = items
+        self.isEditable = isEditable
+    }
+    public required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        name = try container.decode(String.self, forKey: CodingKeys.name)
+        items = try container.decode([Item].self, forKey: CodingKeys.items)
+        isEditable = try container.decode(Bool.self, forKey: CodingKeys.isEditable)
+    }
+    
+    public func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(name, forKey: CodingKeys.name)
+        try container.encode(items, forKey: CodingKeys.items)
+        try container.encode(isEditable, forKey: CodingKeys.isEditable)
+    }
+    
+    public static func ==(lhs: ArtInventory, rhs: ArtInventory) -> Bool {
+        return lhs.id == rhs.id
+    }
     
     public func hash(into hasher: inout Hasher) {
         hasher.combine(name)
@@ -17,7 +46,19 @@ public struct ArtInventory: Codable, Identifiable, Hashable {
         }
         return false;
     }
-    mutating public func load(_ from: Palette) {
+    public func load(_ from: ArtInventory) {
+        name = from.name
+        items.removeAll(keepingCapacity: false)
+        items.append(contentsOf: from.items)
+        isEditable = from.isEditable
+    }
+    public func unload() {
+        name = "Empty"
+        items.removeAll(keepingCapacity: false)
+        isEditable = false
+    }
+    
+    public func load(_ from: Palette) {
         items.removeAll(keepingCapacity: true)
         for i in 0..<from.count {
             items.append(Item(from.artColors[i].name, 0))
@@ -34,6 +75,11 @@ public struct ArtInventory: Codable, Identifiable, Hashable {
             hasher.combine(name)
             hasher.combine(quantity)
         }
+        
+        public static func ==(lhs: Item, rhs: Item) -> Bool {
+            return lhs.id == rhs.id
+        }
+        
     }
     
     

@@ -20,6 +20,8 @@ struct PreferencesSheet: View {
     @ObservedObject var project: ArtProject
     
     
+    @ObservedObject var inventory: ArtInventory = ArtInventory.empty
+    
     var body: some View {
         ZStack {
             GroupView(label: { Text("Preferences") }, content: {
@@ -77,17 +79,22 @@ struct PreferencesSheet: View {
                     Text("All Colors").font(Styling.captionFont)
                     Image(systemName: "infinity")
                 }
-                
+                .onAppear(perform: {
+                    inventory.unload()
+                })
                 let inventoryNames: [String] = ["Default", ArtPalette.dcBatmanName, ArtPalette.mosaicMakerName, ArtPalette.worldMapName, ArtPalette.floarlArtName, ArtPalette.dotsName, ArtPalette.reducedName]
                 
                 ForEach(0..<inventoryNames.count, id: \.self) { i in
-                    let inv: ArtInventory = ArtInventory.inventory(inventoryNames[i])
+                    let invByName: ArtInventory = ArtInventory.inventory(inventoryNames[i])
                     DisclosureGroup(
                         content: {
                             Divider()
                             LazyVGrid(columns: [GridItem(.flexible())], content: {
-                                ForEach(0..<inv.items.count, id: \.self) { j in
-                                    InventoryItemEntry(item: inv.items[j])
+                                ForEach(0..<invByName.items.count, id: \.self) { j in
+                                    InventoryItemEntry(item: invByName.items[j])
+                                    //                                        .onTapGesture(perform: {
+                                    //                                            inventory.items.remove(at: j)
+                                    //                                        })
                                 }
                             })
                             .font(Styling.captionFont)
@@ -96,9 +103,17 @@ struct PreferencesSheet: View {
                         label: { 
                             HStack { 
                                 Text(inventoryNames[i])
-                                if (inv.isEditable) {
+                                if (invByName.isEditable) {
                                     Spacer()
-                                    Button("Edit", action: { })
+                                    Button(invByName.name == inventory.name ? "End Edit" : "Edit", action: {
+                                        if (invByName.name == inventory.name) {
+                                            inventory.unload()
+                                        } else {
+                                            inventory.load(invByName)
+                                        }
+                                        //                                        inventory.load(invByName.name != inventory.name ? invByName : ArtInventory.empty)
+                                        //                                        print("\(inventory.name) => \((invByName.name != inventory.name ? invByName : ArtInventory.empty).name)")
+                                    })
                                 }
                             }
                         }
@@ -107,33 +122,27 @@ struct PreferencesSheet: View {
                     .padding(Edge.Set.bottom, -6)
                 }
                 
-                
-                
-                
-                DisclosureGroup("Active inventory") {
-                    Divider()
-                    ScrollView(content: {
-                        
-                        VStack (alignment: HorizontalAlignment.leading, spacing: 4.0) {
-                            ForEach(state.inventory.items) { item in
-                                let i = state.inventory.items.firstIndex(of: item) ?? -1
-                                if (i >= 0) { inventoryItemEntry($state.inventory.items[i]) }
-                            }
-                        }
-                        .frame(maxWidth: CGFloat.infinity)
-                        .font(Styling.captionFont.monospaced())
-                    })
-                    .frame(maxHeight: state.inventory.items.count > 0 ? 115.0 : 0.0, alignment: Alignment.topLeading)
-                    Divider()
-                }.disabled(true)
-                
-                
+                Divider()
                 DisclosureGroup("Add from Palette") {
+                    if (inventory.isEditable) {
+                        Divider()
+                        LazyVGrid(columns: [GridItem(.flexible())], content: {
+                            ForEach(0..<inventory.items.count, id: \.self) { j in
+                                let item: ArtInventory.Item = inventory.items[j]
+                                InventoryItemEntry(item: item)
+                                //                                        .onTapGesture(perform: {
+                                //                                            inv.items.remove(at: j)
+                                //                                            ArtInventory.inventory(inv.name, inventory: inv)
+                                //                                        })
+                            }
+                        })
+                        .font(Styling.captionFont)
+                    }
                     Divider()
                     ListFilterHeader(filter: $filter, onFilterSubmit: {
                         let newName = filter.filterBy
-                        if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && !state.inventory.contains(newName)) {
-                            state.inventory.items.append(ArtInventory.Item(newName, 0))
+                        if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && inventory.isEditable && !inventory.contains(newName)) {
+                            inventory.items.append(ArtInventory.Item(newName, 0))
                             filter.filterBy = ""
                         }
                     })
@@ -144,15 +153,19 @@ struct PreferencesSheet: View {
                         LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
                             
                             ForEach(filteredColors) { item in
-                                if (!state.inventory.contains(item.name)) {
-                                    Button("\(item.name)", action: { state.inventory.items.append(ArtInventory.Item(item.name, 0))  }).frame(maxWidth: CGFloat.infinity)
+                                if (inventory.isEditable && !inventory.contains(item.name)) {
+                                    Button("\(item.name)", action: {
+                                        inventory.items.append(ArtInventory.Item(item.name, 0)) 
+//                                        _ = ArtInventory.inventory(inventory.name, inventory: inventory)
+                                        print("added: \(item.name) to \(inventory.items)")
+                                    }).frame(maxWidth: CGFloat.infinity)
                                 }
                             }
                         })
                     })
-                    .font(Styling.captionFont.monospaced())
+                    .font(Styling.captionMono)
                     .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
-                }.disabled(true)
+                }
             }
         })
     }
