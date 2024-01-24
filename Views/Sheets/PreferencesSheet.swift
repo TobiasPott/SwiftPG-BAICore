@@ -86,20 +86,21 @@ struct PreferencesSheet: View {
                 
                 ForEach(0..<inventoryNames.count, id: \.self) { i in
                     let invByName: ArtInventory = ArtInventory.inventory(inventoryNames[i])
+                    let hasItems = invByName.items.count > 0
                     DisclosureGroup(
                         content: {
-                            Divider()
                             if (invByName.isEditable && invByName.name == inventory.name) {
                                 Text("Editing...")
+                                if (hasItems) { Divider() }
                             } else {
                                 LazyVGrid(columns: [GridItem(.flexible())], content: {
                                     ForEach(0..<invByName.items.count, id: \.self) { j in
-                                        InventoryItemEntry(item: invByName.items[j])
+                                        InventoryItemEntry(item: invByName.items[j], quantity: invByName.items[j].quantity)
                                     }
                                 })
-                                .font(Styling.captionFont)   
+                                .font(Styling.captionFont)
+                                if (hasItems) { Divider() }
                             }
-                            Divider()
                         },
                         label: { 
                             HStack { 
@@ -111,6 +112,7 @@ struct PreferencesSheet: View {
                                         if (invByName.name == inventory.name) {
                                             // load into edited inventory
                                             invByName.load(inventory)
+                                            print(inventory.items)
                                             // store to user data (global inventory store)
                                             _ = ArtInventory.inventory(invByName.name, inventory: invByName)
                                             // unload working inventory
@@ -125,13 +127,31 @@ struct PreferencesSheet: View {
                     .padding(Edge.Set.top, -6)
                     
                     if (inventory.isEditable && invByName == inventory) {
-                        Divider()
-                            .padding(Edge.Set.bottom, 6)
-                        HStack {
-                            Text("Add from Palette")
-                            Spacer()
-                            Button("Delete All", systemImage: "trash", role: ButtonRole.destructive, action: { inventory.items.removeAll(); })
+
+                        if (inventory.items.count > 0) {
+                            Divider()
+                                .padding(Edge.Set.bottom, 6)
+                            HStack {
+                                Spacer()
+                                Button("Delete All", systemImage: "trash", role: ButtonRole.destructive, action: { inventory.items.removeAll(); })
+                            }
+                            Divider()
                         }
+                        
+                        LazyVGrid(columns: [GridItem(.flexible())], content: {
+                            ForEach(0..<inventory.items.count, id: \.self) { j in
+                                let item: ArtInventory.Item = inventory.items[j]
+                                InventoryItemEntry(item: item, quantity: item.quantity, isEditable: true, onEditQuantity: { qty in
+                                    inventory.items[j].quantity = qty
+                                }, onDelete: { inventory.items.remove(at: j) 
+                                })
+                            }
+                        })
+                        .font(Styling.captionFont)
+                        
+                        
+                        Divider()
+                        HStack { Text("Add by Name"); Spacer() }
                         ListFilterHeader(filter: $filter, onFilterSubmit: {
                             let newName = filter.filterBy
                             if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && inventory.isEditable && !inventory.contains(newName)) {
@@ -139,7 +159,6 @@ struct PreferencesSheet: View {
                                 filter.filterBy = ""
                             }
                         })
-                        
                         ScrollView(content: {
                             let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
                             LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
@@ -148,7 +167,6 @@ struct PreferencesSheet: View {
                                     if (inventory.isEditable && !inventory.contains(item.name)) {
                                         Button("\(item.name)", action: {
                                             inventory.items.append(ArtInventory.Item(item.name, 0)) 
-                                            //                                        _ = ArtInventory.inventory(inventory.name, inventory: inventory)
                                             print("added: \(item.name) to \(inventory.items)")
                                         }).frame(maxWidth: CGFloat.infinity)
                                     }
@@ -157,18 +175,9 @@ struct PreferencesSheet: View {
                         })
                         .font(Styling.captionMono)
                         .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
-                        
-                        Divider()
-                        LazyVGrid(columns: [GridItem(.flexible())], content: {
-                            ForEach(0..<inventory.items.count, id: \.self) { j in
-                                let item: ArtInventory.Item = inventory.items[j]
-                                InventoryItemEntry(item: item)
-                            }
-                        })
-                        .font(Styling.captionFont)
-                        
-                        
-                        Divider()
+
+                        Divider()                        
+                        HStack { Text("Add from Palette"); Spacer() }
                     }
                 }
                 
@@ -178,44 +187,43 @@ struct PreferencesSheet: View {
         })
     }
     
-    func inventoryItemEntry(_ item: Binding<ArtInventory.Item>) -> some View {
-        return HStack(spacing: 0.0) {
-            TextField("", value: item.quantity, format: .number)
-                .multilineTextAlignment(TextAlignment.trailing)
-                .padding(3.0).padding(Edge.Set.trailing, 3.0)
-                .frame(width: Styling.labelWidth / 1.25 - 10.0)
-                .background(Styling.black.opacity(0.25))
-                .mask(Styling.roundedRect)
-                .padding(Edge.Set.trailing, 6.0)
-            Text("\(item.name.wrappedValue)")
-                .allowsTightening(true).truncationMode(Text.TruncationMode.tail)
-            Spacer()
-        }
-    }
-    
 }
 
 struct InventoryItemEntry: View {
-    let item: ArtInventory.Item
+    var item: ArtInventory.Item
+    @State var quantity: Int = 0
+    var isEditable: Bool = false
+    
+    var onEditQuantity: (Int) -> Void = { _ in }
+    var onDelete: () -> Void = {}
+    
     
     var body: some View {
         HStack(spacing: 4) {
             if (item.quantity <= -1) {
                 Image(systemName: "infinity").frame(width: 50.0, alignment: Alignment.trailing)
             } else {
-                Text("\(item.quantity)x").frame(width: 50.0, alignment: Alignment.trailing)
+                if (isEditable) {
+                    TextField("0", value: $quantity, formatter: NumberFormatter()).frame(width: 50.0, alignment: Alignment.trailing).multilineTextAlignment(.trailing)
+                        .padding(2).background(Styling.panelColor).mask(Styling.roundedRect)
+                        .onSubmit() { onEditQuantity(quantity) }
+                    Text("x ")
+                } else {
+                    Text("\(quantity) x").frame(width: 50.0, alignment: Alignment.trailing)
+                }
             }
             let artClr = ArtPalette.all.artColors.first { $0.name == item.name }!
             artClr.swuiColor.aspectRatio(1.5, contentMode: ContentMode.fill)
                 .frameMax(32).mask(Styling.roundedRect)
             Text(item.name)
             Spacer()
-            
-            Button(role: .destructive, action: {
-                // ToDo: Hookup delete item code here (passed in from outside)
-            }, label: {
-                Image(systemName: "trash")
-            }).padding(Edge.Set.trailing)
+            if (isEditable) {
+                Button(role: .destructive, action: {
+                    onDelete()
+                }, label: {
+                    Image(systemName: "trash")
+                }).padding(Edge.Set.trailing)
+            }
         }
     }
 }
