@@ -43,6 +43,13 @@ class ArtAnalysis : ObservableObject {
         var total: Int = 0;
         var uniqueClrs: [MultiColor] = Array<MultiColor>(Set(self.colorInfo.colors))
         uniqueClrs.sort(by: { $0.hue > $1.hue})
+        uniqueClrs.sort {
+            let lhIndex = palette.findClosest($0)
+            let lhName = lhIndex >= 0 ? palette.get(lhIndex).name : "none"
+            let rhIndex = palette.findClosest($1)
+            let rhName = rhIndex >= 0 ? palette.get(rhIndex).name : "none"
+            return lhName > rhName
+        }
         for clr in uniqueClrs {
             let count = self.colorInfo.colors.filter { $0 == clr }.count
             self.colorInfo.mappedColorCounts[clr] = count

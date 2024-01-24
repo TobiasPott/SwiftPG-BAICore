@@ -52,16 +52,27 @@ public class ArtInventory: ObservableObject, Codable, Identifiable, Hashable {
         items.append(contentsOf: from.items)
         isEditable = from.isEditable
     }
+    public func load(_ from: Palette) {
+        items.removeAll(keepingCapacity: true)
+        for i in 0..<from.count {
+            items.append(Item(from.artColors[i].name, 0))
+        }
+    }
     public func unload() {
         name = "Empty"
         items.removeAll(keepingCapacity: false)
         isEditable = false
     }
-    
-    public func load(_ from: Palette) {
-        items.removeAll(keepingCapacity: true)
-        for i in 0..<from.count {
-            items.append(Item(from.artColors[i].name, 0))
+    public func add(_ from: ArtInventory) {
+        for i in 0..<from.items.count {
+            let fromItem = from.items[i]
+            let index = items.firstIndex(of: Item(fromItem.name, 0)) ?? -1
+            if (index >= 0) {
+                items[index].quantity += fromItem.quantity
+            } else {
+                items.append(fromItem)
+            }
+            // ToDo: check why using a 'add' does not update UI when only changing quantities
         }
     }
     
@@ -108,7 +119,7 @@ public extension ArtInventory.Item {
 
 public extension Palette {
     func makeInventory() -> ArtInventory {
-        var inventory = ArtInventory(name: "Inventory of \(self.name)")
+        let inventory = ArtInventory(name: "Inventory of \(self.name)")
         for i in 0..<self.artColors.count {
             inventory.items.append(ArtInventory.Item(self.artColors[i].name, 0))
         }

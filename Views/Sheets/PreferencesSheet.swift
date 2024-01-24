@@ -127,7 +127,7 @@ struct PreferencesSheet: View {
                     .padding(Edge.Set.top, -6)
                     
                     if (inventory.isEditable && invByName == inventory) {
-
+                        
                         if (inventory.items.count > 0) {
                             Divider()
                                 .padding(Edge.Set.bottom, 6)
@@ -137,7 +137,6 @@ struct PreferencesSheet: View {
                             }
                             Divider()
                         }
-                        
                         LazyVGrid(columns: [GridItem(.flexible())], content: {
                             ForEach(0..<inventory.items.count, id: \.self) { j in
                                 let item: ArtInventory.Item = inventory.items[j]
@@ -175,9 +174,30 @@ struct PreferencesSheet: View {
                         })
                         .font(Styling.captionMono)
                         .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
-
+                        
                         Divider()                        
                         HStack { Text("Add from Palette"); Spacer() }
+                        
+                        
+                        ScrollView(content: {
+                            LazyVGrid(columns: [GridItem(GridItem.Size.flexible())], content: {
+                                
+                                
+                                ForEach(0..<inventoryNames.count, id: \.self) { k in
+                                    let name = inventoryNames[k]
+                                    Button(action: {
+                                        // ToDo: check why changing quantity via 'add' does not affect refresh of list
+                                        inventory.add(ArtInventory.inventory(name))
+                                        if (inventory.items.count > 0) {
+                                            inventory.items[0].quantity += 1
+                                            inventory.items[0].quantity -= 1
+                                        }
+                                    }, label: {
+                                        Text("Add \(name)")
+                                    })
+                                }
+                            })
+                        })
                     }
                 }
                 

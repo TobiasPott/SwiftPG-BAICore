@@ -9,14 +9,24 @@ struct ColorSwatchList: View {
     
     var body: some View {
         LazyVGrid(columns: Array(repeating: ColorSwatchList.gridItem, count: isWide ? 4 : 2), spacing: 2.0) {
-            ForEach(0..<colorsWithCount.count, id: \.self) { i in
-                let index = colorsWithCount.index(colorsWithCount.startIndex, offsetBy: i)
-                let kvPair = colorsWithCount[index];
-                
-                ColorSwatch(color: kvPair.key, numberOfUses: kvPair.value, palette: palette)
+            let dictKeys = getSortedKeys()
+            ForEach(dictKeys, id: \.self) { key in
+                ColorSwatch(color: key, numberOfUses: colorsWithCount[key] ?? 0, palette: palette)
                     .aspectRatio(5.0, contentMode: ContentMode.fit)
             }
         }.padding(6.0)
+    }
+    
+    func getSortedKeys(asc: Bool = true) -> [MultiColor] {
+        var keys = Array(colorsWithCount.keys)
+        keys.sort { 
+            let lhIndex = palette.findClosest($0)
+            let lhName = lhIndex >= 0 ? palette.get(lhIndex).name : "none"
+            let rhIndex = palette.findClosest($1)
+            let rhName = rhIndex >= 0 ? palette.get(rhIndex).name : "none"
+            return asc ? lhName < rhName : lhName > rhName
+        }
+        return keys
     }
 }
 

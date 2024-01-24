@@ -43,6 +43,7 @@ class ArtColors: ObservableObject {
             let count = self.colors.filter { $0.cgColor == clr.cgColor }.count
             mappedColorCounts[clr] = count
         }
+        
     }
     
 }
