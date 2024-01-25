@@ -76,8 +76,7 @@ struct PreferencesSheet: View {
                 HStack {
                     Text("Inventory").frame(width: Styling.labelWidth, alignment: Alignment.leading)
                     Spacer()
-                    Text("All Colors").font(Styling.captionFont)
-                    Image(systemName: "infinity")
+                    Text("'\(state.inventory.name)'").font(Styling.captionFont)
                 }
                 .onAppear(perform: {
                     inventory.unload()
@@ -95,7 +94,7 @@ struct PreferencesSheet: View {
                             } else {
                                 LazyVGrid(columns: [GridItem(.flexible())], content: {
                                     ForEach(0..<invByName.items.count, id: \.self) { j in
-                                        InventoryItemEntry(item: invByName.items[j], quantity: invByName.items[j].quantity)
+                                        InventoryItemEntry(item: .constant(invByName.items[j]))
                                     }
                                 })
                                 .font(Styling.captionFont)
@@ -139,69 +138,68 @@ struct PreferencesSheet: View {
                         }
                         LazyVGrid(columns: [GridItem(.flexible())], content: {
                             ForEach(0..<inventory.items.count, id: \.self) { j in
-                                let item: ArtInventory.Item = inventory.items[j]
-                                InventoryItemEntry(item: item, quantity: item.quantity, isEditable: true, onEditQuantity: { qty in
-                                    inventory.items[j].quantity = qty
-                                }, onDelete: { inventory.items.remove(at: j) 
+                                InventoryItemEntry(item: $inventory.items[j], isEditable: true, onDelete: { inventory.items.remove(at: j) 
                                 })
                             }
                         })
                         .font(Styling.captionFont)
                         
-                        
                         Divider()
-                        HStack { Text("Add by Name"); Spacer() }
-                        ListFilterHeader(filter: $filter, onFilterSubmit: {
-                            let newName = filter.filterBy
-                            if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && inventory.isEditable && !inventory.contains(newName)) {
-                                inventory.items.insert(ArtInventory.Item(newName, 0), at: 0)
-                                filter.filterBy = ""
-                            }
-                        })
-                        ScrollView(content: {
-                            let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
-                            LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
-                                
-                                ForEach(filteredColors) { item in
-                                    if (inventory.isEditable && !inventory.contains(item.name)) {
-                                        Button("\(item.name)", action: {
-                                            inventory.items.append(ArtInventory.Item(item.name, 0)) 
-                                            print("added: \(item.name) to \(inventory.items)")
-                                        }).frame(maxWidth: CGFloat.infinity)
+                        DisclosureGroup(
+                            content: { 
+                                ListFilterHeader(filter: $filter, onFilterSubmit: {
+                                    let newName = filter.filterBy
+                                    if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && inventory.isEditable && !inventory.contains(newName)) {
+                                        inventory.items.insert(ArtInventory.Item(newName, 0), at: 0)
+                                        filter.filterBy = ""
                                     }
-                                }
-                            })
-                        })
-                        .font(Styling.captionMono)
-                        .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
-                        
-                        Divider()                        
-                        HStack { Text("Add from Palette"); Spacer() }
-                        
-                        
-                        ScrollView(content: {
-                            LazyVGrid(columns: [GridItem(GridItem.Size.flexible())], content: {
-                                
-                                
-                                ForEach(0..<inventoryNames.count, id: \.self) { k in
-                                    let name = inventoryNames[k]
-                                    Button(action: {
-                                        // ToDo: check why changing quantity via 'add' does not affect refresh of list
-                                        inventory.add(ArtInventory.inventory(name))
-                                        if (inventory.items.count > 0) {
-                                            inventory.items[0].quantity += 1
-                                            inventory.items[0].quantity -= 1
+                                })
+                                ScrollView(content: {
+                                    let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
+                                    LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
+                                        
+                                        ForEach(filteredColors) { item in
+                                            if (inventory.isEditable && !inventory.contains(item.name)) {
+                                                Button("\(item.name)", action: {
+                                                    inventory.items.append(ArtInventory.Item(item.name, 0)) 
+                                                    print("added: \(item.name) to \(inventory.items)")
+                                                }).frame(maxWidth: CGFloat.infinity)
+                                            }
                                         }
-                                    }, label: {
-                                        Text("Add \(name)")
                                     })
-                                }
-                            })
-                        })
+                                })
+                                .font(Styling.captionMono)
+                                .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
+                                
+                            },
+                            label: { 
+                                Text("Add by name").foregroundColor(Styling.primary)
+                            }
+                        )
+                        Divider()         
+                        DisclosureGroup(
+                            content: { 
+                                ScrollView(content: {
+                                    LazyVGrid(columns: [GridItem(GridItem.Size.flexible())], content: {
+                                        ForEach(0..<inventoryNames.count, id: \.self) { k in
+                                            let name = inventoryNames[k]
+                                            Button(action: {
+                                                inventory.add(ArtInventory.inventory(name))
+                                            }, label: {
+                                                HStack { Text("  \(name)"); Spacer() }
+                                            })
+                                            .padding(1)
+                                        }
+                                    })
+                                })
+                            },
+                            label: { 
+                                Text("Add from Palette").foregroundColor(Styling.primary)
+                            }
+                        )
+                        Divider()
                     }
                 }
-                
-                
                 
             }
         })
@@ -210,11 +208,9 @@ struct PreferencesSheet: View {
 }
 
 struct InventoryItemEntry: View {
-    var item: ArtInventory.Item
-    @State var quantity: Int = 0
+    @Binding var item: ArtInventory.Item
     var isEditable: Bool = false
     
-    var onEditQuantity: (Int) -> Void = { _ in }
     var onDelete: () -> Void = {}
     
     
@@ -224,12 +220,12 @@ struct InventoryItemEntry: View {
                 Image(systemName: "infinity").frame(width: 50.0, alignment: Alignment.trailing)
             } else {
                 if (isEditable) {
-                    TextField("0", value: $quantity, formatter: NumberFormatter()).frame(width: 50.0, alignment: Alignment.trailing).multilineTextAlignment(.trailing)
+                    TextField("0", value: $item.quantity, formatter: NumberFormatter()).frame(width: 50.0, alignment: Alignment.trailing).multilineTextAlignment(.trailing)
                         .padding(2).background(Styling.panelColor).mask(Styling.roundedRect)
-                        .onSubmit() { onEditQuantity(quantity) }
+                    //                        .onSubmit() { onEditQuantity(quantity) }
                     Text("x ")
                 } else {
-                    Text("\(quantity) x").frame(width: 50.0, alignment: Alignment.trailing)
+                    Text("\(item.quantity) x").frame(width: 50.0, alignment: Alignment.trailing)
                 }
             }
             let artClr = ArtPalette.all.artColors.first { $0.name == item.name }!

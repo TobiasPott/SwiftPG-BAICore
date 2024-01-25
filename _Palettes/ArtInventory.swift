@@ -76,15 +76,33 @@ public class ArtInventory: ObservableObject, Codable, Identifiable, Hashable {
         }
     }
     
+    
     public struct Item : Codable, Identifiable, Hashable {
+        private enum CodingKeys: String, CodingKey {
+            case name, quantity
+        }
+        
         public var id: String { name }
         public var name: String    
-        
         public var quantity: Int
         
+        init(_ name: String, _ quantity: Int) {
+            self.name = name;
+            self.quantity = quantity;
+        }   
         public func hash(into hasher: inout Hasher) {
             hasher.combine(name)
             hasher.combine(quantity)
+        }
+        public init(from decoder: Decoder) throws {
+            let container = try decoder.container(keyedBy: CodingKeys.self)
+            name = try container.decode(String.self, forKey: CodingKeys.name)
+            quantity = try container.decode(Int.self, forKey: CodingKeys.quantity)
+        }
+        public func encode(to encoder: Encoder) throws {
+            var container = encoder.container(keyedBy: CodingKeys.self)
+            try container.encode(name, forKey: CodingKeys.name)
+            try container.encode(quantity, forKey: CodingKeys.quantity)
         }
         
         public static func ==(lhs: Item, rhs: Item) -> Bool {
@@ -108,14 +126,15 @@ public class ArtInventory: ObservableObject, Codable, Identifiable, Hashable {
     }
     
 }
-
-public extension ArtInventory.Item {
-    
-    init(_ name: String, _ quantity: Int) {
-        self.name = name;
-        self.quantity = quantity;
-    }
-}
+//
+//public extension ArtInventory.Item {
+//    
+//    convenience init(_ name: String, _ quantity: Int) {
+//        
+//        self.name = name;
+//        self.quantity = quantity;
+//    }   
+//}
 
 public extension Palette {
     func makeInventory() -> ArtInventory {
