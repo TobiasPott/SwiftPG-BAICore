@@ -13,7 +13,6 @@ struct InventoryEditableGroup: View {
         
         let isSelectedForEdit = invByName.name == editableInventory.name
         if (editableInventory.isEditable && isSelectedForEdit) {
-            
             InventoryEditView(editableInventory: editableInventory)
             Divider()
         }
@@ -42,11 +41,8 @@ struct InventoryReadView: View {
         let hasItems = invByName.items.count > 0
         let isSelectedForEdit = invByName.name == editableInventory.name
         
-        if (invByName.isEditable && isSelectedForEdit) {
-            Divider()
-            Text("Editing...")
-            if (hasItems) { Divider() }
-        } else {
+        if (!(invByName.isEditable && isSelectedForEdit)) {
+            if (!hasItems) { Text("Nothing here. Tap 'edit' and add some colors.").font(Styling.captionFont) }
             Divider()
             LazyVGrid(columns: [GridItem(.flexible())], content: {
                 ForEach(0..<invByName.items.count, id: \.self) { j in
@@ -55,6 +51,8 @@ struct InventoryReadView: View {
             })
             .font(Styling.captionFont)
             if (hasItems) { Divider() }
+        } else {
+            Divider()
         }
     }
 }
@@ -64,6 +62,8 @@ struct InventoryEditHeader: View {
     
     @ObservedObject var editableInventory: ArtInventory = ArtInventory.empty
     let invByName: ArtInventory
+    
+    var onEdit: () -> Void = {}
     
     var body: some View {
         HStack { 
@@ -76,14 +76,17 @@ struct InventoryEditHeader: View {
                 )
             }
             Text(invByName.name)
+            let itemCountStr = isSelectedForEdit ? "editing..." : (invByName.items.count > 0 ? "\(invByName.items.count)" : "empty")
+            Text("(\(itemCountStr))").foregroundColor(Styling.secondary).font(Styling.caption2Font)
             
             if (isEditable) {
                 Spacer()
                 
                 if (isSelectedForEdit && editableInventory.items.count > 0) {
-                    Button("All", systemImage: "trash", role: ButtonRole.destructive, action: { editableInventory.items.removeAll(); })
+                    Button("All", systemImage: "trash", role: ButtonRole.destructive, action: { editableInventory.items = []; })
                 }
                 Button(isSelectedForEdit ? "Save" : "Edit", action: {
+                    //                    onEdit()
                     // ToDo: store back inventory before unloading
                     if (isSelectedForEdit) {
                         // store to user data (global inventory store)

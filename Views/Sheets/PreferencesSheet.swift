@@ -19,7 +19,7 @@ struct PreferencesSheet: View {
     @Binding var isOpen: Bool
     @ObservedObject var project: ArtProject
     
-    @ObservedObject public var inventory: ArtInventory = ArtInventory.empty
+    @StateObject public var inventory: ArtInventory = ArtInventory.empty
     
     @State var newInventoryName: String = ""
     var inventoryNames: [String] { get {
@@ -85,6 +85,7 @@ struct PreferencesSheet: View {
                     Spacer()
                     Text("Active: '\(state.inventory.name)'").font(Styling.captionFont)
                 }
+                .padding(Edge.Set.bottom, 6)
                 .onAppear(perform: {
                     inventory.unload()
                 })
@@ -93,10 +94,20 @@ struct PreferencesSheet: View {
                 ForEach(0..<userInv.count, id: \.self) { i in
                     let name = userInv[i]
                     let invByName: ArtInventory = ArtInventory.inventory(name)
-                    InventoryEditableGroup(editableInventory: inventory, invByName: invByName)
-//                        .padding(Edge.Set.leading)
-                    
                     let isSelectedForEdit = name == inventory.name
+                    DisclosureGroup(
+                        content: { 
+                            InventoryReadView(editableInventory: inventory, invByName: invByName)
+                            if (inventory.isEditable && isSelectedForEdit) {
+                                InventoryEditView(editableInventory: inventory)
+                                Divider()
+                            }
+                        },
+                        label: {
+                            InventoryEditHeader(editableInventory: inventory, invByName: invByName).font(Styling.subheadlineFont)
+                        }
+                    )
+                    
                     Group {
                         if (inventory.isEditable && isSelectedForEdit) {
                             InventoryEdit_AddByName(editableInventory: inventory)

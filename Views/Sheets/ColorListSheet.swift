@@ -50,7 +50,9 @@ struct ColorListSheet: View {
             let invItem = state.inventory.items.first { item in return item.name == colorInfo.name } ?? ArtInventory.Item("-", 0)
             if (invItem.name == colorInfo.name) {
                 let newQty = qty - invItem.quantity
-                if (newQty > 0) {
+                if (invItem.quantity < 0) {
+                    result.removeValue(forKey: color)
+                } else if (newQty > 0) {
                     result[color] = newQty
                 } else {
                     result.removeValue(forKey: color)
