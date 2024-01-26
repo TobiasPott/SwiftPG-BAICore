@@ -18,7 +18,7 @@ struct ColorListSheet: View {
                     Divider()
                     let differenceColors = getDifferenceMappedColors()
                     if (differenceColors.count > 0) {
-                        Text("Colors not in your inventory")
+                        Text("Colors not in your inventory '\(state.inventory.name)'")
                         ScrollView(content: {
                             ColorSwatchList(colorsWithCount: differenceColors, palette: state.palette, isWide: isWide)
                           

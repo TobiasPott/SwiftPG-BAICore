@@ -16,17 +16,15 @@ class GlobalState : ObservableObject
     @Published var navState: NavState = NavState.load;
     
     @Published var palette: Palette = ArtPalette.reduced
-//    @Published var inventory: ArtInventory = ArtInventory.inventory("Default")
-    var inventory: ArtInventory { get { return ArtInventory.inventory("Default") } }
+    @Published var inventoryName: String = UserData.activeInventory() {
+        didSet {
+            UserData.activeInventory(inventoryName)
+        }
+    }
+    var inventory: ArtInventory { get { return ArtInventory.inventory(inventoryName) } }
     @Published var canvas: ArtCanvas? = nil;
     
     init() { 
-        let inventoryString: String = "\(ArtPalette.dcBatmanInv.id)"
-        + "\(ArtPalette.mosaicMakerInv.id)"
-        + "\(ArtPalette.floralArtInv.id)"
-        + "\(ArtPalette.worldMapInv.id)"
-        + "\(ArtPalette.dotsInv.id)"
-        + "\(ArtPalette.reducedInv.id)"
     }
     
     func setNavState(_ newNavState: NavState, _ keepCanvas: Bool = true) -> Void {

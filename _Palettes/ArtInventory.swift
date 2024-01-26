@@ -6,6 +6,7 @@ public class ArtInventory: ObservableObject, Codable, Identifiable, Hashable {
     }
     
     public static let empty: ArtInventory = ArtInventory(name: "Empty", items: [], isEditable: false)
+    public static let nameDefault: String = "Default"
     
     
     public var id: String { name }
@@ -72,7 +73,7 @@ public class ArtInventory: ObservableObject, Codable, Identifiable, Hashable {
             } else {
                 items.append(fromItem)
             }
-            // ToDo: check why using a 'add' does not update UI when only changing quantities
+            // ToDo: check what happens with 'infinity' quantity items, i assume they get lost as they disappear when 'edit' again after saving
         }
     }
     
@@ -124,17 +125,19 @@ public class ArtInventory: ObservableObject, Codable, Identifiable, Hashable {
         UserData.set(inventory.asJSONString(), forKey: IO.keyInventoryBase + name)
         return inventory
     }
+    public static func initialise() {
+        let systemInventories = [ArtPalette.dcBatmanInv.id, ArtPalette.mosaicMakerInv.id, ArtPalette.floralArtInv.id, ArtPalette.worldMapInv.id, ArtPalette.dotsInv.id, ArtPalette.reducedInv.id]
+        UserData.systemInventories(systemInventories)
+        
+        var userInventories = UserData.userInventories()
+        if (userInventories.count == 0) {
+            userInventories.append(ArtInventory.nameDefault)
+            _ = ArtInventory.inventory(ArtInventory.nameDefault, inventory: ArtInventory(name: ArtInventory.nameDefault, items: [], isEditable: true))
+            UserData.userInventories(userInventories)
+        }
+    }
     
 }
-//
-//public extension ArtInventory.Item {
-//    
-//    convenience init(_ name: String, _ quantity: Int) {
-//        
-//        self.name = name;
-//        self.quantity = quantity;
-//    }   
-//}
 
 public extension Palette {
     func makeInventory() -> ArtInventory {

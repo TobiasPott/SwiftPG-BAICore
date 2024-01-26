@@ -57,6 +57,9 @@ struct ContentView: View {
                 SplashScreenPanel(isOpen: $sheets.splashScreen, isWide: isWide)
             }
         }
+        .onAppear(perform: {
+            ArtInventory.initialise()
+        })
         
     }
     

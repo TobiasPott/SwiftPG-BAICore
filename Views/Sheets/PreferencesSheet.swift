@@ -19,8 +19,15 @@ struct PreferencesSheet: View {
     @Binding var isOpen: Bool
     @ObservedObject var project: ArtProject
     
+    @ObservedObject public var inventory: ArtInventory = ArtInventory.empty
     
-    @ObservedObject var inventory: ArtInventory = ArtInventory.empty
+    @State var newInventoryName: String = ""
+    var inventoryNames: [String] { get {
+        var names = UserData.userInventories()
+        names.append(contentsOf: UserData.systemInventories())
+        return names
+    } }
+    
     
     var body: some View {
         ZStack {
@@ -28,11 +35,12 @@ struct PreferencesSheet: View {
                 Divider().padding(Edge.Set.bottom)
                 GuideText(text: "Select the color palette you want to use. The first set of palettes is derived from Lego construction sets and the colors available in them, others origin from other color palettes like retro pcs, consoles or other media.\nThe preview will show you the colors included in each palette and your brick art will be limited to those colors.")
                 paletteMenu
-                
-                // ToDo: Fully implement inventory handling in preferences (if possible)
                 Divider()
+                    .padding(Edge.Set.bottom)
                 GuideText(text: "The inventory will be available in the future. Use it to track your bricks and check if your art work is possible or which bricks you are missing.")
                 inventoryMenu
+                Divider()
+                    .padding(Edge.Set.bottom)
                 
                 Spacer()
             }).padding()
@@ -69,136 +77,64 @@ struct PreferencesSheet: View {
         })
     }
     
-    @State var filter: ListFilter = ListFilter(filterBy: "", sortBy: ListSortBy.name, sortMode: ListSortMode.asc)
     var inventoryMenu: some View {
         ScrollView(content: {
             VStack(alignment: HorizontalAlignment.leading) {
                 HStack {
-                    Text("Inventory").frame(width: Styling.labelWidth, alignment: Alignment.leading)
+                    Text("Your Inventories")
                     Spacer()
-                    Text("'\(state.inventory.name)'").font(Styling.captionFont)
+                    Text("Active: '\(state.inventory.name)'").font(Styling.captionFont)
                 }
                 .onAppear(perform: {
                     inventory.unload()
                 })
-                let inventoryNames: [String] = ["Default", ArtPalette.dcBatmanName, ArtPalette.mosaicMakerName, ArtPalette.worldMapName, ArtPalette.floarlArtName, ArtPalette.dotsName, ArtPalette.reducedName]
                 
-                ForEach(0..<inventoryNames.count, id: \.self) { i in
-                    let invByName: ArtInventory = ArtInventory.inventory(inventoryNames[i])
-                    let hasItems = invByName.items.count > 0
-                    DisclosureGroup(
-                        content: {
-                            if (invByName.isEditable && invByName.name == inventory.name) {
-                                Text("Editing...")
-                                if (hasItems) { Divider() }
-                            } else {
-                                LazyVGrid(columns: [GridItem(.flexible())], content: {
-                                    ForEach(0..<invByName.items.count, id: \.self) { j in
-                                        InventoryItemEntry(item: .constant(invByName.items[j]))
-                                    }
-                                })
-                                .font(Styling.captionFont)
-                                if (hasItems) { Divider() }
-                            }
-                        },
-                        label: { 
-                            HStack { 
-                                Text(inventoryNames[i])
-                                if (invByName.isEditable) {
-                                    Spacer()
-                                    Button(invByName.name == inventory.name ? "Save" : "Edit", action: {
-                                        // ToDo: store back inventory before unloading
-                                        if (invByName.name == inventory.name) {
-                                            // load into edited inventory
-                                            invByName.load(inventory)
-                                            print(inventory.items)
-                                            // store to user data (global inventory store)
-                                            _ = ArtInventory.inventory(invByName.name, inventory: invByName)
-                                            // unload working inventory
-                                            inventory.unload()
-                                        } else { inventory.load(invByName) }
-                                    })
-                                }
-                            }
-                        }
-                    )
-                    .font(Styling.subheadlineFont)
-                    .padding(Edge.Set.top, -6)
+                let userInv = UserData.userInventories()
+                ForEach(0..<userInv.count, id: \.self) { i in
+                    let name = userInv[i]
+                    let invByName: ArtInventory = ArtInventory.inventory(name)
+                    InventoryEditableGroup(editableInventory: inventory, invByName: invByName)
+//                        .padding(Edge.Set.leading)
                     
-                    if (inventory.isEditable && invByName == inventory) {
-                        
-                        if (inventory.items.count > 0) {
-                            Divider()
-                                .padding(Edge.Set.bottom, 6)
-                            HStack {
-                                Spacer()
-                                Button("Delete All", systemImage: "trash", role: ButtonRole.destructive, action: { inventory.items.removeAll(); })
-                            }
-                            Divider()
+                    let isSelectedForEdit = name == inventory.name
+                    Group {
+                        if (inventory.isEditable && isSelectedForEdit) {
+                            InventoryEdit_AddByName(editableInventory: inventory)
+                            InventoryEdit_AddPalette(editableInventory: inventory, names: inventoryNames)
+                            InventoryEdit_Delete(editableInventory: inventory, index: i)
+                                .padding(Edge.Set.bottom)
+                            
                         }
-                        LazyVGrid(columns: [GridItem(.flexible())], content: {
-                            ForEach(0..<inventory.items.count, id: \.self) { j in
-                                InventoryItemEntry(item: $inventory.items[j], isEditable: true, onDelete: { inventory.items.remove(at: j) 
-                                })
-                            }
-                        })
-                        .font(Styling.captionFont)
-                        
-                        Divider()
-                        DisclosureGroup(
-                            content: { 
-                                ListFilterHeader(filter: $filter, onFilterSubmit: {
-                                    let newName = filter.filterBy
-                                    if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && inventory.isEditable && !inventory.contains(newName)) {
-                                        inventory.items.insert(ArtInventory.Item(newName, 0), at: 0)
-                                        filter.filterBy = ""
-                                    }
-                                })
-                                ScrollView(content: {
-                                    let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
-                                    LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
-                                        
-                                        ForEach(filteredColors) { item in
-                                            if (inventory.isEditable && !inventory.contains(item.name)) {
-                                                Button("\(item.name)", action: {
-                                                    inventory.items.append(ArtInventory.Item(item.name, 0)) 
-                                                    print("added: \(item.name) to \(inventory.items)")
-                                                }).frame(maxWidth: CGFloat.infinity)
-                                            }
-                                        }
-                                    })
-                                })
-                                .font(Styling.captionMono)
-                                .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
-                                
-                            },
-                            label: { 
-                                Text("Add by name").foregroundColor(Styling.primary)
-                            }
-                        )
-                        Divider()         
-                        DisclosureGroup(
-                            content: { 
-                                ScrollView(content: {
-                                    LazyVGrid(columns: [GridItem(GridItem.Size.flexible())], content: {
-                                        ForEach(0..<inventoryNames.count, id: \.self) { k in
-                                            let name = inventoryNames[k]
-                                            Button(action: {
-                                                inventory.add(ArtInventory.inventory(name))
-                                            }, label: {
-                                                HStack { Text("  \(name)"); Spacer() }
-                                            })
-                                            .padding(1)
-                                        }
-                                    })
-                                })
-                            },
-                            label: { 
-                                Text("Add from Palette").foregroundColor(Styling.primary)
-                            }
-                        )
-                        Divider()
                     }
+                    .padding(Edge.Set.leading)
+                }
+                Divider()
+                    .padding(Edge.Set.vertical)
+                Text("Add a new Inventory")
+                HStack {
+                    TextField("Inventory Name", text: $newInventoryName)
+                    Button("Add", action: {
+                        var userInv = UserData.userInventories()
+                        if (!newInventoryName.isEmpty
+                            && !userInv.contains(where: { $0 == newInventoryName })) {
+                            let newInv = ArtInventory.inventory(newInventoryName, inventory: ArtInventory(name: newInventoryName, items: []))
+                            userInv.append(newInventoryName)
+                            UserData.userInventories(userInv)
+                            inventory.load(newInv)
+                            newInventoryName = ""
+                        }
+                    })
+                }.padding(Edge.Set.horizontal)
+                
+                Divider()
+                    .padding(Edge.Set.vertical)
+                Text("System Inventories")
+                let sysInv = UserData.systemInventories()
+                ForEach(0..<sysInv.count, id: \.self) { i in
+                    let name = sysInv[i]
+                    let invByName: ArtInventory = ArtInventory.inventory(name)
+                    InventoryEditableGroup(editableInventory: inventory, invByName: invByName)
+                        .padding(Edge.Set.leading)
                 }
                 
             }
@@ -206,42 +142,95 @@ struct PreferencesSheet: View {
     }
     
 }
-
-struct InventoryItemEntry: View {
-    @Binding var item: ArtInventory.Item
-    var isEditable: Bool = false
-    
-    var onDelete: () -> Void = {}
-    
+struct InventoryEdit_Delete: View {
+    @ObservedObject var editableInventory: ArtInventory = ArtInventory.empty
+    let index: Int
     
     var body: some View {
-        HStack(spacing: 4) {
-            if (item.quantity <= -1) {
-                Image(systemName: "infinity").frame(width: 50.0, alignment: Alignment.trailing)
-            } else {
-                if (isEditable) {
-                    TextField("0", value: $item.quantity, formatter: NumberFormatter()).frame(width: 50.0, alignment: Alignment.trailing).multilineTextAlignment(.trailing)
-                        .padding(2).background(Styling.panelColor).mask(Styling.roundedRect)
-                    //                        .onSubmit() { onEditQuantity(quantity) }
-                    Text("x ")
-                } else {
-                    Text("\(item.quantity) x").frame(width: 50.0, alignment: Alignment.trailing)
-                }
-            }
-            let artClr = ArtPalette.all.artColors.first { $0.name == item.name }!
-            artClr.swuiColor.aspectRatio(1.5, contentMode: ContentMode.fill)
-                .frameMax(32).mask(Styling.roundedRect)
-            Text(item.name)
-            Spacer()
-            if (isEditable) {
-                Button(role: .destructive, action: {
-                    onDelete()
-                }, label: {
-                    Image(systemName: "trash")
-                }).padding(Edge.Set.trailing)
-            }
-        }
+        Button(role: ButtonRole.destructive, action: {
+            var userInv = UserData.userInventories()
+            userInv.remove(at: index)
+            UserData.userInventories(userInv)
+            editableInventory.unload()
+        }, label: {
+            Text("Delete inventory")
+        })
+        .disabled(editableInventory.name == ArtInventory.nameDefault)
+        .frameStretch(Alignment.center)
     }
+    
+}
+
+struct InventoryEdit_AddByName: View {
+    @ObservedObject var editableInventory: ArtInventory = ArtInventory.empty
+    
+    @State var filter: ListFilter = ListFilter(filterBy: "", sortBy: ListSortBy.name, sortMode: ListSortMode.asc)
+    
+    var body: some View {
+        DisclosureGroup(
+            content: { 
+                ListFilterHeader(filter: $filter, onFilterSubmit: {
+                    let newName = filter.filterBy
+                    if (ArtPalette.all.artColors.contains(where: { $0.name == newName}) && editableInventory.isEditable && !editableInventory.contains(newName)) {
+                        editableInventory.items.insert(ArtInventory.Item(newName, 0), at: 0)
+                        filter.filterBy = ""
+                    }
+                })
+                ScrollView(content: {
+                    let filteredColors = ArtPalette.all.artColors.filter({ filter.filterBy.isEmpty || $0.name.lowercased().contains(filter.filterBy.lowercased()) })
+                    LazyVGrid(columns: [GridItem(GridItem.Size.flexible()), GridItem(GridItem.Size.flexible())], content: {
+                        
+                        ForEach(filteredColors) { item in
+                            if (editableInventory.isEditable && !editableInventory.contains(item.name)) {
+                                Button("\(item.name)", action: {
+                                    editableInventory.items.append(ArtInventory.Item(item.name, 0))
+                                })
+                            }
+                        }
+                    })
+                })
+                .font(Styling.captionMono)
+                .frame(maxHeight: 115.0, alignment: Alignment.topLeading)   
+                
+            },
+            label: { 
+                Text("Add by name").foregroundColor(Styling.primary)
+            }
+        )
+        Divider()
+    }
+}
+
+
+struct InventoryEdit_AddPalette: View {
+    @ObservedObject var editableInventory: ArtInventory = ArtInventory.empty
+    let names: [String]
+    
+    var body: some View {
+        DisclosureGroup(
+            content: { 
+                ScrollView(content: {
+                    LazyVGrid(columns: [GridItem(GridItem.Size.flexible())], content: {
+                        ForEach(0..<names.count, id: \.self) { i in
+                            let name = names[i]
+                            Button(action: {
+                                editableInventory.add(ArtInventory.inventory(name))
+                            }, label: {
+                                HStack { Text("\(name)"); Spacer() }.padding(Edge.Set.leading)
+                            })
+                            .padding(1)
+                            .font(Styling.subheadlineFont)
+                        }
+                    })
+                })
+                .padding(Edge.Set.top, 6)
+            },
+            label: { 
+                Text("Add Palette").foregroundColor(Styling.primary)
+            })
+        Divider()
+    }
+    
 }
 
 struct ListFilterHeader: View {
