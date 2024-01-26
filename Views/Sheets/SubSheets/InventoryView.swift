@@ -65,6 +65,9 @@ struct InventoryEditHeader: View {
     
     var onEdit: () -> Void = {}
     
+    @State private var confirmSave: Bool = false
+    @State private var confirmDeletion: Bool = false
+    
     var body: some View {
         HStack { 
             let isSelectedForEdit = invByName.name == editableInventory.name
@@ -83,23 +86,41 @@ struct InventoryEditHeader: View {
                 Spacer()
                 
                 if (isSelectedForEdit && editableInventory.items.count > 0) {
-                    Button("All", systemImage: "trash", role: ButtonRole.destructive, action: { editableInventory.items = []; })
+                    Button("All", systemImage: "trash", role: ButtonRole.destructive, action: { confirmDeletion = true })
+                        .confirmationDialog("Delete all items from '\(editableInventory.name)'?", isPresented: $confirmDeletion, titleVisibility: Visibility.visible) {
+                            Button("Yes, delete all!", role: .destructive) { editableInventory.items = [] }
+                            Button("No, keep them.", role: .cancel) {}
+                        }
                 }
                 Button(isSelectedForEdit ? "Save" : "Edit", action: {
-                    //                    onEdit()
-                    // ToDo: store back inventory before unloading
                     if (isSelectedForEdit) {
-                        // store to user data (global inventory store)
-                        _ = ArtInventory.inventory(editableInventory.name, inventory: editableInventory)
-                        // unload working inventory
-                        editableInventory.unload()
+                        confirmSave = true
                     } else {
                         editableInventory.load(invByName) 
                     }
-                }).frame(width: 35.0, alignment: Alignment.trailing)
+                })
+                .frame(width: 35.0, alignment: Alignment.trailing)
+                .confirmationDialog("Save any changes to '\(editableInventory.name)'?", isPresented: $confirmSave, titleVisibility: Visibility.visible) {
+                    Button("Yes, save changes.") { saveChanges() }
+                    Button("No, discard them.", role: .destructive) { discardChanges() }
+                    Button("Continue editing.", role: .cancel) {}
+                }
             }
         }
     }
+    
+    func saveChanges() {
+        // store to user data (global inventory store)
+        _ = ArtInventory.inventory(editableInventory.name, inventory: editableInventory)
+        // unload working inventory
+        editableInventory.unload()
+    }
+    
+    func discardChanges() {
+        // unload working inventory
+        editableInventory.unload()
+    }
+    
 }
 
 
